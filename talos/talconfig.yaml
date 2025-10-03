@@ -55,23 +55,6 @@ nodes:
           - network: "0.0.0.0/0"
             gateway: "192.168.0.1"
         mtu: 1500
-  - hostname: "worker-02"
-    ipAddress: "192.168.0.89"
-    installDisk: "/dev/sda"
-    machineSpec:
-      secureboot: false
-    talosImageURL: factory.talos.dev/installer/5f39d1bd9a6be7bbb6a82ac2d1ea2d20bf0cfa41f3b4fd0e3197d942cc6aba52
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:fc:e0:cd"
-        dhcp: false
-        addresses:
-          - "192.168.0.89/24"
-        routes:
-          - network: "0.0.0.0/0"
-            gateway: "192.168.0.1"
-        mtu: 1500
 
 # Global patches
 patches:
