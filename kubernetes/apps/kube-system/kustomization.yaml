@@ -6,8 +6,8 @@ namespace: kube-system
 components:
   - ../../components/namespace
   - ../../components/common
-replacements:
-  - path: ../../components/replacements/ks.yaml
+# replacements:
+#   - path: ../../components/replacements/ks.yaml
 resources:
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
