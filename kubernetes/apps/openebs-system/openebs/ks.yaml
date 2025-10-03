@@ -3,13 +3,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: csi-driver-nfs
+  name: openebs
 spec:
   interval: 1h
-  path: ./kubernetes/apps/kube-system/csi-driver-nfs/app
+  path: ./kubernetes/apps/openebs-system/openebs/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false
+  wait: true

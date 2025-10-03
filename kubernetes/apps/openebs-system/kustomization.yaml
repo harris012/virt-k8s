@@ -2,16 +2,10 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: kube-system
+namespace: openebs-system
 components:
   - ../../components/namespace
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
-  - ./cilium/ks.yaml
-  - ./coredns/ks.yaml
-  - ./metrics-server/ks.yaml
-  - ./reloader/ks.yaml
-  - ./csi-driver-nfs/ks.yaml
-  - ./snapshot-controller/ks.yaml
-  - ./spegel/ks.yaml
+  - ./openebs/ks.yaml
