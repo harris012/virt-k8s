@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://json.schemastore.org/helmfile
 
 # This helmfile is for extracting and installing Custom Resource Definitions (CRDs) from Helm charts.
 # It is not intended to be used with helmfile apply or helmfile sync.
@@ -19,17 +18,12 @@ releases:
     chart: oci://ghcr.io/home-operations/charts-mirror/external-dns
     version: 1.19.0
 
-  - name: gateway-api-crds
-    namespace: kube-system
-    chart: oci://ghcr.io/wiremind/wiremind-helm-charts/gateway-api-crds
-    version: 1.3.0
-
-  - name: keda
-    namespace: observability
-    chart: oci://ghcr.io/home-operations/charts-mirror/keda
-    version: 2.17.2
+  - name: envoy-gateway
+    namespace: network
+    chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
+    version: 1.5.3
 
   - name: kube-prometheus-stack
     namespace: observability
     chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
-    version: 77.12.0
+    version: 78.3.0
