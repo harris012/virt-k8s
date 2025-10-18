@@ -123,10 +123,10 @@ spec:
                       app.kubernetes.io/part-of: *cephFileSystemName
             resources:
               requests:
-                cpu: 50m
-                memory: 800Mi
-              limits:
+                cpu: 100m
                 memory: 1Gi
+              limits:
+                memory: 4Gi
         storageClass:
           enabled: true
           isDefault: false
