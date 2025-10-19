@@ -22,7 +22,7 @@ spec:
             env:
               KOPIA_WEB_ENABLED: true
               KOPIA_WEB_PORT: &port 80
-              TZ: America/New_York
+              TZ: Europe/Berlin
             envFrom:
               - secretRef:
                   name: kopia-secret
@@ -65,7 +65,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.turbo.ac"
+          - "{{ .Release.Name }}.harissaeed.com"
         parentRefs:
           - name: envoy-internal
             namespace: network
@@ -96,7 +96,7 @@ spec:
       repository:
         type: nfs
         server: expanse.internal
-        path: /mnt/eros/VolsyncKopia
+        path: /mnt/storage/k8s/VolsyncKopia
         globalMounts:
           - path: /repository
       tmpfs:
