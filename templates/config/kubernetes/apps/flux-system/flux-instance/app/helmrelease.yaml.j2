@@ -102,6 +102,9 @@ spec:
               - op: add
                 path: /spec/template/spec/containers/0/args/-
                 value: --oom-watch-interval=500ms
+              - op: add
+                path: /spec/template/spec/containers/0/args/-
+                value: --feature-gates=CacheSecretsAndConfigMaps=true
             target:
               kind: Deployment
               name: helm-controller
