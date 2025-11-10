@@ -24,7 +24,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-            sectionName: https
     cephClusterSpec:
       cephConfig:
         global:
@@ -56,8 +55,17 @@ spec:
             enabled: true
       network:
         provider: host
+        addressRanges:
+          public:
+            - 192.168.0.1/24
+          cluster:
+            - 192.168.0.1/24
         connections:
           requireMsgr2: true
+      resources:
+        osd:
+          limits:
+            memory: 3Gi
       storage:
         useAllNodes: true
         useAllDevices: false
