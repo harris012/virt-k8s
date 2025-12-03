@@ -19,7 +19,7 @@ cniConfig:
 
 nodes:
   - hostname: "alpha"
-    ipAddress: "192.168.0.55"
+    ipAddress: "192.168.0.183"
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
@@ -27,10 +27,10 @@ nodes:
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:82:6a:2e"
+          hardwareAddr: "bc:24:11:2c:26:80"
         dhcp: false
         addresses:
-          - "192.168.0.55/24"
+          - "192.168.0.183/24"
         routes:
           - network: "0.0.0.0/0"
             gateway: "192.168.0.1"
@@ -38,7 +38,7 @@ nodes:
         vip:
           ip: "192.168.0.163"
   - hostname: "bravo"
-    ipAddress: "192.168.0.252"
+    ipAddress: "192.168.0.69"
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
@@ -46,10 +46,10 @@ nodes:
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:b3:01:21"
+          hardwareAddr: "bc:24:11:05:fc:31"
         dhcp: false
         addresses:
-          - "192.168.0.252/24"
+          - "192.168.0.69/24"
         routes:
           - network: "0.0.0.0/0"
             gateway: "192.168.0.1"
@@ -57,7 +57,7 @@ nodes:
         vip:
           ip: "192.168.0.163"
   - hostname: "charlie"
-    ipAddress: "192.168.0.185"
+    ipAddress: "192.168.0.72"
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
@@ -65,10 +65,10 @@ nodes:
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:6a:8a:a8"
+          hardwareAddr: "bc:24:11:9f:6b:2f"
         dhcp: false
         addresses:
-          - "192.168.0.185/24"
+          - "192.168.0.72/24"
         routes:
           - network: "0.0.0.0/0"
             gateway: "192.168.0.1"
