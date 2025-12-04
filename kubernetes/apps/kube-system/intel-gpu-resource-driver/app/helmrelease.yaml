@@ -9,9 +9,10 @@ spec:
     kind: OCIRepository
     name: intel-gpu-resource-driver
   interval: 1h
-  nodeSelector:
-    matchLabels:
-      kubernetes.io/hostname: alpha
+  kubeletPlugin:
+    nodeSelector:
+      matchLabels:
+        kubernetes.io/hostname: alpha
   values:
     cdi:
       staticPath: /var/cdi/static
