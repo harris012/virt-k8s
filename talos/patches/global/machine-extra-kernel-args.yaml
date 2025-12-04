@@ -6,7 +6,6 @@ machine:
       - -selinux                            # Less security, faster puter
       - apparmor=0                          # Less security, faster puter
       - i915.enable_guc=3                   # Meteor Lake CPU / iGPU
-      - module_blacklist=xe                 # requred by i915 SR-IOV DKMS driver
       - init_on_alloc=0                     # Less security, faster puter
       - init_on_free=0                      # Less security, faster puter
       - intel_iommu=on                      # PCI Passthrough
@@ -16,10 +15,6 @@ machine:
       - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU / iGPU
       - talos.auditd.disabled=1             # Less security, faster puter
     wipe: false
-  kernel:
-    modules:
-      - name: i915
-      - name: kvmgt
   features:
     rbac: true
     stableHostname: true
