@@ -9,15 +9,11 @@ spec:
     kind: OCIRepository
     name: intel-gpu-resource-driver
   interval: 1h
+  nodeSelector:
+    matchLabels:
+      kubernetes.io/hostname: alpha
   values:
     cdi:
       staticPath: /var/cdi/static
       dynamicPath: /var/cdi/dynamic
-    replicaCount: 1
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: kubernetes.io/hostname=alpha
-                  operator: Exists
+
