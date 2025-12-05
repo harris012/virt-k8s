@@ -21,6 +21,7 @@ import (
 	KOPIA_PASSWORD: string
 	client_id: string
 	client_secret: string
+	opencloud_admin_password: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN
