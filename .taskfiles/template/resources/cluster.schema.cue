@@ -19,6 +19,7 @@ import (
 	repository_name: string
 	ROOK_DASHBOARD_PASSWORD: string
 	KOPIA_PASSWORD: string
+	GF_SECURITY_ADMIN_PASSWORD: string
 	client_id: string
 	client_secret: string
 	opencloud_admin_password: string
