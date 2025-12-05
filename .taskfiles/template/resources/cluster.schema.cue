@@ -19,6 +19,8 @@ import (
 	repository_name: string
 	ROOK_DASHBOARD_PASSWORD: string
 	KOPIA_PASSWORD: string
+	client_id: string
+	client_secret: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN
