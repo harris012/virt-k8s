@@ -57,7 +57,7 @@ spec:
               OC_ENABLE_OCM: false
               OC_INSECURE: false
               OC_LOG_LEVEL: info
-              OC_URL: https://files.bjw-s.dev
+              OC_URL: https://opencloud.harissaeed.com
               PROXY_TLS: false
             probes:
               liveness:
