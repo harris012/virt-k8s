@@ -16,3 +16,4 @@ spec:
     kubeletPlugin:
       nodeSelector:
         kubernetes.io/hostname: alpha
+      #  node.kubernetes.io/gpu: "true" (TODO: enable it after correcting the gpu label in node)
