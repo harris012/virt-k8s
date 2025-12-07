@@ -6,7 +6,7 @@ metadata:
   name: dragonfly
   namespace: flux-system
 spec:
-  path: ./kubernetes/main/apps/databases/dragonfly/operator
+  path: "./kubernetes/apps/databases/dragonfly/operator"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ metadata:
 spec:
   dependsOn:
     - name: dragonfly
-  path: ./kubernetes/main/apps/databases/dragonfly/cluster
+  path: "./kubernetes/apps/databases/dragonfly/cluster"
   prune: true
   sourceRef:
     kind: GitRepository
