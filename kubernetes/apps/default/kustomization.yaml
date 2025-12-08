@@ -10,5 +10,5 @@ resources:
   - ./namespace.yaml
   - ./echo/ks.yaml
   #- ./atuin/ks.yaml
-  - ./bazarr/ks.yaml
+  # - ./bazarr/ks.yaml
   - ./opencloud/ks.yaml
