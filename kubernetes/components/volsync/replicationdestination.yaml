@@ -22,7 +22,7 @@ spec:
     copyMethod: Snapshot
     # Skip snapshot to get the previous one (https://perfectra1n.github.io/volsync/usage/kopia/restore-configuration.html#point-in-time-and-previous-snapshot-restores)
     # restoreAsOf: "2025-12-07T10:30:00Z"
-    # previous: 2
+    previous: 2
     enableFileDeletion: true
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
