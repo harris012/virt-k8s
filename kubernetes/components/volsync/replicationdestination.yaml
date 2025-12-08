@@ -30,3 +30,5 @@ spec:
       sourceName: ${APP}
     storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
     volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
+    # Skip 1 snapshot to get the previous one (https://perfectra1n.github.io/volsync/usage/kopia/restore-configuration.html#point-in-time-and-previous-snapshot-restores)
+    previous: 2
