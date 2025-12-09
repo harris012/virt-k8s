@@ -8,6 +8,7 @@
     ":dependencyDashboard",
     ":disableRateLimiting",
     ":semanticCommits",
+    ":timezone(Europe/Berlin)",
   ],
   dependencyDashboard: true,
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
