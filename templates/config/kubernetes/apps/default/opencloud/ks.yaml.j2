@@ -9,6 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: opencloud
   components:
+    - ../../../../components/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
