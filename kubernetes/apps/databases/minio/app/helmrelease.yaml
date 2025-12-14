@@ -59,13 +59,15 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 2Gi
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
-            #   supplementalGroups: [100,568,1000]
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [100,568,10000]
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: minio
