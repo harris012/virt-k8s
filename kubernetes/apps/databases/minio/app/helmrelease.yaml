@@ -120,5 +120,5 @@ spec:
         type: nfs
         server: expanse.internal
         path: /mnt/storage/k8s/minio
-        globalMounts:
-          - path: /data
+        # globalMounts:
+        #   - path: /data
