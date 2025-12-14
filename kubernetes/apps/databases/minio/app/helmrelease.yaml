@@ -19,7 +19,6 @@ spec:
             image:
               repository: quay.io/minio/minio
               tag: RELEASE.2025-09-07T16-13-09Z@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e
-#              tag: RELEASE.2023-12-23T07-19-11Z@sha256:47d5b01cc3020efa39aac112a7cbc919af5fb18f9ebc63bda31683590715c42b
             env:
               TZ: "Europe/Berlin"
               MINIO_UPDATE: "off"
@@ -128,5 +127,3 @@ spec:
         path: /mnt/storage/k8s/minio
         globalMounts:
           - path: /data
-      tmp:
-        type: emptyDir
