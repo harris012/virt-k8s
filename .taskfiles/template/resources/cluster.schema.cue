@@ -23,6 +23,8 @@ import (
 	client_id: string
 	client_secret: string
 	opencloud_admin_password: string
+	MINIO_ROOT_USER: string
+	MINIO_ROOT_PASSWORD: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN
