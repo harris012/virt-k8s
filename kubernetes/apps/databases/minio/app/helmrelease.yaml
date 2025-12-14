@@ -88,7 +88,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: http
+                port: 9001
       s3:
         hostnames:
           - "s3.harissaeed.com"
@@ -98,7 +98,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: s3
+                port: 9000
 
     serviceMonitor:
       app:
