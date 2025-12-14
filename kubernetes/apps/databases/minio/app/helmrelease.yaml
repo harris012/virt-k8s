@@ -128,3 +128,5 @@ spec:
         path: /mnt/storage/k8s/minio
         globalMounts:
           - path: /data
+      tmp:
+        type: emptyDir
