@@ -89,8 +89,6 @@ spec:
           - backendRefs:
               - identifier: app
                 port: http
-    route:
-      app:
         hostnames:
           - "s3.harissaeed.com"
         parentRefs:
