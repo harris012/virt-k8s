@@ -25,6 +25,7 @@ import (
 	opencloud_admin_password: string
 	MINIO_ROOT_USER: string
 	MINIO_ROOT_PASSWORD: string
+	N8N_ENCRYPTION_KEY: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN
