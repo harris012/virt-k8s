@@ -134,7 +134,7 @@ spec:
   clientIPDetection:
     xForwardedFor:
       trustedCIDRs:
-        - 10.42.0.0/16
+        - "#{ cluster_pod_cidr }#"
   connection:
     bufferLimit: 8Mi
     maxAcceptPerSocketEvent: 0
