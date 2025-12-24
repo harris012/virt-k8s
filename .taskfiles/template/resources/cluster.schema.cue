@@ -26,6 +26,8 @@ import (
 	MINIO_ROOT_USER: string
 	MINIO_ROOT_PASSWORD: string
 	N8N_ENCRYPTION_KEY: string
+	POSTGRES_SUPER_USER: string
+ POSTGRES_SUPER_PASS: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN
