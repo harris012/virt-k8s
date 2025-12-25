@@ -24,6 +24,9 @@ kind: Kustomization
 metadata:
   name: cloudnative-pg-cluster
 spec:
+  components:
+    - ../../../../components/nfs-scaler
+    - ../../../../components/volsync
   dependsOn:
     - name: cloudnative-pg
       namespace: databases
@@ -31,6 +34,10 @@ spec:
       namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
+  postBuild:
+    substitute:
+      APP: postgres18-immich
+      VOLSYNC_CAPACITY: 15Gi
   prune: true
   sourceRef:
     kind: GitRepository
