@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: cloudnative-pg-cluster
+  name: postgres18-immich
   namespace: databases
   annotations:
     cnpg.io/skipWalArchiving: "enabled"
@@ -33,7 +33,13 @@ spec:
     shared_preload_libraries: ["vchord.so"]
     parameters:
       max_connections: "200"
-      max_slot_wal_keep_size: 5GB
+      shared_buffers: 256MB
+
+  # pgBackRest Plugin for backups (B2 + R2 dual destination)
+  plugins:
+    - name: pgbackrest.dalibo.com
+      parameters:
+        repositoryRef: postgres18-immich-repository
 
   bootstrap:
     initdb:
@@ -64,4 +70,4 @@ spec:
   #        name: cloudnative-pg-s3
   #        key: S3_SECRET_KEY
 
-  externalClusters: []
+
