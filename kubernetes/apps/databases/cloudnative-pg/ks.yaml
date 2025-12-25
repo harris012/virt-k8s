@@ -34,10 +34,10 @@ spec:
       namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
-  # postBuild:
-  #   substitute:
-  #     APP: postgres18-immich
-  #     VOLSYNC_CAPACITY: 15Gi
+  postBuild:
+    substitute:
+      APP: postgres18-immich
+      VOLSYNC_CAPACITY: 15Gi
   prune: true
   sourceRef:
     kind: GitRepository
