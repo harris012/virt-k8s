@@ -9,7 +9,7 @@ metadata:
     cnpg.io/skipWalArchiving: "enabled"
     kyverno.io/exclude: "true"
 spec:
-  instances: 2
+  instances: 3
   # Immich v2.3.1 requires VectorChord >=0.3 <0.6
   # renovate: datasource=docker depName=ghcr.io/tensorchord/cloudnative-vectorchord versioning=loose enabled=false
   imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.0-0.5.3@sha256:267f6cbb32af6e109e138a143c7e9dd5d44d68433ec2303f0c30e745c788d1a9
@@ -17,7 +17,6 @@ spec:
   storage:
     size: 15Gi
     storageClass: ceph-block
-      # existingClaim: postgres18-immich
   monitoring:
     enablePodMonitor: true
   resources:

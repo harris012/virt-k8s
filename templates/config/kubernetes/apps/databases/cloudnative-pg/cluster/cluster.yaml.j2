@@ -3,14 +3,16 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: cloudnative-pg-cluster
+  name: postgres18-immich
   namespace: databases
   annotations:
     cnpg.io/skipWalArchiving: "enabled"
     kyverno.io/exclude: "true"
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.7
+  # Immich v2.3.1 requires VectorChord >=0.3 <0.6
+  # renovate: datasource=docker depName=ghcr.io/tensorchord/cloudnative-vectorchord versioning=loose enabled=false
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.0-0.5.3@sha256:267f6cbb32af6e109e138a143c7e9dd5d44d68433ec2303f0c30e745c788d1a9
   primaryUpdateStrategy: unsupervised
   storage:
     size: 15Gi
@@ -28,9 +30,25 @@ spec:
   enableSuperuserAccess: true
 
   postgresql:
+    shared_preload_libraries: ["vchord.so"]
     parameters:
       max_connections: "200"
-      max_slot_wal_keep_size: 5GB
+      shared_buffers: 256MB
+
+  # pgBackRest Plugin for backups (B2 + R2 dual destination)
+  # plugins:
+  #   - name: pgbackrest.dalibo.com
+  #     parameters:
+  #       repositoryRef: postgres18-immich-repository
+
+  bootstrap:
+    initdb:
+      database: immich
+      owner: immich
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE
+        - CREATE EXTENSION IF NOT EXISTS vector CASCADE
+        - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE
 
   #backup:
   #  retentionPolicy: 30d
@@ -52,4 +70,4 @@ spec:
   #        name: cloudnative-pg-s3
   #        key: S3_SECRET_KEY
 
-  externalClusters: []
+
