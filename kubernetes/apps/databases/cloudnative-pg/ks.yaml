@@ -24,9 +24,9 @@ kind: Kustomization
 metadata:
   name: postgres18-immich
 spec:
-  # components:
-  #   - ../../../../components/nfs-scaler
-  #   - ../../../../components/volsync
+  components:
+    - ../../../../components/nfs-scaler
+    - ../../../../components/volsync
   dependsOn:
     - name: cloudnative-pg
       namespace: databases
