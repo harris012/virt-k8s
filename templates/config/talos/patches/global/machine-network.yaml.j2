@@ -1,12 +1,5 @@
 machine:
   network:
-    cni:
-      name: none
-    podSubnets:
-      - 10.42.0.0/16
-    serviceSubnets:
-      - 10.43.0.0/16
-    disableSearchDomain: true
     nameservers:
       #% for item in node_dns_servers %#
       - #{ item }#
