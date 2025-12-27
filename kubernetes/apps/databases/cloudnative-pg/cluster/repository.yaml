@@ -1,0 +1,57 @@
+---
+apiVersion: pgbackrest.dalibo.com/v1
+kind: Repository
+metadata:
+  name: postgres18-immich-repository
+  namespace: databases
+spec:
+  repoConfiguration:
+    stanza: postgres18-immich
+    archive:
+      async: true
+      getQueueMax: 128MiB
+      pushQueueMax: 1GiB
+    processMax: 4
+    s3Repositories:
+      # Primary: Backblaze B2
+      - bucket: postgres-immich
+        endpoint: minio.harissaeed.com
+        region: auto
+        repoPath: /cnpg-backup
+        uriStyle: path
+        verifyTLS: true
+        retentionPolicy:
+          full: 14
+          fullType: count
+          diff: 30
+          archive: 7
+          archiveType: full
+          history: 30
+        secretRef:
+          accessKeyId:
+            name: cloudnative-pg-secret
+            key: MINIO_ROOT_USER
+          secretAccessKey:
+            name: cloudnative-pg-secret
+            key: MINIO_ROOT_PASSWORD
+      # Secondary: Cloudflare R2
+      # - bucket: nerdz-postgres-immich
+      #   endpoint: ${CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com
+      #   region: auto
+      #   repoPath: /postgres18-immich
+      #   uriStyle: path
+      #   verifyTLS: true
+      #   retentionPolicy:
+      #     full: 14
+      #     fullType: count
+      #     diff: 30
+      #     archive: 7
+      #     archiveType: full
+      #     history: 30
+      #   secretRef:
+      #     accessKeyId:
+      #       name: cloudnative-pg-secret
+      #       key: r2-access-key-id
+      #     secretAccessKey:
+      #       name: cloudnative-pg-secret
+      #       key: r2-secret-access-key

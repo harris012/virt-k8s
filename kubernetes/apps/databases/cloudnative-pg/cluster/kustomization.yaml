@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./cluster.yaml
   - ./pooler.yaml
-  # - ./scheduledbackup.yaml
+  - ./scheduledbackup.yaml
   - ./service.yaml
-  # - ./objectstore.yaml
+  - ./repository.yaml
 

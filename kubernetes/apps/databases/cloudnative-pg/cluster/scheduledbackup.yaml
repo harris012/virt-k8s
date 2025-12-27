@@ -5,9 +5,16 @@ apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
   name: daily-immich-backup
+  namespace: databases
 spec:
   schedule: "0 3 * * *"
   immediate: true
   backupOwnerReference: self
+  target: primary
+  method: plugin
   cluster:
     name: postgres18-immich
+  pluginConfiguration:
+    name: pgbackrest.dalibo.com
+    parameters:
+      selectedRepository: "1"
