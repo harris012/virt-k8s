@@ -39,8 +39,8 @@ spec:
   plugins:
     - name: barman-cloud.cloudnative-pg.io
       # isWALArchiver: true
-      parameters:
-        barmanObjectName: postgres18-immich-backup
+      # parameters:
+      #   barmanObjectName: postgres18-immich-backup
 
   bootstrap:
     initdb:
