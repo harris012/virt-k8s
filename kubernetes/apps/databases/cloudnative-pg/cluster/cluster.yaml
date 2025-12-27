@@ -7,13 +7,13 @@ metadata:
   namespace: databases
   annotations:
     cnpg.io/skipEmptyWalArchiveCheck: "enabled"
-    kyverno.io/exclude: "true"
 spec:
   instances: 3
   # Immich v2.3.1 requires VectorChord >=0.3 <0.6
   # renovate: datasource=docker depName=ghcr.io/tensorchord/cloudnative-vectorchord versioning=loose enabled=false
   imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.0-0.5.3@sha256:267f6cbb32af6e109e138a143c7e9dd5d44d68433ec2303f0c30e745c788d1a9
   primaryUpdateStrategy: unsupervised
+
   storage:
     size: 15Gi
     storageClass: ceph-block
@@ -24,7 +24,7 @@ spec:
       cpu: 500m
       memory: 1024Mi
     limits:
-      memory: 2048Mi
+      memory: 2G
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
@@ -32,7 +32,7 @@ spec:
   postgresql:
     shared_preload_libraries: ["vchord.so"]
     parameters:
-      max_connections: "200"
+      max_connections: "500"
       shared_buffers: 256MB
 
   # pgBackRest Plugin for backups (B2 + R2 dual destination)
