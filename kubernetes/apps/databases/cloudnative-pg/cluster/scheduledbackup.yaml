@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/postgresql.cnpg.io/scheduledbackup_v1.json
+
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: daily-immich-backup
+spec:
+  schedule: "0 3 * * *"
+  immediate: true
+  backupOwnerReference: self
+  cluster:
+    name: postgres18-immich
