@@ -38,3 +38,30 @@ spec:
     namespace: flux-system
   targetNamespace: databases
 
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cloudnative-pg-pgbackrest
+  namespace: &namespace databases
+spec:
+  targetNamespace: databases
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: cloudnative-pg-pgbackrest
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: databases
+    - name: cert-manager
+      namespace: cert-manager
+  path: ./kubernetes/apps/databases/cloudnative-pg/pgbackrest
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
