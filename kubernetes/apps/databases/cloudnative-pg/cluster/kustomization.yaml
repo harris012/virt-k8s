@@ -6,4 +6,5 @@ resources:
   - ./cluster.yaml
   - ./pooler.yaml
   - ./scheduledbackup.yaml
+  - ./service.yaml
 
