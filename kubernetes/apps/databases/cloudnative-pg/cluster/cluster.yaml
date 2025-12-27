@@ -36,11 +36,12 @@ spec:
       shared_buffers: 256MB
 
   # pgBackRest Plugin for backups (B2 + R2 dual destination)
-  # plugins:
-  #   - name: barman-cloud.cloudnative-pg.io
-      # isWALArchiver: true
-      # parameters:
-      #   barmanObjectName: postgres18-immich-backup
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: postgres18-local
+        serverName: postgres18-v2
 
   bootstrap:
     initdb:
@@ -51,28 +52,41 @@ spec:
         - CREATE EXTENSION IF NOT EXISTS vector CASCADE
         - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE
 
-  backup:
-   retentionPolicy: 30d
-   barmanObjectStore: &barmanObjectStore
-     tags:
-       retention: "30days"
-     data:
-       compression: gzip
-     wal:
-       compression: gzip
-       maxParallel: 8
-     destinationPath: s3://cnpg-backup/
-     endpointURL: https://minio.harissaeed.com
-      # Note: serverName version needs to be incremented
-      # when recovering from an existing cnpg cluster
-     serverName: &currentCluster immich-v1
-     s3Credentials:
-       accessKeyId:
-         name: cloudnative-pg-secret
-         key: MINIO_ROOT_USER
-       secretAccessKey:
-         name: cloudnative-pg-secret
-         key: MINIO_ROOT_PASSWORD
+
+  #   recovery:
+  #     source: origin
+
+  # externalClusters:
+  #   - name: origin
+  #     plugin:
+  #       name: barman-cloud.cloudnative-pg.io
+  #       parameters:
+  #         barmanObjectName: postgres18-local-ceph # same as in old cluster
+  #         serverName: postgres18-v2 # same as in old cluster
+
+
+  # backup:
+  #  retentionPolicy: 30d
+  #  barmanObjectStore: &barmanObjectStore
+  #    tags:
+  #      retention: "30days"
+  #    data:
+  #      compression: gzip
+  #    wal:
+  #      compression: gzip
+  #      maxParallel: 8
+  #    destinationPath: s3://cnpg-backup/
+  #    endpointURL: https://minio.harissaeed.com
+  #     # Note: serverName version needs to be incremented
+  #     # when recovering from an existing cnpg cluster
+  #    serverName: &currentCluster immich-v1
+  #    s3Credentials:
+  #      accessKeyId:
+  #        name: cloudnative-pg-secret
+  #        key: MINIO_ROOT_USER
+  #      secretAccessKey:
+  #        name: cloudnative-pg-secret
+  #        key: MINIO_ROOT_PASSWORD
 
 
   # Note: previousCluster needs to be set to the name of the previous
