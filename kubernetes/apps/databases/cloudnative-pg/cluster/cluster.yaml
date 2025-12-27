@@ -36,8 +36,8 @@ spec:
       shared_buffers: 256MB
 
   # pgBackRest Plugin for backups (B2 + R2 dual destination)
-  plugins:
-    - name: barman-cloud.cloudnative-pg.io
+  # plugins:
+  #   - name: barman-cloud.cloudnative-pg.io
       # isWALArchiver: true
       # parameters:
       #   barmanObjectName: postgres18-immich-backup
@@ -51,24 +51,24 @@ spec:
         - CREATE EXTENSION IF NOT EXISTS vector CASCADE
         - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE
 
-  backup:
-   retentionPolicy: 30d
-   barmanObjectStore:
-     tags:
-       retention: "30days"
-     data:
-       compression: gzip
-     wal:
-       compression: gzip
-       maxParallel: 8
-     destinationPath: s3://cnpg-backup/
-     endpointURL: https://minio.harissaeed.com
-     s3Credentials:
-       accessKeyId:
-         name: cloudnative-pg-secret
-         key: MINIO_ROOT_USER
-       secretAccessKey:
-         name: cloudnative-pg-secret
-         key: MINIO_ROOT_PASSWORD
+  # backup:
+  #  retentionPolicy: 30d
+  #  barmanObjectStore:
+  #    tags:
+  #      retention: "30days"
+  #    data:
+  #      compression: gzip
+  #    wal:
+  #      compression: gzip
+  #      maxParallel: 8
+  #    destinationPath: s3://cnpg-backup/
+  #    endpointURL: https://minio.harissaeed.com
+  #    s3Credentials:
+  #      accessKeyId:
+  #        name: cloudnative-pg-secret
+  #        key: MINIO_ROOT_USER
+  #      secretAccessKey:
+  #        name: cloudnative-pg-secret
+  #        key: MINIO_ROOT_PASSWORD
 
 
