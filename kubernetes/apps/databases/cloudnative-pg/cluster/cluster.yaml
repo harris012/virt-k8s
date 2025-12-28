@@ -39,7 +39,7 @@ spec:
   plugins:
     - name: pgbackrest.dalibo.com
       parameters:
-        repositoryRef: postgres18-immich-repository
+        stanzaRef: postgres18-immich-repository
 
   bootstrap:
     initdb:

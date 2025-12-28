@@ -4,20 +4,20 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.19.0
-  name: repositories.pgbackrest.dalibo.com
+  name: stanzas.pgbackrest.dalibo.com
 spec:
   group: pgbackrest.dalibo.com
   names:
-    kind: Repository
-    listKind: RepositoryList
-    plural: repositories
-    singular: repository
+    kind: Stanza
+    listKind: StanzaList
+    plural: stanzas
+    singular: stanza
   scope: Namespaced
   versions:
   - name: v1
     schema:
       openAPIV3Schema:
-        description: Repository is the Schema for the repositories API
+        description: Stanza is the Schema for the stanzas API
         properties:
           apiVersion:
             description: |-
@@ -37,10 +37,10 @@ spec:
           metadata:
             type: object
           spec:
-            description: spec defines the desired state of Repository
+            description: spec defines the desired state of Stanza
             properties:
-              repoConfiguration:
-                description: Define pgbackrest repository
+              stanzaConfiguration:
+                description: Define pgbackrest stanza
                 properties:
                   archive:
                     properties:
@@ -54,6 +54,47 @@ spec:
                         pattern: ^(0B|[0-9]+(KiB|MiB|GiB|TiB)|([0-4])PiB)$
                         type: string
                     type: object
+                  compressConfig:
+                    description: Define compression settings for file compression.
+                    properties:
+                      level:
+                        description: File compression level.
+                        type: integer
+                      type:
+                        default: gz
+                        description: Type of compression to use.
+                        enum:
+                        - bz2
+                        - gz
+                        - lz4
+                        - zst
+                        type: string
+                    type: object
+                  delta:
+                    default: true
+                    description: |-
+                      Restore or backup using checksums.
+                      During a restore, by default the PostgreSQL data and tablespace directories
+                      are expected to be present but empty. This option performs a delta restore
+                      using checksums.
+
+                      During a backup, this option will use checksums instead of the timestamps to
+                      determine if files will be copied.
+                    type: boolean
+                  logLevel:
+                    default: warn
+                    description: Level for console logging.
+                    enum:
+                    - error
+                    - warn
+                    - info
+                    - detail
+                    - debug
+                    - trace
+                    type: string
+                  name:
+                    minLength: 1
+                    type: string
                   processMax:
                     default: 1
                     type: integer
@@ -64,6 +105,29 @@ spec:
                           description: S3 bucket used to store the repository.
                           minLength: 1
                           type: string
+                        cipherConfig:
+                          properties:
+                            encryptionPass:
+                              description: Reference to the secret containing the
+                                encryption key.
+                              properties:
+                                key:
+                                  description: The key to select
+                                  type: string
+                                name:
+                                  description: Name of the referent.
+                                  type: string
+                              required:
+                              - key
+                              - name
+                              type: object
+                            type:
+                              default: aes-256-cbc
+                              description: Cipher used to encrypt the repository.
+                              enum:
+                              - aes-256-cbc
+                              type: string
+                          type: object
                         endpoint:
                           description: S3 repository endpoint.
                           minLength: 1
@@ -77,7 +141,7 @@ spec:
                           minLength: 1
                           type: string
                         retentionPolicy:
-                          description: Define retention strategy for a repository
+                          description: Define retention strategy for a repository.
                           properties:
                             archive:
                               description: |-
@@ -191,21 +255,27 @@ spec:
                       - repoPath
                       type: object
                     type: array
-                  stanza:
-                    minLength: 1
-                    type: string
+                  startFast:
+                    default: true
+                    description: |-
+                      Default behavior to Force a checkpoint to start backup quickly.
+
+                      Forces a checkpoint (by passing y to the fast parameter of the backup start
+                      function) so the backup begins immediately. Otherwise the backup will start
+                      after the next regular checkpoint.
+                    type: boolean
                 required:
-                - stanza
+                - name
                 type: object
             required:
-            - repoConfiguration
+            - stanzaConfiguration
             type: object
           status:
-            description: status defines the observed state of Repository
+            description: status defines the observed state of Stanza
             properties:
               conditions:
                 description: |-
-                  conditions represent the current state of the Repository resource.
+                  conditions represent the current state of the Stanza resource.
                   Each condition has a unique type and reflects the status of a specific aspect of the resource.
 
                   Standard condition types include:
