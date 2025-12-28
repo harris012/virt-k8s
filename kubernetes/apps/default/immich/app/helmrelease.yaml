@@ -9,9 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: immich
-  dependsOn:
-    - name: intel-device-plugin-gpu
-      namespace: kube-system
   values:
     controllers:
       immich:
