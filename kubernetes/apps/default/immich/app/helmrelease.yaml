@@ -14,6 +14,9 @@ spec:
       immich:
         strategy: RollingUpdate
         pod:
+          resourceClaims:
+            - name: gpu
+              resourceClaimTemplateName: immich-gpu
           annotations:
             reloader.stakater.com/auto: "true"
           # nodeSelector: prefer not to share node without GPU
@@ -37,7 +40,7 @@ spec:
               TZ: Europe/Berlin
               # Config file (from secret, templated by ESO with secrets from 1Password)
               IMMICH_CONFIG_FILE: /config/immich-config.yaml
-              IMMICH_TRUSTED_PROXIES: "10.69.0.0/16,10.96.0.0/16"
+              # IMMICH_TRUSTED_PROXIES: "10.69.0.0/16,10.96.0.0/16"
               IMMICH_MEDIA_LOCATION: &mediaLocation /library
               # Prevent NFS mount check failures
               IMMICH_IGNORE_MOUNT_CHECK_ERRORS: "true"
@@ -56,10 +59,6 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-              defaultPodOptions:
-                resourceClaims:
-                  - name: gpu
-                    resourceClaimTemplateName: immich-gpu
             resources:
               claims:
                 - name: gpu
