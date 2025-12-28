@@ -6,10 +6,10 @@ metadata:
   namespace: databases
 spec:
   stanzaConfiguration:
-    name: main
+    name: cnpg-backup
     s3Repositories:
       - bucket: cnpg-backup
-        endpoint: minio.harissaeed.com
+        endpoint: s3.harissaeed.com
         region: auto
         repoPath: /cnpg-backup
         uriStyle: path
