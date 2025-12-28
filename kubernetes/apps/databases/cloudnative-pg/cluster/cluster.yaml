@@ -17,8 +17,7 @@ spec:
   storage:
     size: 15Gi
     storageClass: openebs-hostpath
-  monitoring:
-    enablePodMonitor: true
+  
   resources:
     requests:
       cpu: 500m
@@ -51,50 +50,27 @@ spec:
         - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE
 
 
-  #   recovery:
-  #     source: origin
-
-  # externalClusters:
-  #   - name: origin
-  #     plugin:
-  #       name: barman-cloud.cloudnative-pg.io
-  #       parameters:
-  #         barmanObjectName: postgres18-local-ceph # same as in old cluster
-  #         serverName: postgres18-v2 # same as in old cluster
-
-
-  # backup:
-  #  retentionPolicy: 30d
-  #  barmanObjectStore: &barmanObjectStore
-  #    tags:
-  #      retention: "30days"
-  #    data:
-  #      compression: gzip
-  #    wal:
-  #      compression: gzip
-  #      maxParallel: 8
-  #    destinationPath: s3://cnpg-backup/
-  #    endpointURL: https://minio.harissaeed.com
-  #     # Note: serverName version needs to be incremented
-  #     # when recovering from an existing cnpg cluster
-  #    serverName: &currentCluster immich-v1
-  #    s3Credentials:
-  #      accessKeyId:
-  #        name: cloudnative-pg-secret
-  #        key: MINIO_ROOT_USER
-  #      secretAccessKey:
-  #        name: cloudnative-pg-secret
-  #        key: MINIO_ROOT_PASSWORD
-
-
-  # Note: previousCluster needs to be set to the name of the previous
-  # cluster when recovering from an existing cnpg cluster
+  # ============================================================================
+  # RESTORE FROM BACKUP (commented out - use instead of initdb above)
+  # ============================================================================
+  # To restore from backup:
+  # 1. Comment out the 'initdb' block above
+  # 2. Uncomment the 'recovery' block and 'externalClusters' below
+  # 3. Optionally add recoveryTarget for point-in-time recovery
+  # ============================================================================
   # bootstrap:
   #   recovery:
-  #     source: &previousCluster postgres17-v1
-  # Note: externalClusters is needed when recovering from an existing cnpg cluster
+  #     source: pgbackrest-backup
+  #     # Optional: Point-in-time recovery
+  #     # recoveryTarget:
+  #     #   targetTime: "2025-01-15 10:30:00"  # Restore to specific time
+  #     #   # OR use: targetLSN, targetXID, targetImmediate
+  #
   # externalClusters:
-  #   - name: *previousCluster
-  #     barmanObjectStore:
-  #       <<: *barmanObjectStore
-  #       serverName: *previousCluster
+  #   - name: pgbackrest-backup
+  #     plugin:
+  #       name: pgbackrest.dalibo.com
+  #       parameters:
+  #         repositoryRef: postgres18-immich-repository
+  #         # Optional: Select which repo to restore from (1=B2, 2=R2)
+  #         # selectedRepository: "1"

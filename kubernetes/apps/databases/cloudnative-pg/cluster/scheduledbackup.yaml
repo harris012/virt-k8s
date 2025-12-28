@@ -16,4 +16,5 @@ spec:
     name: postgres18-immich
   pluginConfiguration:
     name: pgbackrest.dalibo.com
-
+    parameters:
+      selectedRepository: "1"

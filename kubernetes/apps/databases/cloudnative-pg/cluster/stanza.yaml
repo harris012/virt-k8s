@@ -13,12 +13,12 @@ spec:
         region: auto
         repoPath: /cnpg-backup
         uriStyle: path
-        verifyTLS: false
+        verifyTLS: true
         retentionPolicy:
-          full: 7
+          full: 14
           fullType: count
-          diff: 14
-          archive: 2
+          diff: 30
+          archive: 7
           archiveType: full
           history: 30
         secretRef:

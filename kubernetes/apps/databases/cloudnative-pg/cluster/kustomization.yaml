@@ -7,5 +7,6 @@ resources:
   - ./pooler.yaml
   - ./scheduledbackup.yaml
   - ./service.yaml
-  - ./repository.yaml
+  - ./stanza.yaml
+  - ./podmonitor.yaml
 
