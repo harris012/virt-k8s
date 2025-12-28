@@ -9,7 +9,7 @@ spec:
     name: main
     s3Repositories:
       - bucket: postgres-immich
-        endpoint: s3.harissaeed.com
+        endpoint: minio.harissaeed.com
         region: auto
         repoPath: /cnpg-backup
         uriStyle: path
