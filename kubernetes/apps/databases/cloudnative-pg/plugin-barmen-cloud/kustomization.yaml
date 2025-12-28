@@ -8,3 +8,11 @@ resources:
   - ./certificate.yaml
   - ./deployment.yaml
   - ./service.yaml
+images:
+- name: plugin-barman-cloud
+  newName: ghcr.io/cloudnative-pg/plugin-barman-cloud-testing
+  newTag: v0.9.0
+secretGenerator:
+- literals:
+  - SIDECAR_IMAGE=ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar-testing:v0.9.0
+  name: plugin-barman-cloud
