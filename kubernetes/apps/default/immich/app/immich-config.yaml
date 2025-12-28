@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: immich-config
 type: Opaque
-data:
+stringData:
   immich-config.yaml: |
     backup:
       database:
