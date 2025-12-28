@@ -18,25 +18,6 @@ spec:
   targetNamespace: databases
   wait: true
 
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: postgres18-immich
-spec:
-  dependsOn:
-    - name: cloudnative-pg
-      namespace: databases
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-  interval: 1h
-  path: ./kubernetes/apps/databases/cloudnative-pg/cluster
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: databases
 
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/kustomize.toolkit.fluxcd.io/kustomization_v1.json
@@ -52,6 +33,8 @@ spec:
   dependsOn:
     - name: cloudnative-pg
       namespace: databases
+    - name: minio
+      namespace: databases
     - name: cert-manager
       namespace: cert-manager
   path: ./kubernetes/apps/databases/cloudnative-pg/pgbackrest
@@ -66,6 +49,28 @@ spec:
   timeout: 5m
 
 ---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: postgres18-immich
+spec:
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: databases
+    - name: cloudnative-pg-pgbackrest
+      namespace: databases
+  interval: 1h
+  path: ./kubernetes/apps/databases/cloudnative-pg/cluster
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: databases
+
+
+
+# ---
 # # yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
