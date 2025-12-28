@@ -37,14 +37,9 @@ spec:
 
   # pgBackRest Plugin for backups (B2 + R2 dual destination)
   plugins:
-    - name: barman-cloud.cloudnative-pg.io
-      isWALArchiver: true
+    - name: pgbackrest.dalibo.com
       parameters:
-        barmanObjectName: minio-store
-
-    # - name: pgbackrest.dalibo.com
-    #   parameters:
-    #     stanzaRef: postgres18-immich-repository
+        stanzaRef: postgres18-immich-repository
 
   bootstrap:
     initdb:
