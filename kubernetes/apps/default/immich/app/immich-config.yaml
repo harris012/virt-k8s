@@ -105,24 +105,8 @@ stringData:
     newVersionCheck:
       enabled: false
 
-    notifications:
-      smtp:
-        enabled: true
-        from: "{{ .SMTP_FROM }}"
-        replyTo: ""
-        transport:
-          host: smtp-relay.home.svc.cluster.local
-          port: 25
-          ignoreCert: true
-
     oauth:
-      enabled: true
-      issuerUrl: https://id.${SECRET_DOMAIN}
-      clientId: "{{ .IMMICH_OAUTH_CLIENT_ID }}"
-      clientSecret: "{{ .IMMICH_OAUTH_CLIENT_SECRET }}"
-      scope: openid profile email
-      autoRegister: true
-      buttonText: Login with Pocket-ID
+      enabled: false
 
     passwordLogin:
       enabled: false
