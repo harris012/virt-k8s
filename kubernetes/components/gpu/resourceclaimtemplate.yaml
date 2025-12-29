@@ -12,4 +12,4 @@ spec:
             deviceClassName: gpu.intel.com
             adminAccess: true
             allocationMode: All
-            enableDRAExtendedResources: true
+            extendedResourceName: intel.com/gpu
