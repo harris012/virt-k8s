@@ -38,7 +38,7 @@ spec:
   plugins:
     - name: pgbackrest.dalibo.com
       parameters:
-        stanzaRef: postgres18-immich-repository
+        stanzaRef: cnpg-backup
 
   bootstrap:
     initdb:

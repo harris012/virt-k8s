@@ -2,7 +2,7 @@
 apiVersion: pgbackrest.dalibo.com/v1
 kind: Stanza
 metadata:
-  name: postgres18-immich-repository
+  name: cnpg-backup
   namespace: databases
 spec:
   stanzaConfiguration:
