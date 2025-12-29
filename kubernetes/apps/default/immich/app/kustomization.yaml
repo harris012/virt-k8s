@@ -8,3 +8,4 @@ resources:
   - ./helmrelease.yaml
   - ./immich-config.yaml
   - ./grafanadashboard.yaml
+  - ./pvc.yaml
