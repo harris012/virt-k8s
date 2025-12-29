@@ -11,7 +11,7 @@ spec:
       - bucket: cnpg-backup
         endpoint: s3.harissaeed.com
         region: auto
-        repoPath: /cnpg-backup
+        repoPath: /
         uriStyle: path
         verifyTLS: true
         retentionPolicy:
