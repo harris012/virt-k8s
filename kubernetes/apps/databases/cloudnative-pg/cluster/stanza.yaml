@@ -23,10 +23,10 @@ spec:
           history: 30
         secretRef:
           accessKeyId:
-            name: cloudnative-pg-secret
+            name: pg-backup-secret
             key: MINIO_ROOT_USER
           secretAccessKey:
-            name: cloudnative-pg-secret
+            name: pg-backup-secret
             key: MINIO_ROOT_PASSWORD
 
 
