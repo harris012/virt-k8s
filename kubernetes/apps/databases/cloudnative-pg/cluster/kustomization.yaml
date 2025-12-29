@@ -9,5 +9,4 @@ resources:
   - ./service.yaml
   - ./stanza.yaml
   - ./podmonitor.yaml
-  - ./secret.sops.yaml
 

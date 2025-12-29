@@ -8,3 +8,4 @@ resources:
   - ./certificate.yaml
   - ./deployment.yaml
   - ./service.yaml
+  - ./secret.sops.yaml
