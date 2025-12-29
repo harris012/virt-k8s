@@ -70,6 +70,8 @@ spec:
 #           secretAccessKey:
 #             name: cloudnative-pg-secret
 #             key: MINIO_ROOT_PASSWORD
+
+
       # Secondary: Cloudflare R2
       # - bucket: nerdz-postgres-immich
       #   endpoint: ${CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com
