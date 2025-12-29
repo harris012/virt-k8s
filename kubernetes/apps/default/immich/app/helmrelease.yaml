@@ -187,14 +187,13 @@ spec:
             main:
               - path: /config/matplotlib
       library:
-        existingClaim: "{{ .Release.Name }}"
-        # type: nfs
-        # server: expanse.internal
-        # path: /mnt/storage/k8s/immich
+        type: nfs
+        server: expanse.internal
+        path: /mnt/storage/k8s/immich
         globalMounts:
           - path: *mediaLocation
       cache:
-        existingClaim: "{{ .Release.Name }}-cache"
+        existingClaim: immich-cache
         advancedMounts:
           machine-learning:
             main:

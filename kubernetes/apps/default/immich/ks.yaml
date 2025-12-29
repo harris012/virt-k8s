@@ -21,10 +21,6 @@ spec:
       namespace: kube-system
   interval: 1h
   path: "./kubernetes/apps/default/immich/app"
-  postBuild:
-    substitute:
-      APP: immich
-      VOLSYNC_CAPACITY: 150Gi
   prune: true
   sourceRef:
     kind: GitRepository
