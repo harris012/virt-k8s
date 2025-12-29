@@ -44,7 +44,7 @@ spec:
               IMMICH_MEDIA_LOCATION: &mediaLocation /library
               # Prevent NFS mount check failures
               IMMICH_IGNORE_MOUNT_CHECK_ERRORS: "true"
-              DB_URL:
+              DB_HOSTNAME:
                 valueFrom:
                   secretKeyRef:
                     name: immich-secret
