@@ -91,7 +91,7 @@ stringData:
         maxDistance: 0.5
         minFaces: 3
         minScore: 0.7
-        modelName: buffalo_s
+        modelName: buffalo_l
       ocr:
         enabled: true
         maxResolution: 1280

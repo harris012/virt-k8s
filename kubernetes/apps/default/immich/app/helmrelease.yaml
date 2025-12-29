@@ -87,7 +87,7 @@ spec:
               TRANSFORMERS_CACHE: "/cache"
               # Preload models on startup for faster first requests
               MACHINE_LEARNING_PRELOAD__CLIP: "ViT-B-32__openai"
-              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION: "buffalo_s"
+              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION: "buffalo_l"
               IMMICH_MEDIA_LOCATION: *mediaLocation
             securityContext:
               allowPrivilegeEscalation: false
@@ -193,7 +193,7 @@ spec:
         globalMounts:
           - path: *mediaLocation
       cache:
-        existingClaim: immich-cache
+        existingClaim: "{{ .Release.Name }}-cache"
         advancedMounts:
           machine-learning:
             main:
