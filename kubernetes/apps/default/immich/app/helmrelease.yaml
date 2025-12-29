@@ -64,9 +64,9 @@ spec:
                 - name: gpu
               requests:
                 cpu: 100m
-                memory: 512Mi
+                memory: 812Mi
               limits:
-                memory: 1Gi
+                memory: 4Gi
       machine-learning:
         strategy: RollingUpdate
         pod:
