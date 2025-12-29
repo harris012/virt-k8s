@@ -105,11 +105,15 @@ stringData:
     newVersionCheck:
       enabled: false
 
+    notifications:
+      smtp:
+        enabled: false
+
     oauth:
       enabled: false
 
     passwordLogin:
-      enabled: false
+      enabled: true
 
     reverseGeocoding:
       enabled: true
