@@ -133,7 +133,7 @@ stringData:
     server:
       externalDomain: ""
       publicUsers: true
-      loginPageMessage: Welcome to the "{{ .IMMICH_INSTANCE_NAME }}" Immich instance. Contact Gavin with any questions
+      loginPageMessage: Welcome to the Immich instance. Contact Haris with any questions
 
     storageTemplate:
       enabled: true
