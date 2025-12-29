@@ -79,7 +79,7 @@ stringData:
     machineLearning:
       enabled: true
       urls:
-        - http://immich-machine-learning.entertainment.svc.cluster.local:3003
+        - http://immich-machine-learning.default.svc.cluster.local:3003
       clip:
         enabled: true
         modelName: ViT-SO400M-16-SigLIP2-384__webli
