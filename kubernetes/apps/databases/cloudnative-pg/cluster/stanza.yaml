@@ -7,6 +7,11 @@ metadata:
 spec:
   stanzaConfiguration:
     name: cnpg-backup
+    archive:
+      async: true
+      getQueueMax: 128MiB
+      pushQueueMax: 1GiB
+    processMax: 4
     s3Repositories:
       - bucket: cnpg-backup
         endpoint: s3.harissaeed.com
@@ -23,10 +28,10 @@ spec:
           history: 30
         secretRef:
           accessKeyId:
-            name: pg-backup-secret
+            name: cloudnative-pg-secret
             key: MINIO_ROOT_USER
           secretAccessKey:
-            name: pg-backup-secret
+            name: cloudnative-pg-secret
             key: MINIO_ROOT_PASSWORD
 
 
