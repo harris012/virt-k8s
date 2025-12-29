@@ -5,8 +5,8 @@ kind: Cluster
 metadata:
   name: postgres18-immich
   namespace: databases
-  annotations:
-    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+  # annotations:
+  #   cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
   # Immich v2.3.1 requires VectorChord >=0.3 <0.6
@@ -17,7 +17,7 @@ spec:
   storage:
     size: 15Gi
     storageClass: openebs-hostpath
-  
+
   resources:
     requests:
       cpu: 500m
@@ -32,7 +32,7 @@ spec:
     shared_preload_libraries: ["vchord.so"]
     parameters:
       max_connections: "500"
-      shared_buffers: 256MB
+      shared_buffers: 512MB
 
   # pgBackRest Plugin for backups (B2 + R2 dual destination)
   plugins:
@@ -44,7 +44,7 @@ spec:
     initdb:
       database: immich
       owner: immich
-      postInitApplicationSQL:
+      postInitSQL:
         - CREATE EXTENSION IF NOT EXISTS vchord CASCADE
         - CREATE EXTENSION IF NOT EXISTS vector CASCADE
         - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE
