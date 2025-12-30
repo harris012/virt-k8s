@@ -5,8 +5,8 @@ kind: Cluster
 metadata:
   name: postgres18-immich
   namespace: databases
-  annotations:
-    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+  # annotations:
+  #   cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
   # Immich v2.3.1 requires VectorChord >=0.3 <0.6
@@ -16,9 +16,8 @@ spec:
 
   storage:
     size: 15Gi
-    storageClass: ceph-block
-  monitoring:
-    enablePodMonitor: true
+    storageClass: openebs-hostpath
+
   resources:
     requests:
       cpu: 500m
@@ -33,41 +32,45 @@ spec:
     shared_preload_libraries: ["vchord.so"]
     parameters:
       max_connections: "500"
-      shared_buffers: 256MB
+      shared_buffers: 512MB
 
-  # pgBackRest Plugin for backups (B2 + R2 dual destination)
-  # plugins:
-  #   - name: pgbackrest.dalibo.com
-  #     parameters:
-  #       repositoryRef: postgres18-immich-repository
+  # pgBackRest Plugin for backups (dual destination)
+  plugins:
+    - name: pgbackrest.dalibo.com
+      parameters:
+        stanzaRef: cnpg-backup
 
   bootstrap:
     initdb:
       database: immich
       owner: immich
-      postInitApplicationSQL:
+      postInitSQL:
         - CREATE EXTENSION IF NOT EXISTS vchord CASCADE
         - CREATE EXTENSION IF NOT EXISTS vector CASCADE
         - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE
 
-  backup:
-   retentionPolicy: 30d
-   barmanObjectStore:
-     tags:
-       retention: "30days"
-     data:
-       compression: gzip
-     wal:
-       compression: gzip
-       maxParallel: 8
-     destinationPath: s3://cnpg-backup/
-     endpointURL: https://minio.harissaeed.com
-     s3Credentials:
-       accessKeyId:
-         name: cloudnative-pg-secret
-         key: MINIO_ROOT_USER
-       secretAccessKey:
-         name: cloudnative-pg-secret
-         key: MINIO_ROOT_PASSWORD
 
-
+  # ============================================================================
+  # RESTORE FROM BACKUP (commented out - use instead of initdb above)
+  # ============================================================================
+  # To restore from backup:
+  # 1. Comment out the 'initdb' block above
+  # 2. Uncomment the 'recovery' block and 'externalClusters' below
+  # 3. Optionally add recoveryTarget for point-in-time recovery
+  # ============================================================================
+  # bootstrap:
+  #   recovery:
+  #     source: pgbackrest-backup
+  #     # Optional: Point-in-time recovery
+  #     # recoveryTarget:
+  #     #   targetTime: "2025-01-15 10:30:00"  # Restore to specific time
+  #     #   # OR use: targetLSN, targetXID, targetImmediate
+  #
+  # externalClusters:
+  #   - name: pgbackrest-backup
+  #     plugin:
+  #       name: pgbackrest.dalibo.com
+  #       parameters:
+  #         repositoryRef: postgres18-immich-repository
+  #         # Optional: Select which repo to restore from (1=B2, 2=R2)
+  #         # selectedRepository: "1"

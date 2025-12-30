@@ -6,8 +6,8 @@ metadata:
   name: cloudnative-pg
 spec:
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: openebs-system
+      namespace: openebs-system
   interval: 1h
   path: ./kubernetes/apps/databases/cloudnative-pg/app
   prune: true
@@ -58,6 +58,8 @@ spec:
     - name: cloudnative-pg
       namespace: databases
     - name: cloudnative-pg-pgbackrest
+      namespace: databases
+    - name: minio
       namespace: databases
   interval: 1h
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
