@@ -214,12 +214,3 @@ spec:
                 subPath: geocoding
               - path: /usr/src/app/.transformers_cache
                 subPath: transformers
-
-      # # Intel GPU device for QSV transcoding
-      # dri:
-      #   type: hostPath
-      #   hostPath: /dev/dri
-      #   advancedMounts:
-      #     server:
-      #       main:
-      #         - path: /dev/dri
