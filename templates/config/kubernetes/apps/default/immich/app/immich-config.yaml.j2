@@ -123,6 +123,11 @@ stringData:
       publicUsers: true
       loginPageMessage: Welcome to the Immich instance. Contact Haris with any questions
 
+    storageTemplate:
+      enabled: true
+      hashVerificationEnabled: true
+      template: {{ printf "%q" "{{album}}/{{y}}/{{MM}}/{{filename}}" }}
+
     trash:
       enabled: true
       days: 30
