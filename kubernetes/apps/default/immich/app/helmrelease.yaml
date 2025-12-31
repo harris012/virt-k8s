@@ -29,9 +29,9 @@ spec:
           #             operator: In
           #             values:
           #             - "true"
-          # nodeSelector:
-          #   kubernetes.io/hostname: "alpha"
-          #   node.kubernetes.io/gpu: "true"
+          nodeSelector:
+            kubernetes.io/hostname: "alpha"
+            node.kubernetes.io/gpu: "true"
         initContainers:
           init-db:
             image:
@@ -72,7 +72,7 @@ spec:
               claims:
                 - name: gpu
               requests:
-                cpu: 100m
+                cpu: 70m
                 memory: 812Mi
               limits:
                 memory: 4Gi
