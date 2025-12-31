@@ -8,7 +8,7 @@ metadata:
 spec:
   cluster:
     name: postgres18-immich
-  instances: 2
+  instances: 1
   type: rw
   pgbouncer:
     poolMode: session
