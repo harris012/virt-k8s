@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: pgbackrest-controller
+  name: plugin-barman-cloud
   namespace: databases
 
 ---
