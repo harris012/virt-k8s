@@ -6,7 +6,7 @@ resources:
   #- ./cluster.yaml
   #- ./stanza.yaml
   - ./pooler.yaml
-  - ./scheduledbackup.yaml
+  #- ./scheduledbackup.yaml
   - ./service.yaml
   - ./podmonitor.yaml
   - ./recovery-cluster.yaml
