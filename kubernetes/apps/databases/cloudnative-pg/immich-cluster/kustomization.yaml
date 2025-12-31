@@ -6,7 +6,6 @@ namespace: databases
 resources:
   - ./cluster.yaml
   - ./objectstore.yaml
-  #- ./backup.yaml
   - ./pooler.yaml
   - ./scheduledbackup.yaml
   - ./service.yaml
