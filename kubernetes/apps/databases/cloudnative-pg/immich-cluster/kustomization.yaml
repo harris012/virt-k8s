@@ -5,11 +5,11 @@ kind: Kustomization
 resources:
   - ./cluster.yaml
   - ./objectstore.yaml
-  #- ./stanza.yaml
+  - ./backup.yaml
   - ./pooler.yaml
-  #- ./scheduledbackup.yaml
+  - ./scheduledbackup.yaml
   - ./service.yaml
   - ./podmonitor.yaml
   #- ./recovery-cluster.yaml
-  #- ./recovery-stanza.yaml
+
 

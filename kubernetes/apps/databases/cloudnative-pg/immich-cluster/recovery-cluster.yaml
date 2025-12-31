@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres18-immich
+  name: postgres18-immich-recovery
   namespace: databases
   # annotations:
   #   cnpg.io/skipEmptyWalArchiveCheck: "enabled"
@@ -36,16 +36,19 @@ spec:
 
   # pgBackRest Plugin for backups (dual destination)
   plugins:
-    - name: pgbackrest.dalibo.com
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
       parameters:
-        stanzaRef: cnpg-backup
+        barmanObjectName: minio-store
 
   bootstrap:
     recovery:
       source: origin
+
   externalClusters:
     - name: origin
       plugin:
-        name: pgbackrest.dalibo.com
+        name: barman-cloud.cloudnative-pg.io
         parameters:
-          stanzaRef: cnpg-backup
+          barmanObjectName: minio-store
+          serverName: postgres18-immich

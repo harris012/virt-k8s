@@ -15,3 +15,4 @@ spec:
         key: MINIO_ROOT_PASSWORD
     wal:
       compression: gzip
+  retentionPolicy: "30d"
