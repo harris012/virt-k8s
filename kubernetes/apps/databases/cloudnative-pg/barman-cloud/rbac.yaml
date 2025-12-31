@@ -6,34 +6,38 @@ metadata:
   namespace: databases
 
 ---
+# permissions for end users to view objectstores.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: stanza-admin-role
+  name: barman-plugin-objectstore-viewer-role
 rules:
 - apiGroups:
-  - pgbackrest.dalibo.com
+  - barmancloud.cnpg.io
   resources:
-  - stanzas
+  - objectstores
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
 - apiGroups:
-  - pgbackrest.dalibo.com
+  - barmancloud.cnpg.io
   resources:
-  - stanzas/status
+  - objectstores/status
   verbs:
   - get
 
 ---
+# permissions for end users to edit objectstores.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: stanza-editor-role
+  name: barman-plugin-objectstore-editor-role
 rules:
 - apiGroups:
-  - pgbackrest.dalibo.com
+  - barmancloud.cnpg.io
   resources:
-  - stanzas
+  - objectstores
   verbs:
   - create
   - delete
@@ -43,9 +47,9 @@ rules:
   - update
   - watch
 - apiGroups:
-  - pgbackrest.dalibo.com
+  - barmancloud.cnpg.io
   resources:
-  - stanzas/status
+  - objectstores/status
   verbs:
   - get
 
@@ -53,29 +57,29 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: stanza-viewer-role
+  name: barman-plugin-metrics-auth-role
 rules:
 - apiGroups:
-  - pgbackrest.dalibo.com
+  - authentication.k8s.io
   resources:
-  - stanzas
+  - tokenreviews
   verbs:
-  - get
-  - list
-  - watch
+  - create
 - apiGroups:
-  - pgbackrest.dalibo.com
+  - authorization.k8s.io
   resources:
-  - stanzas/status
+  - subjectaccessreviews
   verbs:
-  - get
+  - create
+
 
 
 ---
+# permissions to do leader election.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: leader-election-role
+  name: barman-plugin-leader-election-role
 rules:
 - apiGroups:
   - ""
@@ -113,14 +117,14 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: leader-election-rolebinding
+  name: barman-plugin-leader-election-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: leader-election-role
+  name: barman-plugin-leader-election-role
 subjects:
 - kind: ServiceAccount
-  name: pgbackrest-controller
+  name: plugin-barman-cloud
   namespace: databases
 
 
@@ -128,40 +132,7 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: metrics-auth-role
-rules:
-- apiGroups:
-  - authentication.k8s.io
-  resources:
-  - tokenreviews
-  verbs:
-  - create
-- apiGroups:
-  - authorization.k8s.io
-  resources:
-  - subjectaccessreviews
-  verbs:
-  - create
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: metrics-auth-rolebinding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: metrics-auth-role
-subjects:
-- kind: ServiceAccount
-  name: pgbackrest-controller
-  namespace: databases
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: metrics-reader
+  name: barman-plugin-metrics-reader
 rules:
 - nonResourceURLs:
   - "/metrics"
@@ -170,9 +141,38 @@ rules:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: plugin-barman-cloud-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: plugin-barman-cloud
+subjects:
+- kind: ServiceAccount
+  name: plugin-barman-cloud
+  namespace: databases
+
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: barman-plugin-metrics-auth-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: barman-plugin-metrics-auth-role
+subjects:
+- kind: ServiceAccount
+  name: plugin-barman-cloud
+  namespace: databases
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: pgbackrest-controller
+  name: plugin-barman-cloud
 rules:
 - apiGroups:
   - ""
@@ -185,9 +185,9 @@ rules:
   - list
   - watch
 - apiGroups:
-  - pgbackrest.dalibo.com
+  - barmancloud.cnpg.io
   resources:
-  - stanzas
+  - objectstores
   verbs:
   - create
   - delete
@@ -197,15 +197,15 @@ rules:
   - update
   - watch
 - apiGroups:
-  - pgbackrest.dalibo.com
+  - barmancloud.cnpg.io
   resources:
-  - stanzas/finalizers
+  - objectstores/finalizers
   verbs:
   - update
 - apiGroups:
-  - pgbackrest.dalibo.com
+  - barmancloud.cnpg.io
   resources:
-  - stanzas/status
+  - objectstores/status
   verbs:
   - get
   - patch
@@ -236,68 +236,4 @@ rules:
   - patch
   - update
   - watch
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: pgbackrest-controller-binding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: pgbackrest-controller
-subjects:
-  - kind: ServiceAccount
-    name: pgbackrest-controller
-    namespace: databases
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: pgbackrest-leader-election
-  namespace: databases
-rules:
-  - apiGroups:
-      - ""
-    resources:
-      - configmaps
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - update
-      - patch
-      - delete
-  - apiGroups:
-      - coordination.k8s.io
-    resources:
-      - leases
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - update
-      - patch
-      - delete
-  - apiGroups:
-      - ""
-    resources:
-      - events
-    verbs:
-      - create
-      - patch
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: pgbackrest-leader-election-binding
-  namespace: databases
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: pgbackrest-leader-election
-subjects:
-  - kind: ServiceAccount
-    name: pgbackrest-controller
-    namespace: databases
+
