@@ -37,8 +37,6 @@ spec:
   # pgBackRest Plugin for backups (dual destination)
   plugins:
     - name: pgbackrest.dalibo.com
-      enabled: true
-      isWALArchiver: true
       parameters:
         stanzaRef: cnpg-backup
 
