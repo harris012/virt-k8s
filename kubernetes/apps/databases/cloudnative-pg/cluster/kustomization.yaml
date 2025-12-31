@@ -9,4 +9,5 @@ resources:
   - ./service.yaml
   - ./stanza.yaml
   - ./podmonitor.yaml
+  - ./replica-cluster.yaml
 
