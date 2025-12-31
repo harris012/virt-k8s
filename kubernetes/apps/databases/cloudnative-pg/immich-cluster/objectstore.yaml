@@ -5,7 +5,7 @@ metadata:
 spec:
   configuration:
     destinationPath: s3://barman-backups/
-    endpointURL: https://minio.harissaeed.com
+    endpointURL: http://minio.databases.svc.cluster.local:9000
     s3Credentials:
       accessKeyId:
         name: cloudnative-pg-secret
