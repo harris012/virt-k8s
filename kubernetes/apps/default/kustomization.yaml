@@ -11,6 +11,6 @@ resources:
   #- ./echo/ks.yaml
   #- ./atuin/ks.yaml
   #- ./bazarr/ks.yaml
-  #- ./opencloud/ks.yaml
+  - ./opencloud/ks.yaml
   - ./n8n/ks.yaml
   - ./immich/ks.yaml
