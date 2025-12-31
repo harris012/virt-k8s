@@ -10,7 +10,6 @@ spec:
       app.kubernetes.io/name: immich
   components:
     - ../../../../components/nfs-scaler
-    # - ../../../../components/volsync
     - ../../../../components/gpu
   dependsOn:
     - name: postgres18-immich
@@ -24,7 +23,6 @@ spec:
   postBuild:
     substitute:
       APP: immich
-      # VOLSYNC_CAPACITY: 50Gi
   prune: true
   sourceRef:
     kind: GitRepository
