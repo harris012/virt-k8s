@@ -29,8 +29,8 @@ spec:
                       operator: In
                       values:
                       - "true"
-          # nodeSelector:
-          #   kubernetes.io/hostname: "alpha"
+          nodeSelector:
+            kubernetes.io/hostname: "alpha"
           #   node.kubernetes.io/gpu: "true"
         initContainers:
           init-db:
