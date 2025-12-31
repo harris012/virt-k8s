@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres18-immich-restored
+  name: postgres18-immich
   namespace: databases
   # annotations:
   #   cnpg.io/skipEmptyWalArchiveCheck: "enabled"
