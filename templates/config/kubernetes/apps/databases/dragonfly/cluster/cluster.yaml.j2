@@ -6,7 +6,11 @@ metadata:
   name: dragonfly
 spec:
   image: ghcr.io/dragonflydb/dragonfly:v1.35.1@sha256:af7f7f1143269c7ffe4128451dff8f8fc09e157d885abcc9bafeec832d2928e6
-  replicas: 2 # set to the number of nodes in the cluster
+  replicas: 1
+
+  labels:
+    role: master # Bug when replicas=1
+
   env:
     - name: MAX_MEMORY
       valueFrom:
@@ -20,7 +24,7 @@ spec:
     - --default_lua_flags=allow-undeclared-keys
   resources:
     requests:
-      cpu: 90m
+      cpu: 100m
       memory: 468Mi
     limits:
       memory: 1Gi

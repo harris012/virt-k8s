@@ -14,6 +14,8 @@ spec:
   dependsOn:
     - name: postgres18-immich
       namespace: databases
+    - name: dragonfly-cluster
+      namespace: databases
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: intel-gpu-resource-driver
