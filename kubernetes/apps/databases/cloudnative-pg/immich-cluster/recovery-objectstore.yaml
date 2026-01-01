@@ -15,4 +15,10 @@ spec:
         name: cloudnative-pg-secret
         key: MINIO_ROOT_PASSWORD
     wal:
-      maxParallel: 8
+      maxParallel: 1
+  instanceSidecarConfiguration:
+    env:
+      - name: AWS_REQUEST_CHECKSUM_CALCULATION
+        value: when_required
+      - name: AWS_RESPONSE_CHECKSUM_VALIDATION
+        value: when_required
