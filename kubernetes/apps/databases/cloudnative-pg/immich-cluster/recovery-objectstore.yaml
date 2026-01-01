@@ -1,0 +1,18 @@
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: minio-store-recovery
+  namespace: databases
+spec:
+  configuration:
+    destinationPath: s3://barman-backups/
+    endpointURL: http://minio.databases.svc.cluster.local:9000
+    s3Credentials:
+      accessKeyId:
+        name: cloudnative-pg-secret
+        key: MINIO_ROOT_USER
+      secretAccessKey:
+        name: cloudnative-pg-secret
+        key: MINIO_ROOT_PASSWORD
+    wal:
+      maxParallel: 8

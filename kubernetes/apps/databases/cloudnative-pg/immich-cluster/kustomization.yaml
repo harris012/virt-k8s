@@ -11,5 +11,6 @@ resources:
   - ./service.yaml
   - ./podmonitor.yaml
   - ./recovery-cluster.yaml
+  - ./recovery-objectstore.yaml
 
 
