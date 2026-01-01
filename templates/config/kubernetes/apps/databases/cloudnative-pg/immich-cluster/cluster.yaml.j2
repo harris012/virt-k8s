@@ -20,9 +20,10 @@ spec:
 
   resources:
     requests:
-      cpu: 50m
+      cpu: 40m
       memory: 1024Mi
     limits:
+      cpu: 80m
       memory: 2G
   superuserSecret:
     name: cloudnative-pg-secret

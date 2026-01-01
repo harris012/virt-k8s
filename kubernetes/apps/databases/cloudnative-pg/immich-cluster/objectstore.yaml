@@ -23,3 +23,10 @@ spec:
         value: when_required
       - name: AWS_RESPONSE_CHECKSUM_VALIDATION
         value: when_required
+    resources:
+      requests:
+        cpu: 5m
+        memory: 150Mi
+      limits:
+        cpu: 30m
+        memory: 500Mi

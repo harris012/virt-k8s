@@ -14,7 +14,8 @@ spec:
       create: true
     resources:
       requests:
-        cpu: 30m
-        memory: 256M
+        cpu: 10m
+        memory: 156M
       limits:
+        cpu: 30m
         memory: 512M
