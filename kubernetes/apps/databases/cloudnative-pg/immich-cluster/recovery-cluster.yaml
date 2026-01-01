@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres18-immich-recovery
+  name: postgres18-immich
   namespace: databases
   # annotations:
   #   cnpg.io/skipEmptyWalArchiveCheck: "enabled"
@@ -34,7 +34,7 @@ spec:
       max_connections: "500"
       shared_buffers: 512MB
 
-  # barman-cloud Plugin for backups (minio)
+  # barman-cloud Plugin for backups (to minio)
   plugins:
     - name: barman-cloud.cloudnative-pg.io
       isWALArchiver: true
