@@ -34,6 +34,10 @@ spec:
       max_connections: "500"
       shared_buffers: 512MB
 
+
+  # recovery cluster and simultaneous backup has some limitations
+  # check issue for details (https://github.com/cloudnative-pg/plugin-barman-cloud/issues/683
+
   # barman-cloud Plugin for backups (to minio)
   # plugins:
   #   - name: barman-cloud.cloudnative-pg.io

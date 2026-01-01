@@ -20,7 +20,7 @@ spec:
 
   resources:
     requests:
-      cpu: 500m
+      cpu: 100m
       memory: 1024Mi
     limits:
       memory: 2G
@@ -34,13 +34,12 @@ spec:
       max_connections: "500"
       shared_buffers: 512MB
 
-  # pgBackRest Plugin for backups (dual destination)
+  # barman-cloud Plugin for backups (to minio)
   plugins:
-    - name: pgbackrest.dalibo.com
-      enabled: true
+    - name: barman-cloud.cloudnative-pg.io
       isWALArchiver: true
       parameters:
-        stanzaRef: cnpg-backup
+        barmanObjectName: minio-store
 
   bootstrap:
     initdb:
