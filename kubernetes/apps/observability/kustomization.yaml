@@ -10,5 +10,5 @@ components:
 resources:
   - ./keda/ks.yaml
   - ./grafana/ks.yaml
-  #- ./kube-prometheus-stack/ks.yaml
+  - ./kube-prometheus-stack/ks.yaml
 
