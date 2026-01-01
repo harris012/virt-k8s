@@ -72,9 +72,10 @@ spec:
               claims:
                 - name: gpu
               requests:
-                cpu: 70m
-                memory: 812Mi
+                cpu: 50m
+                memory: 512Mi
               limits:
+                cpu: 100m
                 memory: 4Gi
       machine-learning:
         strategy: RollingUpdate
@@ -104,9 +105,10 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 100m
+                cpu: 40m
                 memory: 512Mi
               limits:
+                cpu: 100m
                 memory: 4Gi
             probes:
               liveness: &probes
