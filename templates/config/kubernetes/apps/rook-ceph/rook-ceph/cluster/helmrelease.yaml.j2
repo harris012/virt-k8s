@@ -69,10 +69,18 @@ spec:
       storage:
         useAllNodes: true
         useAllDevices: false
-        devices:
-          - name: "sdb"
         config:
           osdsPerDevice: "1"
+        nodes:
+          - name: alpha
+            devices:
+              - name: /dev/sdb
+          - name: bravo
+            devices:
+              - name: /dev/sdb
+          - name: charlie
+            devices:
+              - name: /dev/sdb
     cephBlockPools:
       - name: ceph-blockpool
         spec:
