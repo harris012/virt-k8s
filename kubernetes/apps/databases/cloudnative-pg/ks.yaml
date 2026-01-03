@@ -62,7 +62,7 @@ spec:
     - name: minio
       namespace: databases
   interval: 1h
-  path: ./kubernetes/apps/databases/cloudnative-pg/immich-cluster
+  path: ./kubernetes/apps/databases/cloudnative-pg/cluster
   prune: true
   sourceRef:
     kind: GitRepository
