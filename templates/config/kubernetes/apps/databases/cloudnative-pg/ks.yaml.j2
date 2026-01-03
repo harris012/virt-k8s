@@ -52,21 +52,22 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: postgres18-immich
+  name: cloudnative-pg-cluster
 spec:
   dependsOn:
     - name: cloudnative-pg
       namespace: databases
     - name: barman-cloud
       namespace: databases
-    - name: minio
-      namespace: databases
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/databases/cloudnative-pg/immich-cluster
+  path: ./kubernetes/apps/databases/cloudnative-pg/cluster
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: databases
+
 

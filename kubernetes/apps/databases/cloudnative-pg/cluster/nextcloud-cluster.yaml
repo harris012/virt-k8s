@@ -20,7 +20,6 @@ spec:
     size: 100Gi
 
   backup:
-    # Volume snapshot backups
     volumeSnapshot:
        className: csi-ceph-blockpool
 
