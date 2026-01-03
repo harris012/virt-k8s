@@ -15,7 +15,7 @@ spec:
   primaryUpdateStrategy: unsupervised
 
   storage:
-    size: 15Gi
+    size: 5Gi
     storageClass: openebs-hostpath
 
   resources:
@@ -42,14 +42,14 @@ spec:
       parameters:
         barmanObjectName: minio-store
 
-  bootstrap:
-    initdb:
-      database: immich
-      owner: immich
-      postInitSQL:
-        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE
-        - CREATE EXTENSION IF NOT EXISTS vector CASCADE
-        - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE
+  # bootstrap:
+  #   initdb:
+  #     database: immich
+  #     owner: immich
+  #     postInitSQL:
+  #       - CREATE EXTENSION IF NOT EXISTS vchord CASCADE
+  #       - CREATE EXTENSION IF NOT EXISTS vector CASCADE
+  #       - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE
 
 
   # ============================================================================
