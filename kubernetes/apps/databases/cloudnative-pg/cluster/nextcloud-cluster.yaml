@@ -3,53 +3,46 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres18-immich
+  name: nextcloud-cluster
   namespace: databases
   # annotations:
   #   cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
-  # Immich v2.3.1 requires VectorChord >=0.3 <0.6
-  # renovate: datasource=docker depName=ghcr.io/tensorchord/cloudnative-vectorchord versioning=loose enabled=false
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.0-0.5.3@sha256:267f6cbb32af6e109e138a143c7e9dd5d44d68433ec2303f0c30e745c788d1a9
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.7-minimal-trixie@sha256:7882c68f534d0a0088231271658280e267a547d276821ad818438d506690e986
   primaryUpdateStrategy: unsupervised
 
   storage:
-    size: 15Gi
+    size: 70Gi
     storageClass: openebs-hostpath
 
   resources:
     requests:
-      cpu: 50m
+      cpu: 40m
       memory: 1024Mi
     limits:
+      cpu: 80m
       memory: 2G
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
 
   postgresql:
-    shared_preload_libraries: ["vchord.so"]
     parameters:
       max_connections: "500"
       shared_buffers: 512MB
 
-  # pgBackRest Plugin for backups (dual destination)
+  # barman-cloud Plugin for backups (to minio)
   plugins:
-    - name: pgbackrest.dalibo.com
-      enabled: true
+    - name: barman-cloud.cloudnative-pg.io
       isWALArchiver: true
       parameters:
-        stanzaRef: cnpg-backup
+        barmanObjectName: minio-store
 
   bootstrap:
     initdb:
-      database: immich
-      owner: immich
-      postInitSQL:
-        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE
-        - CREATE EXTENSION IF NOT EXISTS vector CASCADE
-        - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE
+      database: nextcloud
+      owner: nextcloud
 
 
   # ============================================================================

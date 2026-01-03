@@ -7,7 +7,7 @@ metadata:
   name: daily-immich-backup
   namespace: databases
 spec:
-  schedule: "0 3 * * *"
+  schedule: "0 2 0 * * *"
   immediate: true
   backupOwnerReference: self
   target: primary
@@ -15,6 +15,5 @@ spec:
   cluster:
     name: postgres18-immich
   pluginConfiguration:
-    name: pgbackrest.dalibo.com
-    parameters:
-      selectedRepository: "1"
+    name: barman-cloud.cloudnative-pg.io
+
