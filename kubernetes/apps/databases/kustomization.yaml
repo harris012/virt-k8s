@@ -12,5 +12,5 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./dragonfly/ks.yaml
-  #- ./cloudnative-pg/ks.yaml
+  - ./cloudnative-pg/ks.yaml
   - ./minio/ks.yaml
