@@ -13,8 +13,8 @@ spec:
   primaryUpdateStrategy: unsupervised
 
   storage:
-    size: 70Gi
-    storageClass: openebs-hostpath
+    size: 100Gi
+    storageClass: ceph-block
 
   resources:
     requests:
