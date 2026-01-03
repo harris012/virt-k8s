@@ -13,8 +13,8 @@ spec:
   primaryUpdateStrategy: unsupervised
 
   storage:
-    size: 100Gi
     storageClass: ceph-block
+    size: 100Gi
   walStorage:
     storageClass: ceph-block
     size: 100Gi
@@ -46,10 +46,10 @@ spec:
       parameters:
         barmanObjectName: minio-store
 
-  bootstrap:
-    initdb:
-      database: nextcloud
-      owner: nextcloud
+  # bootstrap:
+  #   initdb:
+  #     database: nextcloud
+  #     owner: nextcloud
 
 
   # ============================================================================

@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: nextcloud
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: nextcloud
+  components:
+    - ../../../../components/nfs-scaler
+  dependsOn:
+    - name: cloudnative-pg-cluster
+      namespace: databases
+    - name: dragonfly-cluster
+      namespace: databases
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  interval: 1h
+  path: "./kubernetes/apps/default/nextcloud/app"
+  postBuild:
+    substitute:
+      APP: nextcloud
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: default
+  wait: false
+  timeout: 5m
+

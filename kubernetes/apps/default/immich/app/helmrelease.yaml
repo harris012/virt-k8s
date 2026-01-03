@@ -68,15 +68,15 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-            resources:
-              claims:
-                - name: gpu
-              requests:
-                cpu: 80m
-                memory: 512Mi
-              limits:
-                cpu: 200m
-                memory: 4Gi
+            # resources:
+            #   claims:
+            #     - name: gpu
+            #   requests:
+            #     cpu: 80m
+            #     memory: 512Mi
+            #   limits:
+            #     cpu: 200m
+            #     memory: 4Gi
       machine-learning:
         strategy: RollingUpdate
         pod:
@@ -103,13 +103,13 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 40m
-                memory: 512Mi
-              limits:
-                cpu: 150m
-                memory: 4Gi
+            # resources:
+            #   requests:
+            #     cpu: 40m
+            #     memory: 512Mi
+            #   limits:
+            #     cpu: 150m
+            #     memory: 4Gi
             probes:
               liveness: &probes
                 enabled: true
