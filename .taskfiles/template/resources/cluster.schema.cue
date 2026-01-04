@@ -32,6 +32,8 @@ import (
  INIT_POSTGRES_HOST: string
  JWT_SECRET: string
  INIT_POSTGRES_USER_FLAGS: string
+	nextcloud-username: string
+	nextcloud-username: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN
