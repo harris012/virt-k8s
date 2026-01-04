@@ -132,11 +132,11 @@ spec:
     persistence:
       enabled: true
       existingClaim: nextcloud
-      # nextcloudData:
-      #   enabled: true
-      #   type: nfs
-      #   server: expanse.internal
-      #   path: /mnt/storage/k8s/nextcloud
+      nextcloudData:
+        enabled: true
+        type: nfs
+        server: expanse.internal
+        path: /mnt/storage/k8s/nextcloud
 
     # this seems to be required for nextcloud initialization which takes a long time
     startupProbe:
