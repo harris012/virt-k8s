@@ -78,7 +78,7 @@ spec:
       existingClaim: nextcloud
       nextcloudData:
         enabled: true
-        existingClaim: nextcloud
+        existingClaim: nextcloud-data
     # service:
     #   annotations:
     #     tailscale.com/expose: "true"
