@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: nextcloud
-      version: 8.4.0
+      version: 8.7.0
       sourceRef:
         kind: HelmRepository
         name: nextcloud
@@ -23,48 +23,43 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   values:
     deploymentAnnotations:
       reloader.stakater.com/auto: 'true'
     image:
       repository: nextcloud
       flavor: fpm-alpine
-      tag: 32.0.0-fpm-alpine
+      tag: 32.0.3-fpm-alpine
       pullPolicy: IfNotPresent
     nginx:
-      enabled: true
+      enabled: false
     nextcloud:
       extraInitContainers:
         - name: init-db
-          image: ghcr.io/home-operations/postgres-init:17.6
+          image: ghcr.io/home-operations/postgres-init:17.7
           envFrom:
             - secretRef:
                 name: nextcloud-secret
       datadir: /var/www/data
       extraEnv:
         - name: REDIS_HOST
-          value: dragonfly.database.svc.cluster.local.
+          value: dragonfly.databases.svc.cluster.local.
         - name: REDIS_HOST_PORT
           value: "6379"
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
-        smtpHostKey: smtp_host
-        smtpUsernameKey: smtp_username
-        smtpPasswordKey: smtp_password
+        # smtpHostKey: smtp_host
+        # smtpUsernameKey: smtp_username
+        # smtpPasswordKey: smtp_password
       host: &host cloud.${SECRET_DOMAIN}
-      mail:
-        enabled: true
-        fromAddress: no-reply
-        domain: ${SECRET_DOMAIN}
+      # mail:
+      #   enabled: true
+      #   fromAddress: no-reply
+      #   domain: ${SECRET_DOMAIN}
       securityContext:
-        runAsUser: 1022
-        runAsGroup: 1022
+        runAsUser: 1000
+        runAsGroup: 1000
         runAsNonRoot: true
       configs:
         custom.config.php: |-
@@ -133,51 +128,51 @@ spec:
     externalDatabase:
       enabled: true
       type: postgresql
-      host: postgres17-rw.database.svc.cluster.local.
+      host: nextcloud-pooler-rw.databases.svc.cluster.local.
       database: nextcloud
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
         usernameKey: INIT_POSTGRES_USER
         passwordKey: INIT_POSTGRES_PASS
-    ingress:
-      enabled: true
-      className: "external"
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/icon: sh-nextcloud
-        gethomepage.dev/name: Nextcloud
-        gethomepage.dev/group: selfhosted
-        nginx.ingress.kubernetes.io/proxy-body-size: "10G"
-        nginx.ingress.kubernetes.io/proxy-buffering: "off"
-        nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-        nginx.ingress.kubernetes.io/server-snippet: |-
-          server_tokens off;
-          proxy_hide_header X-Powered-By;
+    # ingress:
+    #   enabled: true
+    #   className: "external"
+    #   annotations:
+    #     external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+    #     gethomepage.dev/enabled: "true"
+    #     gethomepage.dev/icon: sh-nextcloud
+    #     gethomepage.dev/name: Nextcloud
+    #     gethomepage.dev/group: selfhosted
+    #     nginx.ingress.kubernetes.io/proxy-body-size: "10G"
+    #     nginx.ingress.kubernetes.io/proxy-buffering: "off"
+    #     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+    #     nginx.ingress.kubernetes.io/server-snippet: |-
+    #       server_tokens off;
+    #       proxy_hide_header X-Powered-By;
 
-          rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
-          rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-          rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-          location = /.well-known/carddav {
-            return 301 $scheme://$host/remote.php/dav;
-          }
-          location = /.well-known/caldav {
-            return 301 $scheme://$host/remote.php/dav;
-          }
-          location = /robots.txt {
-            allow all;
-            log_not_found off;
-            access_log off;
-          }
-          location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-            deny all;
-          }
-          location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-            deny all;
-          }
-      path: /
-      pathType: Prefix
+    #       rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
+    #       rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+    #       rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+    #       location = /.well-known/carddav {
+    #         return 301 $scheme://$host/remote.php/dav;
+    #       }
+    #       location = /.well-known/caldav {
+    #         return 301 $scheme://$host/remote.php/dav;
+    #       }
+    #       location = /robots.txt {
+    #         allow all;
+    #         log_not_found off;
+    #         access_log off;
+    #       }
+    #       location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+    #         deny all;
+    #       }
+    #       location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+    #         deny all;
+    #       }
+    #   path: /
+    #   pathType: Prefix
       # tls:
       # - hosts:
       #   - cloud.${SECRET_DOMAIN}
