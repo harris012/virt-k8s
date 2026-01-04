@@ -38,7 +38,7 @@ spec:
         # smtpHostKey: smtp_host
         # smtpUsernameKey: smtp_username
         # smtpPasswordKey: smtp_password
-      host: cloud.${SECRET_DOMAIN}
+      host: cloud.harissaeed.com
       # mail:
       #   enabled: true
       #   fromAddress: no-reply
@@ -53,8 +53,8 @@ spec:
           <?php
           $CONFIG = array (
             'overwriteprotocol' => 'https',
-            'overwrite.cli.url' => 'https://cloud.${SECRET_DOMAIN}',
-            'overewritehost' => 'cloud.${SECRET_DOMAIN}',
+            'overwrite.cli.url' => 'https://cloud.harissaeed.com',
+            'overewritehost' => 'cloud.harissaeed.com',
             'check_data_directory_permissions' => false,
             'filelocking.enabled' => 'true',
             'default_phone_region' => 'DE',
@@ -70,7 +70,7 @@ spec:
               ),
             'trusted_domains' => array(
               0 => '127.0.0.1',
-              1 => 'cloud.${SECRET_DOMAIN}',
+              1 => 'cloud.harissaeed.com',
             ),
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
           ); ?>
@@ -143,6 +143,11 @@ spec:
     persistence:
       enabled: true
       existingClaim: nextcloud
+      # nextcloudData:
+      #   enabled: true
+      #   type: nfs
+      #   server: expanse.internal
+      #   path: /mnt/storage/k8s/nextcloud
 
     # this seems to be required for nextcloud initialization which takes a long time
     startupProbe:
