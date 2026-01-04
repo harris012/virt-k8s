@@ -47,6 +47,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         runAsNonRoot: true
+        supplementalGroups: [10]
       configs:
         custom.config.php: |-
           <?php
@@ -65,7 +66,7 @@ spec:
               array (
                 0 => '127.0.0.1',
                 1 => '10.42.0.0/16',
-                2 => '10.43.0.0/16',
+                2 => '192.168.0.0/16',
               ),
             'trusted_domains' => array(
               0 => '127.0.0.1',
@@ -118,6 +119,7 @@ spec:
       database: nextcloud
       existingSecret:
         enabled: true
+        type: postgresql
         secretName: nextcloud-secret
         usernameKey: INIT_POSTGRES_USER
         passwordKey: INIT_POSTGRES_PASS
