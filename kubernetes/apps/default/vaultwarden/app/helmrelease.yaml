@@ -11,16 +11,9 @@ spec:
   interval: 1h
   values:
     controllers:
-      main:
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-
+      vaultwarden:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/dani-garcia/vaultwarden
               tag: 1.35.1-alpine@sha256:829dc50f97a895d412d18a24cf32575ca6c85c94e7122821cac9fca6fed8b82c
@@ -75,6 +68,13 @@ spec:
                 memory: 28Mi
               limits:
                 memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
