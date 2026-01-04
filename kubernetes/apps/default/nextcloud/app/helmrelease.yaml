@@ -5,7 +5,9 @@ kind: HelmRelease
 metadata:
   name: nextcloud
 spec:
-  timeout: 15m
+  chartRef:
+    kind: OCIRepository
+    name: nextcloud
   interval: 1h
   values:
     ingress:
