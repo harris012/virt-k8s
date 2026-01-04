@@ -7,7 +7,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: cloudnative-pg
+    name: nextcloud
   interval: 1h
   values:
     deploymentAnnotations:
