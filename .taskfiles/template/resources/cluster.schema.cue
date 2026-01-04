@@ -34,6 +34,11 @@ import (
  INIT_POSTGRES_USER_FLAGS: string
 	nextcloud-username: string
 	nextcloud-username: string
+	ADMIN_TOKEN: string
+	SMTP_HOST: string
+	SMTP_FROM: string
+	SMTP_USERNAME: string
+	SMTP_PASSWORD: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN
