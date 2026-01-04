@@ -79,11 +79,8 @@ spec:
 
     service:
       app:
-        controller: vaultwarden
         ports:
           http:
-            port: 80
-          websocket:
             port: *port
     route:
       app:
