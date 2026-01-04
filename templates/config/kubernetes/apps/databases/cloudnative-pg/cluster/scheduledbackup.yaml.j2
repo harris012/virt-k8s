@@ -18,8 +18,6 @@ spec:
     name: barman-cloud.cloudnative-pg.io
 
 
-
-
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/postgresql.cnpg.io/scheduledbackup_v1.json
 
@@ -31,9 +29,10 @@ metadata:
 spec:
   schedule: "0 3 0 * * *"
   immediate: true
-  backupOwnerReference: cluster
+  backupOwnerReference: self
   target: primary
-  method: volumeSnapshot
+  method: plugin
   cluster:
     name: nextcloud-cluster
-
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io

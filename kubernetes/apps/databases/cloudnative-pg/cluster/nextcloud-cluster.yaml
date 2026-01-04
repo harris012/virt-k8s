@@ -13,15 +13,8 @@ spec:
   primaryUpdateStrategy: unsupervised
 
   storage:
-    storageClass: ceph-block
-    size: 100Gi
-  walStorage:
-    storageClass: ceph-block
-    size: 100Gi
-
-  backup:
-    volumeSnapshot:
-       className: csi-ceph-blockpool
+    size: 50Gi
+    storageClass: openebs-hostpath
 
   resources:
     requests:
@@ -46,10 +39,10 @@ spec:
       parameters:
         barmanObjectName: minio-store
 
-  # bootstrap:
-  #   initdb:
-  #     database: nextcloud
-  #     owner: nextcloud
+  bootstrap:
+    initdb:
+      database: nextcloud
+      owner: nextcloud
 
 
   # ============================================================================
