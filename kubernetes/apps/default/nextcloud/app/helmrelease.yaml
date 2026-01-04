@@ -114,7 +114,7 @@ spec:
     externalDatabase:
       enabled: true
       type: postgresql
-      host: nextcloud-pooler-rw.databases.svc.cluster.local.
+      host: nextcloud-pooler.databases.svc.cluster.local.
       database: nextcloud
       existingSecret:
         enabled: true
