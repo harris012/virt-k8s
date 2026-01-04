@@ -74,13 +74,13 @@ spec:
             ),
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
           ); ?>
-      phpConfigs:
-        uploadLimit.ini: |
-          upload_max_filesize = 16G
-          post_max_size = 16G
-          max_input_time = 3600
-          max_execution_time = 3600
-          default_phone_region = DE
+      # phpConfigs:
+      #   uploadLimit.ini: |
+      #     upload_max_filesize = 16G
+      #     post_max_size = 16G
+      #     max_input_time = 3600
+      #     max_execution_time = 3600
+      #     default_phone_region = DE
         # www.conf: |
         #   [www]
         #   user = www-data
@@ -124,10 +124,7 @@ spec:
         secretName: nextcloud-secret
         usernameKey: INIT_POSTGRES_USER
         passwordKey: INIT_POSTGRES_PASS
-    ingress:
-      enabled: false
-      config:
-        client-max-body-size: "10G"
+
     route:
       app:
         hostnames: ["cloud.harissaeed.com"]
