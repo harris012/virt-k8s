@@ -79,9 +79,10 @@ spec:
 
     service:
       app:
+        controller: vaultwarden
         ports:
           http:
-            port: *port
+            port: 80
     route:
       app:
         hostnames: ["vault.harissaeed.com"]
@@ -91,8 +92,8 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: main
-                port: *port
+              - name: vaultwarden
+                port: 80
 
     persistence:
       data:
