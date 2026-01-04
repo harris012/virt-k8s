@@ -49,30 +49,19 @@ spec:
         runAsNonRoot: true
         supplementalGroups: [10]
       configs:
-        custom.config.php: |-
+        proxy.config.php: |-
           <?php
           $CONFIG = array (
-            'overwriteprotocol' => 'https',
-            'overwrite.cli.url' => 'https://cloud.harissaeed.com',
-            'overewritehost' => 'cloud.harissaeed.com',
-            'check_data_directory_permissions' => false,
-            'filelocking.enabled' => 'true',
-            'default_phone_region' => 'DE',
-            'loglevel' => '2',
-            'enable_previews' => true,
-            'log_type' => 'syslog',
-            'maintenance_window_start' => 1,
-            'trusted_proxies' =>
-              array (
-                0 => '127.0.0.1',
-                1 => '10.42.0.0/16',
-                2 => '192.168.0.0/16',
-              ),
-            'trusted_domains' => array(
+            'trusted_proxies' => array(
               0 => '127.0.0.1',
-              1 => 'cloud.harissaeed.com',
+              1 => '10.0.0.0/8',
+              2 => '192.168.0.0/16',
             ),
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+            'allow_local_remote_servers' => true,
+            'overwriteprotocol' => 'https',
+            'overwrite.cli.url' => 'https://cloud.harissaeed.com',
+            'overwritehost' => 'cloud.harissaeed.com',
           ); ?>
       # phpConfigs:
       #   uploadLimit.ini: |
