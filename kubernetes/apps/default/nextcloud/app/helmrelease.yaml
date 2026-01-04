@@ -82,6 +82,21 @@ spec:
     # service:
     #   annotations:
     #     tailscale.com/expose: "true"
+    route:
+      app:
+        hostnames: ["cloud.harissaeed.com"]
+        parentRefs:
+          - name: envoy-tailscale
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: nextcloud
+                port: 8080
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /
     startupProbe:
       enabled: true
       initialDelaySeconds: 30
