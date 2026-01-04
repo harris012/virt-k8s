@@ -3,13 +3,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app nextcloud
-  namespace: &namespace default
+  name: nextcloud
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
+      app.kubernetes.io/name: nextcloud
   components:
     - ../../../../components/nfs-scaler
   dependsOn:
@@ -29,6 +27,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false
+  targetNamespace: default
   timeout: 5m
+  wait: false
 

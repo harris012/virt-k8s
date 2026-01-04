@@ -5,23 +5,10 @@ kind: HelmRelease
 metadata:
   name: nextcloud
 spec:
-  timeout: 15m
+  chartRef:
+    kind: OCIRepository
+    name: cloudnative-pg
   interval: 1h
-  chart:
-    spec:
-      chart: nextcloud
-      version: 8.7.0
-      sourceRef:
-        kind: HelmRepository
-        name: nextcloud
-        namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     deploymentAnnotations:
       reloader.stakater.com/auto: 'true'
@@ -51,7 +38,7 @@ spec:
         # smtpHostKey: smtp_host
         # smtpUsernameKey: smtp_username
         # smtpPasswordKey: smtp_password
-      host: &host cloud.${SECRET_DOMAIN}
+      host: cloud.${SECRET_DOMAIN}
       # mail:
       #   enabled: true
       #   fromAddress: no-reply
@@ -140,7 +127,7 @@ spec:
         client-max-body-size: "10G"
     persistence:
       enabled: true
-      existingClaim: *app
+      existingClaim: nextcloud
 
     # this seems to be required for nextcloud initialization which takes a long time
     startupProbe:
