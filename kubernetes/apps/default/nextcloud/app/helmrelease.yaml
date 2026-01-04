@@ -74,11 +74,11 @@ spec:
     persistence:
       enabled: true
       existingClaim: nextcloud
-      nextcloudData:
-        enabled: true
-        type: nfs
-        server: expanse.internal
-        path: /mnt/storage/k8s/nextcloud
+      # nextcloudData:
+      #   enabled: true
+      #   type: nfs
+      #   server: expanse.internal
+      #   path: /mnt/storage/k8s/nextcloud
     # service:
     #   annotations:
     #     tailscale.com/expose: "true"
