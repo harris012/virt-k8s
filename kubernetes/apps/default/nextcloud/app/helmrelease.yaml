@@ -43,7 +43,7 @@ spec:
       datadir: /var/www/data
       extraEnv:
         - name: REDIS_HOST
-          value: dragonfly.databases.svc.cluster.local.
+          value: dragonfly.databases.svc.cluster.local
         - name: REDIS_HOST_PORT
           value: "6379"
       existingSecret:
