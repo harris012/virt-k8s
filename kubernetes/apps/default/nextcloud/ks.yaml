@@ -19,7 +19,7 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/default/nextcloud/app
+  path: "./kubernetes/apps/default/nextcloud/app"
   postBuild:
     substitute:
       APP: nextcloud
