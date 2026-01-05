@@ -1,7 +1,7 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/podmonitor_v1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/servicemonitor_v1.json
 apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
+kind: ServiceMonitor
 metadata:
   name: dragonfly
   labels:
@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: dragonfly
-  podMetricsEndpoints:
+  endpoints:
     - port: admin
       path: /metrics
       interval: 1m

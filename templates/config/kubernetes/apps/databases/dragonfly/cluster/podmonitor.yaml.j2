@@ -4,10 +4,14 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: dragonfly
+  labels:
+    prometheus: kube-prometheus-stack
 spec:
   selector:
     matchLabels:
-      app: dragonfly
-  podTargetLabels: [app]
+      app.kubernetes.io/name: dragonfly
   podMetricsEndpoints:
     - port: admin
+      path: /metrics
+      interval: 1m
+      scrapeTimeout: 10s
