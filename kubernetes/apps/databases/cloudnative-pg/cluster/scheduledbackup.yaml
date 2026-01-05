@@ -16,7 +16,10 @@ spec:
     name: postgres18-immich
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io
-
+    parameters:
+      immediateCheckpoint: "true"
+      waitForArchive: "true"
+      compression: "zstd"
 
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/postgresql.cnpg.io/scheduledbackup_v1.json
@@ -36,3 +39,7 @@ spec:
     name: nextcloud-cluster
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io
+    parameters:
+      immediateCheckpoint: "true"
+      waitForArchive: "true"
+      compression: "zstd"

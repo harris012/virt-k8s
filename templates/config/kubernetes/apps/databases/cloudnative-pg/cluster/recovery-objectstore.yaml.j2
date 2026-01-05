@@ -14,7 +14,10 @@ spec:
       secretAccessKey:
         name: cloudnative-pg-secret
         key: MINIO_ROOT_PASSWORD
+    data:
+      compression: gzip
     wal:
+      compression: zstd
       maxParallel: 8
   instanceSidecarConfiguration:
     env:
