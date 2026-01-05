@@ -5,15 +5,16 @@ kind: Cluster
 metadata:
   name: nextcloud-cluster
   namespace: databases
-  # annotations:
-  #   cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.7-minimal-trixie@sha256:7882c68f534d0a0088231271658280e267a547d276821ad818438d506690e986
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.1-minimal-trixie@sha256:238b88d7fc09dfa74c972730799ac5dc0e8dc64eb8d7636ed1475dca1158ab1e
   primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
 
   storage:
-    size: 50Gi
+    size: 20Gi
     storageClass: openebs-hostpath
 
   resources:
