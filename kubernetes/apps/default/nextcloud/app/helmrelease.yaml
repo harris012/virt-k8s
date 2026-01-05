@@ -38,7 +38,7 @@ spec:
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
-      host: cloud.${SECRET_DOMAIN}
+      host: cloud.harissaeed.com
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
@@ -56,8 +56,8 @@ spec:
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
             'allow_local_remote_servers' => true,
             'overwriteprotocol' => 'https',
-            'overwrite.cli.url' => 'https://cloud.${SECRET_DOMAIN}',
-            'overwritehost' => 'cloud.${SECRET_DOMAIN}',
+            'overwrite.cli.url' => 'https://cloud.harissaeed.com',
+            'overwritehost' => 'cloud.harissaeed.com',
           ); ?>
     internalDatabase:
       enabled: false
@@ -85,7 +85,7 @@ spec:
     #   annotations:
     #     tailscale.com/expose: "true"
     route:
-      app:
+      nextcloud:
         hostnames: ["cloud.harissaeed.com"]
         parentRefs:
           - name: envoy-tailscale
