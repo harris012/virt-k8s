@@ -78,7 +78,9 @@ spec:
       existingClaim: nextcloud
       nextcloudData:
         enabled: true
-        existingClaim: nextcloud-data
+        type: nfs
+        server: expanse.internal
+        path: /mnt/storage/k8s/nextcloud
     # service:
     #   annotations:
     #     tailscale.com/expose: "true"
