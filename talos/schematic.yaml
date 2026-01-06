@@ -1,6 +1,8 @@
-machine:
-  install:
-    extraKernelArgs:
+# Truenas VM
+# c8074f1e77e2f4ce278647e55ac9f60869e48d616592790a2bfe8b4aa0392904
+---
+customization:
+  extraKernelArgs:
       - -init_on_alloc                      # Less security, faster puter
       - -init_on_free                       # Less security, faster puter
       - -selinux                            # Less security, faster puter
@@ -14,12 +16,4 @@ machine:
       - security=none                       # Less security, faster puter
       - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU / iGPU
       - talos.auditd.disabled=1             # Less security, faster puter
-    wipe: false
-  features:
-    rbac: true
-    stableHostname: true
-    apidCheckExtKeyUsage: true
-    diskQuotaSupport: true
-  nodeLabels:
-    topology.kubernetes.io/region: main
 

@@ -32,8 +32,6 @@ import (
  INIT_POSTGRES_HOST: string
  JWT_SECRET: string
  INIT_POSTGRES_USER_FLAGS: string
-	nextcloud-username: string
-	nextcloud-username: string
 	ADMIN_TOKEN: string
 	SMTP_HOST: string
 	SMTP_FROM: string
