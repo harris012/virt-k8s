@@ -1,0 +1,34 @@
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: minio-store-recovery
+  namespace: databases
+spec:
+  configuration:
+    destinationPath: s3://barman-backups/
+    endpointURL: http://minio.databases.svc.cluster.local:9000
+    s3Credentials:
+      accessKeyId:
+        name: cloudnative-pg-secret
+        key: MINIO_ROOT_USER
+      secretAccessKey:
+        name: cloudnative-pg-secret
+        key: MINIO_ROOT_PASSWORD
+    data:
+      compression: gzip
+    wal:
+      compression: zstd
+      maxParallel: 8
+  instanceSidecarConfiguration:
+    env:
+      - name: AWS_REQUEST_CHECKSUM_CALCULATION
+        value: when_required
+      - name: AWS_RESPONSE_CHECKSUM_VALIDATION
+        value: when_required
+    resources:
+      requests:
+        cpu: 50m
+        memory: 250Mi
+      limits:
+        cpu: 80m
+        memory: 800Mi

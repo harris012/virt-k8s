@@ -1,0 +1,50 @@
+---
+#yaml-language-server: $schema=https://k8s-schemas.nerdz.cloud/cert-manager.io/v1beta1/issuer.json
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned-issuer
+  namespace: databases
+spec:
+  selfSigned: {}
+---
+# yaml-language-server: $schema=https://k8s-schemas.nerdz.cloud/cert-manager.io/v1beta1/certificate.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: barman-cloud-client
+  namespace: databases
+spec:
+  commonName: "barman-cloud-client"
+  duration: 2160h
+  isCA: false
+  issuerRef:
+    group: cert-manager.io
+    kind: Issuer
+    name: selfsigned-issuer
+  renewBefore: 360h
+  secretName: barman-cloud-client-tls
+  usages:
+    - client auth
+---
+# yaml-language-server: $schema=https://k8s-schemas.nerdz.cloud/cert-manager.io/v1beta1/certificate.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: barman-cloud-server
+  namespace: databases
+spec:
+  commonName: barman-cloud
+  dnsNames:
+    - barman-cloud
+
+  duration: 2160h
+  isCA: false
+  issuerRef:
+    group: cert-manager.io
+    kind: Issuer
+    name: selfsigned-issuer
+  renewBefore: 360h
+  secretName: barman-cloud-server-tls
+  usages:
+    - server auth

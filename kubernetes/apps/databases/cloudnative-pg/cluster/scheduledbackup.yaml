@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/postgresql.cnpg.io/scheduledbackup_v1.json
+
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: daily-immich-backup
+  namespace: databases
+spec:
+  schedule: "0 2 0 * * *"
+  immediate: true
+  backupOwnerReference: self
+  target: primary
+  method: plugin
+  cluster:
+    name: postgres18-immich
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+    parameters:
+      immediateCheckpoint: "true"
+      waitForArchive: "true"
+      compression: "zstd"
+
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/postgresql.cnpg.io/scheduledbackup_v1.json
+
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: daily-nextcloud-db-backup
+  namespace: databases
+spec:
+  schedule: "0 3 0 * * *"
+  immediate: true
+  backupOwnerReference: self
+  target: primary
+  method: plugin
+  cluster:
+    name: nextcloud-cluster
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+    parameters:
+      immediateCheckpoint: "true"
+      waitForArchive: "true"
+      compression: "zstd"

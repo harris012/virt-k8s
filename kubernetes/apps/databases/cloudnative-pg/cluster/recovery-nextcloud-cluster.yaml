@@ -1,0 +1,50 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.ergho.org/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: nextcloud-cluster
+  namespace: databases
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.1-minimal-trixie@sha256:238b88d7fc09dfa74c972730799ac5dc0e8dc64eb8d7636ed1475dca1158ab1e
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+
+  storage:
+    size: 25Gi
+    storageClass: openebs-hostpath
+
+  resources:
+    requests:
+      cpu: 40m
+      memory: 1024Mi
+    limits:
+      cpu: 80m
+      memory: 2G
+  superuserSecret:
+    name: cloudnative-pg-secret
+  enableSuperuserAccess: true
+
+  postgresql:
+    parameters:
+      max_connections: "500"
+      shared_buffers: 512MB
+
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: true
+
+  bootstrap:
+    recovery:
+      source: origin
+
+  externalClusters:
+    - name: origin
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: minio-store-recovery
+          serverName: nextcloud-cluster

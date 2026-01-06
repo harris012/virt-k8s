@@ -1,0 +1,20 @@
+---
+customization:
+  extraKernelArgs:
+      - -init_on_alloc                      # Less security, faster puter
+      - -init_on_free                       # Less security, faster puter
+      - -selinux                            # Less security, faster puter
+      - apparmor=0                          # Less security, faster puter
+      - i915.enable_guc=3                   # Meteor Lake CPU / iGPU
+      - init_on_alloc=0                     # Less security, faster puter
+      - init_on_free=0                      # Less security, faster puter
+      - intel_iommu=on                      # PCI Passthrough
+      - iommu=pt                            # PCI Passthrough
+      - mitigations=off                     # Less security, faster puter
+      - security=none                       # Less security, faster puter
+      - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU / iGPU
+      - talos.auditd.disabled=1             # Less security, faster puter
+
+
+
+-init_on_alloc -init_on_free -selinux apparmor=0 i915.enable_guc=3 init_on_alloc=0 init_on_free=0 intel_iommu=on iommu=pt mitigations=off security=none sysctl.kernel.kexec_load_disabled=1 talos.auditd.disabled=1

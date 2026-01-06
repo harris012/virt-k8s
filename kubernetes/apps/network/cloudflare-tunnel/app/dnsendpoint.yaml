@@ -1,0 +1,10 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: cloudflare-tunnel
+spec:
+  endpoints:
+    - dnsName: "external.${SECRET_DOMAIN}"
+      recordType: CNAME
+      targets: ["48a79a80-a542-4ef5-ada4-1a85adfa8d03.cfargotunnel.com"]

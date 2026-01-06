@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cloudnative-pg
+spec:
+  dependsOn:
+    - name: openebs
+      namespace: openebs-system
+  interval: 1h
+  path: ./kubernetes/apps/databases/cloudnative-pg/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: databases
+  wait: true
+
+
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: barman-cloud
+spec:
+  targetNamespace: databases
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: barman-cloud
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: databases
+    - name: minio
+      namespace: databases
+    - name: cert-manager
+      namespace: cert-manager
+  path: ./kubernetes/apps/databases/cloudnative-pg/barman-cloud
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cloudnative-pg-cluster
+spec:
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: databases
+    - name: barman-cloud
+      namespace: databases
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  interval: 1h
+  path: ./kubernetes/apps/databases/cloudnative-pg/cluster
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: databases
+
+

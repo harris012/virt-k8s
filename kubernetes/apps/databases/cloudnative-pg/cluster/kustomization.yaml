@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./immich-cluster.yaml
+  - ./nextcloud-cluster.yaml
+  - ./objectstore.yaml
+  - ./pooler.yaml
+  - ./scheduledbackup.yaml
+  - ./service.yaml
+  - ./podmonitor.yaml
+  #- ./recovery-immich-cluster.yaml
+  #- ./recovery-objectstore.yaml
+  #- ./recovery-nextcloud-cluster.yaml
+
