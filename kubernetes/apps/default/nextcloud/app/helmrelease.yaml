@@ -271,9 +271,7 @@ spec:
       # Data directory using NFS
       nextcloudData:
         enabled: true
-        type: nfs
-        server: expanse.internal
-        path: /mnt/storage/k8s/nextcloud
+        existingClaim: nextcloud-pvc
 
     cronjob:
       enabled: true
