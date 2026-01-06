@@ -39,8 +39,7 @@ spec:
   parentRefs:
     - name: envoy-tailscale
       namespace: network
-  hostnames:
-    - "cloud.${SECRET_DOMAIN}"
+  hostnames: ["cloud.harissaeed.com"]
   rules:
     # Route /push/ to notify_push service (must be before catch-all route)
     - matches:
