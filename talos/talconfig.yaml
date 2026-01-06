@@ -23,7 +23,7 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/95d432d6bb450a67e801a6ae77c96a67e38820b62ba4159ae7e997e1695207f7
+    talosImageURL: factory.talos.dev/installer/1ccbcd95254bc3b777e222c4b7d1627cc8fc7d68c18e03046c40433adeca7a69
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -38,13 +38,13 @@ nodes:
         vip:
           ip: "192.168.0.163"
     patches:
-      - "@./patches/alpha/machine-extra-kernel-args.yaml"
+      - "@./patches/alpha/machine-lables.yaml"
   - hostname: "bravo"
     ipAddress: "192.168.0.69"
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/e3fab82b561b5e559cdf1c0b1e5950c0e52700b9208a2cfaa5b18454796f3a7e
+    talosImageURL: factory.talos.dev/installer/bb039741d8c3dfbf8a7e9fc08475ab646f7a15b4e09f63af62d939d5b823c5ce
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -63,7 +63,7 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/e3fab82b561b5e559cdf1c0b1e5950c0e52700b9208a2cfaa5b18454796f3a7e
+    talosImageURL: factory.talos.dev/installer/bb039741d8c3dfbf8a7e9fc08475ab646f7a15b4e09f63af62d939d5b823c5ce
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -80,7 +80,6 @@ nodes:
 
 # Global patches
 patches:
-  - "@./patches/global/machine-features.yaml"
   - "@./patches/global/machine-files.yaml"
   - "@./patches/global/machine-kubelet.yaml"
   - "@./patches/global/machine-network.yaml"
