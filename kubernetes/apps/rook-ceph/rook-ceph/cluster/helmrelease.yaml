@@ -74,13 +74,13 @@ spec:
         nodes:
           - name: alpha
             devices:
-              - name: sdb
+              - name: "sdb"
           - name: bravo
             devices:
-              - name: sdb
+              - name: "sdb"
           - name: charlie
             devices:
-              - name: sdb
+              - name: "sdb"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
