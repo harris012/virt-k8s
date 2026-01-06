@@ -74,13 +74,13 @@ spec:
         nodes:
           - name: alpha
             devices:
-              - name: "sdb"
+              - name: /dev/disk/by-id/ata-QEMU_HARDDISK_QM00005
           - name: bravo
             devices:
-              - name: "sdb"
+              - name: /dev/disk/by-id/ata-QEMU_HARDDISK_QM00005
           - name: charlie
             devices:
-              - name: "sdb"
+              - name: /dev/disk/by-id/ata-QEMU_HARDDISK_QM00005
     cephBlockPools:
       - name: ceph-blockpool
         spec:
