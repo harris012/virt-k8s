@@ -42,7 +42,7 @@ spec:
           fastcgi_read_timeout 3600s;
       resources:
         requests:
-          cpu: 10m
+          cpu: 20m
           memory: 24Mi
         limits:
           cpu: 200m
