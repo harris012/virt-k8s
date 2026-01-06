@@ -12,7 +12,7 @@ resources:
   #- ./atuin/ks.yaml
   #- ./bazarr/ks.yaml
   #- ./opencloud/ks.yaml
-  - ./n8n/ks.yaml
+  #- ./n8n/ks.yaml
   - ./immich/ks.yaml
   #- ./nextcloud/ks.yaml
-  - ./vaultwarden/ks.yaml
+  #- ./vaultwarden/ks.yaml
