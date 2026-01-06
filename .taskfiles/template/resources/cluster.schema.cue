@@ -39,6 +39,10 @@ import (
 	SMTP_FROM: string
 	SMTP_USERNAME: string
 	SMTP_PASSWORD: string
+	INIT_POSTGRES_DBNAME_NXTCLOUD: string
+	INIT_POSTGRES_HOST_NEXTCLOUD: string
+	NEXTCLOUD_USERNAME: string
+	NEXTCLOUD_PASSWORD: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN

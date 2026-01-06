@@ -3,20 +3,18 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres18-immich
+  name: nextcloud-cluster
   namespace: databases
   annotations:
-    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 3
-  # Immich v2.3.1 requires VectorChord >=0.3 <0.6
-  # renovate: datasource=docker depName=ghcr.io/tensorchord/cloudnative-vectorchord versioning=loose enabled=false
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.0-0.5.3@sha256:267f6cbb32af6e109e138a143c7e9dd5d44d68433ec2303f0c30e745c788d1a9
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.1-minimal-trixie@sha256:238b88d7fc09dfa74c972730799ac5dc0e8dc64eb8d7636ed1475dca1158ab1e
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
 
   storage:
-    size: 5Gi
+    size: 25Gi
     storageClass: openebs-hostpath
 
   resources:
@@ -31,7 +29,6 @@ spec:
   enableSuperuserAccess: true
 
   postgresql:
-    shared_preload_libraries: ["vchord.so"]
     parameters:
       max_connections: "500"
       shared_buffers: 512MB
@@ -50,4 +47,4 @@ spec:
         name: barman-cloud.cloudnative-pg.io
         parameters:
           barmanObjectName: minio-store-recovery
-          serverName: postgres18-immich
+          serverName: nextcloud-cluster
