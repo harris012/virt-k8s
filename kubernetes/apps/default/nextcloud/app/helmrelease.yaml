@@ -86,7 +86,7 @@ spec:
 
       mail:
         enabled: true
-        fromAddress: ${FROM_ADDRESS}
+        fromAddress: ${SMTP_FROM}
         domain: gmail.com
         smtp:
           host: ${SMTP_HOST}
@@ -261,18 +261,18 @@ spec:
         ttlSecondsAfterFinished: 3600
         failedJobsHistoryLimit: 1
         successfulJobsHistoryLimit: 2
-        affinity:
-          podAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchLabels:
-                    app.kubernetes.io/name: nextcloud
-                    app.kubernetes.io/instance: nextcloud
-                    app.kubernetes.io/component: app
-                topologyKey: kubernetes.io/hostname
+        # affinity:
+        #   podAffinity:
+        #     requiredDuringSchedulingIgnoredDuringExecution:
+        #       - labelSelector:
+        #           matchLabels:
+        #             app.kubernetes.io/name: nextcloud
+        #             app.kubernetes.io/instance: nextcloud
+        #             app.kubernetes.io/component: app
+        #         topologyKey: kubernetes.io/hostname
         env:
           - name: MAIL_FROM_ADDRESS
-            value: ${FROM_ADDRESS}
+            value: ${SMTP_FROM}
         command:
           - /bin/sh
           - /scripts/cron.sh
