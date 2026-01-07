@@ -42,9 +42,6 @@ spec:
       parameters:
         barmanObjectName: minio-store
 
-
-
-
   bootstrap:
     recovery:
       source: origin-1 # increment each time you restore from backup
