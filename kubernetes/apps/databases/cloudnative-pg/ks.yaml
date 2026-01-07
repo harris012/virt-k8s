@@ -59,8 +59,8 @@ spec:
       namespace: databases
     - name: barman-cloud
       namespace: databases
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: openebs
+      namespace: openebs-system
   interval: 1h
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
   prune: true
