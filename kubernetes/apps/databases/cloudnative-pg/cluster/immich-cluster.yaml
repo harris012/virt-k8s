@@ -42,22 +42,6 @@ spec:
       parameters:
         barmanObjectName: minio-store
 
-  bootstrap:
-    recovery:
-      source: origin-1 # increment each time you restore from backup
-
-  externalClusters:
-    - name: origin-1
-      plugin:
-        name: barman-cloud.cloudnative-pg.io
-        isWALArchiver: false
-        parameters:
-          barmanObjectName: minio-store
-          serverName: postgres18-immich
-
-
-
-
   # bootstrap:
   #   initdb:
   #     database: immich
