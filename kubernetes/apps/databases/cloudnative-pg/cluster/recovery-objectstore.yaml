@@ -27,8 +27,8 @@ spec:
         value: when_required
     resources:
       requests:
-        cpu: 50m
+        cpu: 70m
         memory: 250Mi
       limits:
-        cpu: 80m
-        memory: 800Mi
+        cpu: 100m
+        memory: 900Mi

@@ -18,7 +18,6 @@ spec:
       compression: gzip
     wal:
       compression: zstd
-      maxParallel: 4
   retentionPolicy: "30d"
   instanceSidecarConfiguration:
     env:

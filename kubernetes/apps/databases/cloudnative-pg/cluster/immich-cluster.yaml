@@ -29,10 +29,6 @@ spec:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
 
-  nodeMaintenanceWindow:
-    inProgress: false
-    reusePVC: true
-
   postgresql:
     shared_preload_libraries: ["vchord.so"]
     parameters:
@@ -41,26 +37,10 @@ spec:
 
   # barman-cloud Plugin for backups (to minio)
   plugins:
-    - name: &plugin barman-cloud.cloudnative-pg.io
+    - name: barman-cloud.cloudnative-pg.io
       isWALArchiver: true
-      parameters: &barmanParameters
+      parameters:
         barmanObjectName: minio-store
-        # Note: serverName version needs to be incremented
-        # when recovering from an existing cnpg cluster
-        serverName: postgres18
-  # Note: previousCluster needs to be set to the name of the previous
-  # cluster when recovering from an existing cnpg cluster
-  bootstrap:
-    recovery:
-      source: &previousCluster postgres18
- # Note: externalClusters is needed when recovering from an existing cnpg cluster
-  externalClusters:
-    - name: *previousCluster
-      plugin:
-        name: *plugin
-        isWALArchiver: false
-        parameters: *barmanParameters
-
 
   # bootstrap:
   #   initdb:
