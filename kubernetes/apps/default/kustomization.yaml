@@ -13,6 +13,6 @@ resources:
   #- ./bazarr/ks.yaml
   #- ./opencloud/ks.yaml
   - ./n8n/ks.yaml
-  #- ./immich/ks.yaml
+  - ./immich/ks.yaml
   #- ./nextcloud/ks.yaml
   - ./vaultwarden/ks.yaml
