@@ -150,6 +150,8 @@ spec:
         controller: immich
         annotations:
           io.cilium/lb-ipam-ips: "192.168.0.20"
+        externalTrafficPolicy: Cluster
+        type: LoadBalancer
         ports:
           http:
             port: &port 2283
