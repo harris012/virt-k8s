@@ -14,9 +14,9 @@ spec:
       immich:
         strategy: RollingUpdate
         pod:
-          # resourceClaims:
-          #   - name: gpu
-          #     resourceClaimTemplateName: immich-gpu
+          resourceClaims:
+            - name: gpu
+              resourceClaimTemplateName: immich-gpu
           annotations:
             reloader.stakater.com/auto: "true"
           # nodeSelector: prefer not to share node without GPU
@@ -29,9 +29,9 @@ spec:
           #             operator: In
           #             values:
           #             - "true"
-          # nodeSelector:
-          #   kubernetes.io/hostname: "alpha"
-          #   node.kubernetes.io/gpu: "true"
+          nodeSelector:
+            kubernetes.io/hostname: "alpha"
+            node.kubernetes.io/gpu: "true"
         initContainers:
           init-db:
             image:
@@ -69,13 +69,13 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
-              # claims:
-              #   - name: gpu
+              claims:
+                - name: gpu
               requests:
                 cpu: 80m
                 memory: 512Mi
               limits:
-                # cpu: 900m
+                cpu: 200m
                 memory: 4Gi
       machine-learning:
         strategy: RollingUpdate
@@ -147,10 +147,6 @@ spec:
     service:
       immich:
         controller: immich
-        annotations:
-          io.cilium/lb-ipam-ips: "192.168.0.20"
-        externalTrafficPolicy: Cluster
-        type: LoadBalancer
         ports:
           http:
             port: &port 2283
