@@ -73,7 +73,7 @@ spec:
               claims:
                 - name: gpu
               requests:
-                cpu: 80m
+                cpu: 2
                 memory: 512Mi
               limits:
                 # cpu: 900m
