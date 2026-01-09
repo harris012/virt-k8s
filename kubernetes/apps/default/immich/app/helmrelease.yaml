@@ -13,6 +13,7 @@ spec:
     controllers:
       immich:
         strategy: RollingUpdate
+        replicas: 3
         pod:
           resourceClaims:
             - name: gpu
@@ -77,7 +78,6 @@ spec:
               limits:
                 # cpu: 900m
                 memory: 4Gi
-            replicas: 3
       machine-learning:
         strategy: RollingUpdate
         pod:
