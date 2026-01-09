@@ -75,8 +75,9 @@ spec:
                 cpu: 80m
                 memory: 512Mi
               limits:
-                cpu: 900m
+                # cpu: 900m
                 memory: 4Gi
+            replicas: 3
       machine-learning:
         strategy: RollingUpdate
         pod:
