@@ -99,8 +99,8 @@ spec:
 
       # Security context - allow root for entrypoint, then drops to www-data
       securityContext:
-        runAsUser: 33
-        runAsGroup: 33
+        runAsUser: 0
+        runAsGroup: 0
         fsGroup: 33
         runAsNonRoot: true
 
@@ -326,12 +326,12 @@ spec:
             readOnly: true
 
     startupProbe:
-      enabled: true
-      initialDelaySeconds: 10
-      periodSeconds: 5
-      timeoutSeconds: 5
-      failureThreshold: 10
-      successThreshold: 1
+      enabled: false
+      # initialDelaySeconds: 10
+      # periodSeconds: 5
+      # timeoutSeconds: 5
+      # failureThreshold: 10
+      # successThreshold: 1
 
     resources:
       requests:
