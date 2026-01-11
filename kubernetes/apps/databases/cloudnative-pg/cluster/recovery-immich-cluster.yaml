@@ -5,8 +5,8 @@ kind: Cluster
 metadata:
   name: postgres18-immich
   namespace: databases
-  annotations:
-    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+  # annotations:
+  #   cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
   # Immich v2.3.1 requires VectorChord >=0.3 <0.6
