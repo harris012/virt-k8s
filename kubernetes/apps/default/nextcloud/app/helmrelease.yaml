@@ -99,21 +99,9 @@ spec:
 
       # Security context - allow root for entrypoint, then drops to www-data
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-
-      lifecycle:
-        postStartCommand:
-          - "/bin/sh"
-          - "-c"
-          - |
-            su -s /bin/sh www-data -c 'php occ maintenance:repair --include-expensive' || true
-            su -s /bin/sh www-data -c 'php occ files:scan --all' || true
-            su -s /bin/sh www-data -c 'php occ files:cleanup' || true
-            su -s /bin/sh www-data -c 'php occ db:add-missing-indices' || true
-            su -s /bin/sh www-data -c 'php occ db:add-missing-primary-keys' || true
-            su -s /bin/sh www-data -c 'php occ db:add-missing-columns' || true
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 33
 
       extraVolumes:
         - name: scripts
@@ -152,24 +140,24 @@ spec:
           opcache.max_accelerated_files = 20000
           opcache.revalidate_freq = 60
 
-      # hooks:
-      #   post-installation: |-
-      #     printf "Add missing DB indices\n"
-      #     php occ db:add-missing-indices
-      #   before-starting: |-
-      #     # disable unneceserry apps
-      #     for appname in activity circles systemtags federation privacy \
-      #         nextcloud_announcements announcementcenter support survey_client \
-      #         user_status weather_status dashboard
-      #       do
-      #       php occ app:disable "$appname"
-      #     done
-      #   post-upgrade: |-
-      #     # based on https://github.com/nextcloud/all-in-one/blob/25c580bca370eaead5f1fad9d3842a9c49562dff/Containers/nextcloud/entrypoint.sh#L451-L457
-      #     php occ maintenance:repair --include-expensive
-      #     php occ db:add-missing-indices
-      #     php occ db:add-missing-columns
-      #     php occ db:add-missing-primary-keys
+      hooks:
+        post-installation: |-
+          printf "Add missing DB indices\n"
+          php occ db:add-missing-indices
+        before-starting: |-
+          # disable unneceserry apps
+          for appname in activity circles systemtags federation privacy \
+              nextcloud_announcements announcementcenter support survey_client \
+              user_status weather_status dashboard
+            do
+            php occ app:disable "$appname"
+          done
+        post-upgrade: |-
+          # based on https://github.com/nextcloud/all-in-one/blob/25c580bca370eaead5f1fad9d3842a9c49562dff/Containers/nextcloud/entrypoint.sh#L451-L457
+          php occ maintenance:repair --include-expensive
+          php occ db:add-missing-indices
+          php occ db:add-missing-columns
+          php occ db:add-missing-primary-keys
 
       configs:
         logging.config.php: |-
@@ -325,12 +313,12 @@ spec:
             readOnly: true
 
     startupProbe:
-      enabled: false
-      # initialDelaySeconds: 10
-      # periodSeconds: 5
-      # timeoutSeconds: 5
-      # failureThreshold: 10
-      # successThreshold: 1
+      enabled: true
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      timeoutSeconds: 5
+      failureThreshold: 10
+      successThreshold: 1
 
     resources:
       requests:
