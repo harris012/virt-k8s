@@ -1,6 +1,12 @@
-# ⛵ Cluster Template
 
-Welcome to my template designed for deploying a single Kubernetes cluster. Whether you're setting up a cluster at home on bare-metal or virtual machines (VMs), this project aims to simplify the process and make Kubernetes more accessible. This templatepro  providing a practical starting point for anyone interested in managing their own Kubernetes environment.
+# Acknowledgements
+
+Special thanks to [Devin Buhl](https://github.com/onedr0p) for providing the initial template for my amazing home lab Kubernetes cluster.
+
+
+# ⛵ Virtualised Kubernetes cluster
+
+Welcome to my template designed for deploying a single Kubernetes cluster. Whether you're setting up a cluster at home on bare-metal or virtual machines (VMs), this project aims to simplify the process and make Kubernetes more accessible. This template provides a practical starting point for anyone interested in managing their own Kubernetes environment.
 
 At its core, this project leverages [makejinja](https://github.com/mirkolenz/makejinja), a powerful tool for rendering templates. By reading configuration files—such as [cluster.yaml](./cluster.sample.yaml) and [nodes.yaml](./nodes.sample.yaml)—Makejinja generates the necessary configurations to deploy a Kubernetes cluster with the following features:
 
@@ -34,11 +40,11 @@ There are **5 stages** outlined below for completing this project, make sure you
 
 > [!IMPORTANT]
 > If you have **3 or more nodes** it is recommended to make 3 of them controller nodes for a highly available control plane. This project configures **all nodes** to be able to run workloads. **Worker nodes** are therefore **optional**.
->
-> **Minimum system requirements**
-> | Role    | Cores    | Memory        | System Disk               |
-> |---------|----------|---------------|---------------------------|
-> | Control/Worker | 4 | 16GB | 256GB SSD/NVMe |
+
+
+| Device                                                                                 | Role      | Cores    | Memory  | System Disk  |
+|----------------------------------------------------------------------------------------|-----------|----------|---------|--------------|
+| Minisforum ms-01 Running Proxmox 3 talos VMs                                           | 3x Control| 20       | 128GB   | 1TB NVMe     |
 
 1. Head over to the [Talos Linux Image Factory](https://factory.talos.dev) and follow the instructions. Be sure to only choose the **bare-minimum system extensions** as some might require additional configuration and prevent Talos from booting without it. Depending on your CPU start with the Intel/AMD system extensions (`i915`, `intel-ucode` & `mei` **or** `amdgpu` & `amd-ucode`), you can always add system extensions after Talos is installed and working.
 
@@ -57,7 +63,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 > [!TIP]
 > It is recommended to set the visibility of your repository to `Public` so you can easily request help if you get stuck.
 
-1. Create a new repository by clicking the green `Use this template` button at the top of this page, then clone the new repo you just created and `cd` into it. Alternatively you can us the [GitHub CLI](https://cli.github.com/) ...
+1. Create a new repository by clicking the green `Use this template` button at the top of this page, then clone the new repo you just created and `cd` into it. Alternatively you can use the [GitHub CLI](https://cli.github.com/) ...
 
     ```sh
     export REPONAME="home-ops"
