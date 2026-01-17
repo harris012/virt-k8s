@@ -212,7 +212,7 @@ spec:
         globalMounts:
           - path: *mediaLocation
       cache:
-        existingClaim: "{{ .Release.Name }}-ml-cache"
+        existingClaim: "{{ .Release.Name }}-cache"
         advancedMounts:
           machine-learning:
             main:
