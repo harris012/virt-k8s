@@ -16,7 +16,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nextcloud-pvc
+  name: nextcloud-data
 spec:
   storageClassName: nextcloud-data
   accessModes: ["ReadWriteMany"]
