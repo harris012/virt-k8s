@@ -19,16 +19,6 @@ spec:
               resourceClaimTemplateName: immich-gpu
           annotations:
             reloader.stakater.com/auto: "true"
-          # nodeSelector: prefer not to share node without GPU
-          # affinity:
-          #   nodeAffinity:
-          #     requiredDuringSchedulingIgnoredDuringExecution:
-          #       nodeSelectorTerms:
-          #         - matchExpressions:
-          #           - key: node.kubernetes.io/gpu
-          #             operator: In
-          #             values:
-          #             - "true"
           nodeSelector:
             kubernetes.io/hostname: "alpha"
             node.kubernetes.io/gpu: "true"
@@ -72,10 +62,9 @@ spec:
               claims:
                 - name: gpu
               requests:
-                cpu: 80m
-                memory: 512Mi
+                cpu: 20m
+                memory: 212Mi
               limits:
-                cpu: 200m
                 memory: 4Gi
       machine-learning:
         strategy: RollingUpdate
@@ -113,10 +102,9 @@ spec:
               claims:
                 - name: gpu
               requests:
-                cpu: 40m
-                memory: 512Mi
+                cpu: 20m
+                memory: 212Mi
               limits:
-                cpu: 200m
                 memory: 4Gi
             probes:
               liveness: &probes
