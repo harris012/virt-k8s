@@ -72,10 +72,10 @@ spec:
           authtype: LOGIN
           secure: starttls
 
-      # Security context - allow root for entrypoint, then drops to www-data
+      # Security context for nextcloud container
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsUser: 33
+        runAsGroup: 33
         runAsNonRoot: true
 
       extraVolumes:
@@ -186,6 +186,7 @@ spec:
     # Cronjob for background tasks
     cronjob:
       enabled: true
+      type: cronjob
       resources:
         requests:
           cpu: 10m
