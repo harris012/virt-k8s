@@ -12,36 +12,59 @@ spec:
     name: nextcloud
 
   values:
-    podAnnotations:
-      reloader.stakater.com/search: "true"
-
+    # affinity:
+    #   nodeAffinity:
+    #     preferredDuringSchedulingIgnoredDuringExecution:
+    #       - weight: 100
+    #         preference:
+    #           matchExpressions:
+    #             - key: kubernetes.io/hostname
+    #               operator: In
+    #               values:
+    #                 - control-1
     image:
       flavor: fpm-alpine
+      repository: nextcloud
+      tag: 32.0.5-fpm-alpine
+      pullPolicy: IfNotPresent
+
+    lifecycle:
+      postStartCommand:
+        - "/bin/bash"
+        - "/scripts/post-start.sh"
 
     nginx:
       enabled: true
-      resources:
-        requests:
-          cpu: 10m
-          memory: 64Mi
-        limits:
-          memory: 128Mi
+      config:
+        headers:
+          "Strict-Transport-Security": "max-age=15552000; includeSubDomains"
+        serverBlockCustom: |
+          client_max_body_size 10G;
+          client_body_timeout 300s;
+          fastcgi_buffers 64 4K;
+          fastcgi_read_timeout 3600s;
+      # resources:
+      #   requests:
+      #     cpu: 10m
+      #     memory: 24Mi
+      #   limits:
+      #     cpu: 200m
+      #     memory: 128Mi
 
     phpClientHttpsFix:
       enabled: true
       protocol: https
 
     nextcloud:
-      host: cloud.harissaeed.com
       datadir: /var/www/data
-      # strategy:
-      #   type: Recreate
-      # extraInitContainers:
-      #   - name: init-db
-      #     image: ghcr.io/home-operations/postgres-init:18.1.0@sha256:866f15038ed5185a2b8118821f470bb7ca0df8c4231b8e277446e681ebb1ed84
-      #     envFrom:
-      #       - secretRef:
-      #           name: nextcloud-secret
+      strategy:
+        type: Recreate
+      extraInitContainers:
+        - name: init-db
+          image: ghcr.io/home-operations/postgres-init:18.1.0@sha256:3c54d39f19fdb82ed5b3f286450e4071133cc6025bd0e25856bc2c522f8fc030
+          envFrom:
+            - secretRef:
+                name: nextcloud-secret
 
       extraEnv:
         - name: REDIS_HOST
@@ -49,8 +72,8 @@ spec:
         - name: REDIS_HOST_PORT
           value: "6379"
         # Ensure system binaries are in PATH for proc_open (helps with Memories app)
-        # - name: PATH
-        #   value: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        - name: PATH
+          value: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
       existingSecret:
         enabled: true
@@ -61,6 +84,8 @@ spec:
         smtpPasswordKey: SMTP_PASSWORD
         smtpHostKey: SMTP_HOST
 
+      host: cloud.${SECRET_DOMAIN}
+      containerPort: 80
 
       mail:
         enabled: true
@@ -72,11 +97,11 @@ spec:
           authtype: LOGIN
           secure: starttls
 
-      # Security context for nextcloud container
+      # Security context - allow root for entrypoint, then drops to www-data
       securityContext:
-        runAsUser: 33
-        runAsGroup: 33
-        runAsNonRoot: true
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 33
 
       extraVolumes:
         - name: scripts
@@ -89,70 +114,137 @@ spec:
           mountPath: /scripts
           readOnly: true
 
-      # PHP configuration files
+      phpConfigs:
+        www.conf: |
+          [www]
+          user = www-data
+          group = www-data
+          listen = 127.0.0.1:9000
+          pm = dynamic
+          pm.max_children = 4
+          pm.start_servers = 4
+          pm.min_spare_servers = 2
+          pm.max_spare_servers = 4
+          pm.max_requests = 800
+          request_terminate_timeout = 600
+        php.ini: |
+          max_execution_time = 600
+          default_socket_timeout = 300
+          curl.cainfo = /etc/ssl/certs/ca-certificates.crt
+          extension=imagick
+          extension=exif
+          extension=intl
+          extension=gd
+          memory_limit = 8G
+          opcache.memory_consumption = 512
+          opcache.max_accelerated_files = 20000
+          opcache.revalidate_freq = 60
+
+      hooks:
+        post-installation: |-
+          printf "Add missing DB indices\n"
+          php occ db:add-missing-indices
+        before-starting: |-
+          # disable unneceserry apps
+          for appname in activity circles systemtags federation privacy \
+              nextcloud_announcements announcementcenter support survey_client \
+              user_status weather_status dashboard
+            do
+            php occ app:disable "$appname"
+          done
+        post-upgrade: |-
+          # based on https://github.com/nextcloud/all-in-one/blob/25c580bca370eaead5f1fad9d3842a9c49562dff/Containers/nextcloud/entrypoint.sh#L451-L457
+          php occ maintenance:repair --include-expensive
+          php occ db:add-missing-indices
+          php occ db:add-missing-columns
+          php occ db:add-missing-primary-keys
+
       configs:
-        # Proxy and trusted domains
+        logging.config.php: |-
+          <?php
+          $CONFIG = array (
+            'log_type' => 'file',
+            'logfile' => 'nextcloud.log',
+            'loglevel' => 1,
+            'logdateformat' => 'F d, Y H:i:s'
+            );
         proxy.config.php: |-
           <?php
           $CONFIG = array (
-            'trusted_domains' =>
-              [
-                'nextcloud',
-                'cloud.harissaeed.com',
-                'collabora.harissaeed.com',
-                'talk.harissaeed.com'
-              ],
             'trusted_proxies' => array(
               0 => '127.0.0.1',
-              1 => '10.69.0.0/16',
-              2 => '10.96.0.0/16',
+              1 => '10.0.0.0/8',
+              2 => '172.16.0.0/12',
+              3 => '192.168.0.0/16',
+            ),
+            'trusted_domains' => array(
+              0 => 'cloud.${SECRET_DOMAIN}',
+              1 => 'localhost',
+              2 => '127.0.0.1',
             ),
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
           );
-
-
-        # General settings
+        ingress.config.php: |-
+          <?php
+          $CONFIG = array (
+            'overwrite.cli.url' => 'https://cloud.${SECRET_DOMAIN}',
+            'overwriteprotocol' => 'https',
+          );
         misc.config.php: |-
           <?php
           $CONFIG = array (
-            'default_phone_region' => 'PL',
+            'default_phone_region' => 'DE',
             'maintenance_window_start' => 2,
+            'debug' => false,
+            'loglevel' => 1,
             'allow_local_remote_servers' => true,
-            'overwriteprotocol' => 'https',
-            'overwrite.cli.url' => 'https://cloud.harissaeed.com',
-            'filelocking.enabled' => 'true',
-            'loglevel' => '2',
+          );
+        caching.config.php: |-
+          <?php
+          $CONFIG = array (
+            'memcache.local' => '\\OC\\Memcache\\APCu',
+            'memcache.distributed' => '\\OC\\Memcache\\Redis',
+            'memcache.locking' => '\\OC\\Memcache\\Redis',
+            'filelocking.enabled' => true,
+            'redis' => array(
+              'host' => 'dragonfly.databases.svc.cluster.local',
+              'port' => 6379,
+              'timeout' => 0.0,
+              'password' => '',
+            ),
+          );
+        performance.config.php: |-
+          <?php
+          $CONFIG = array (
             'enable_previews' => true,
-            'bulkupload.enabled' => true,
-          );
-
-        # Collabora Online (Richdocuments)
-        collabora.config.php: |-
-          <?php
-          $CONFIG = array (
-            'richdocuments' => array(
-              'wopi_url' => 'https://collabora.harissaeed.com',
+            'enabledPreviewProviders' => array(
+              'OC\Preview\PNG',
+              'OC\Preview\JPEG',
+              'OC\Preview\GIF',
+              'OC\Preview\BMP',
+              'OC\Preview\XBitmap',
+              'OC\Preview\MP3',
+              'OC\Preview\TXT',
+              'OC\Preview\MarkDown',
+              'OC\Preview\OpenDocument',
+              'OC\Preview\Krita',
+              'OC\Preview\HEIC',
+              'OC\Preview\PDF',
+              'OC\Preview\TIFF',
+              'OC\Preview\SVG',
+              'OC\Preview\MP4',
+              'OC\Preview\Movie',
             ),
+            'preview_max_x' => 2048,
+            'preview_max_y' => 2048,
+            'preview_max_scale_factor' => 1,
+            'preview_concurrency_new' => 4,
+            'preview_concurrency_all' => 4,
+            'jpeg_quality' => 60,
           );
 
-        # Notify Push - high performance notifications
-        notify_push.config.php: |-
-          <?php
-          $CONFIG = array (
-            'notify_push' => array(
-              'base_endpoint' => 'https://cloud.harissaeed.com/push',
-            ),
-          );
-
-      # PHP settings
-      phpConfigs:
-        uploadLimit.ini: |
-          upload_max_filesize = 16G
-          post_max_size = 16G
-          max_input_time = 3600
-          max_execution_time = 3600
-          memory_limit = 512M
-
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
 
     internalDatabase:
       enabled: false
@@ -161,7 +253,7 @@ spec:
       enabled: true
       type: postgresql
       host: nextcloud-pooler.databases.svc.cluster.local:5432
-      database: nextcloud
+      database: *app
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
@@ -174,83 +266,63 @@ spec:
     persistence:
       # Config storage using volsync template PVC (local)
       enabled: true
-      existingClaim: nextcloud
+      existingClaim: *app
 
       # Data directory using NFS
       nextcloudData:
         enabled: true
-        existingClaim: nextcloud-data  # NFS (user files)
-        accessMode: ReadWriteMany
+        type: nfs
+        server: expanse.internal
+        path: /mnt/storage/k8s/nextcloud
 
-
-    # Cronjob for background tasks
     cronjob:
       enabled: true
       type: cronjob
-      resources:
-        requests:
-          cpu: 10m
-          memory: 64Mi
-        limits:
-          memory: 128Mi
+      cronjob:
+        schedule: "*/5 * * * *"
+        ttlSecondsAfterFinished: 3600
+        failedJobsHistoryLimit: 1
+        successfulJobsHistoryLimit: 2
+        # affinity:
+        #   podAffinity:
+        #     requiredDuringSchedulingIgnoredDuringExecution:
+        #       - labelSelector:
+        #           matchLabels:
+        #             app.kubernetes.io/name: nextcloud
+        #             app.kubernetes.io/instance: nextcloud
+        #             app.kubernetes.io/component: app
+        #         topologyKey: kubernetes.io/hostname
+        env:
+          - name: MAIL_FROM_ADDRESS
+            value: ${SMTP_FROM}
+        command:
+          - /bin/sh
+          - /scripts/cron.sh
+        securityContext:
+          runAsUser: 33
+          runAsGroup: 33
+          runAsNonRoot: true
+        extraVolumes:
+          - name: scripts
+            configMap:
+              name: nextcloud-scripts
+              defaultMode: 0755
+        extraVolumeMounts:
+          - name: scripts
+            mountPath: /scripts
+            readOnly: true
 
-
-    # Probes - Nextcloud initialization takes long time
     startupProbe:
       enabled: true
       initialDelaySeconds: 10
-      periodSeconds: 20
+      periodSeconds: 5
       timeoutSeconds: 5
-      failureThreshold: 60
-      successThreshold: 1
-
-    livenessProbe:
-      enabled: true
-      initialDelaySeconds: 10
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-      successThreshold: 1
-
-    readinessProbe:
-      enabled: true
-      initialDelaySeconds: 10
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
+      failureThreshold: 10
       successThreshold: 1
 
     resources:
       requests:
-        cpu: 50m
-        memory: 250Mi
+        cpu: 60m
+        memory: 500Mi
       limits:
         memory: 2Gi
-
-    # Extra manifests: Service for notify_push sidecar
-    # extraManifests:
-    #   - |
-    #     apiVersion: v1
-    #     kind: Service
-    #     metadata:
-    #       name: nextcloud-push
-    #       labels:
-    #         app.kubernetes.io/name: {{ include "nextcloud.name" . }}
-    #         app.kubernetes.io/instance: {{ .Release.Name }}
-    #     spec:
-    #       type: ClusterIP
-    #       ports:
-    #         - name: push
-    #           port: 7867
-    #           targetPort: 7867
-    #           protocol: TCP
-    #       selector:
-    #         app.kubernetes.io/name: {{ include "nextcloud.name" . }}
-    #         app.kubernetes.io/instance: {{ .Release.Name }}
-
-    # Disable unused components
-    redis:
-      enabled: false
-    postgresql:
-      enabled: false
-

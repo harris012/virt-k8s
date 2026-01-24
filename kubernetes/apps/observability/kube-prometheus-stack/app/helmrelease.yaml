@@ -31,7 +31,7 @@ spec:
               storageClassName: ceph-block
               resources:
                 requests:
-                  storage: 1Gi
+                  storage: 50Gi
     kubeEtcd:
       service:
         selector:
@@ -65,7 +65,7 @@ spec:
         ruleSelectorNilUsesHelmValues: false
         scrapeConfigSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
-        retention: 7d
+        retention: 14d
         retentionSize: 5GB
         resources:
           requests:
