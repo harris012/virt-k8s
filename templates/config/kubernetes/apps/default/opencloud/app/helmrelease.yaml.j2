@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: opencloud
+  name: &app opencloud
 spec:
   chartRef:
     kind: OCIRepository
@@ -14,7 +14,9 @@ spec:
       opencloud:
         pod:
           annotations:
-            reloader.stakater.com/auto: "true"
+          # reloader.stakater.com/auto: "true"
+            secret.reloader.stakater.com/reload: *app
+            configmap.reloader.stakater.com/reload: &configmap opencloud-config
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
@@ -75,6 +77,17 @@ spec:
             subPath: data
           - path: /etc/opencloud
             subPath: config
+
+      config:
+        enabled: true
+        type: configMap
+        name: *configmap
+        globalMounts:
+          - subPath: proxy.yaml
+            path: /etc/opencloud/proxy.yaml
+          - subPath: csp.yaml
+            path: /etc/opencloud/csp.yaml
+
       tmpfs:
         type: emptyDir
         globalMounts:
