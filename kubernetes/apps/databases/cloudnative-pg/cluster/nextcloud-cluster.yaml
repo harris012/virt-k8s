@@ -44,7 +44,7 @@ spec:
         barmanObjectName: minio-store
         # Note: serverName version needs to be incremented
         # when recovering from an existing cnpg cluster
-        serverName: nextcloud-cluster-1
+        serverName: nextcloud-cluster
   # Note: previousCluster needs to be set to the name of the previous
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
