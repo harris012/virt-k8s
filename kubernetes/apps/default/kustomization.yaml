@@ -13,5 +13,5 @@ resources:
   #- ./opencloud/ks.yaml
   - ./n8n/ks.yaml
   - ./immich/ks.yaml
-  #- ./nextcloud/ks.yaml (https://github.com/budimanjojo/home-cluster/blob/main/cluster/apps/default/nextcloud/base/helmrelease.yaml)
+  - ./nextcloud/ks.yaml
   - ./vaultwarden/ks.yaml
