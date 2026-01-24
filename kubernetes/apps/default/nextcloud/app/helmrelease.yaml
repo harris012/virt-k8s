@@ -62,31 +62,6 @@ spec:
 
 
       phpConfigs:
-        www.conf: |
-          [www]
-          user = www-data
-          group = www-data
-          listen = 127.0.0.1:9000
-          pm = dynamic
-          pm.max_children = 4
-          pm.start_servers = 4
-          pm.min_spare_servers = 2
-          pm.max_spare_servers = 4
-          pm.max_requests = 800
-          request_terminate_timeout = 600
-        php.ini: |
-          max_execution_time = 600
-          default_socket_timeout = 300
-          curl.cainfo = /etc/ssl/certs/ca-certificates.crt
-          extension=imagick
-          extension=exif
-          extension=intl
-          extension=gd
-          memory_limit = 8G
-          opcache.memory_consumption = 512
-          opcache.max_accelerated_files = 20000
-          opcache.revalidate_freq = 60
-
       hooks:
         post-installation: |-
           printf "Add missing DB indices\n"
