@@ -60,8 +60,6 @@ spec:
           authtype: LOGIN
           secure: starttls
 
-
-      phpConfigs:
       hooks:
         post-installation: |-
           printf "Add missing DB indices\n"
