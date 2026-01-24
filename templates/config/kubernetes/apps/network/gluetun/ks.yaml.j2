@@ -3,23 +3,18 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: vaultwarden
+  name: gluetun
 spec:
-  components:
-    - ../../../../components/volsync
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/default/vaultwarden/app
+  path: ./kubernetes/apps/network/gluetun/app
   postBuild:
     substitute:
-      APP: vaultwarden
-      VOLSYNC_CAPACITY: 1Gi
+      APP: gluetun
+      VOLSYNC_CAPACITY: 200Mi
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: network
   wait: false

@@ -41,6 +41,8 @@ import (
 	INIT_POSTGRES_HOST_NEXTCLOUD: string
 	NEXTCLOUD_USERNAME: string
 	NEXTCLOUD_PASSWORD: string
+	WIREGUARD_PRIVATE_KEY: string
+	WIREGUARD_ADDRESSES: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN

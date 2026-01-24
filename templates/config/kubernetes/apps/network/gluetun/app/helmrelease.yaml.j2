@@ -1,0 +1,83 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gluetun
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: gluetun
+  interval: 1h
+  values:
+    controllers:
+      gluetun:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.41.0@sha256:6b54856716d0de56e5bb00a77029b0adea57284cf5a466f23aad5979257d3045
+            env:
+              DOT: "off"
+              VPN_SERVICE_PROVIDER: protonvpn
+              VPN_TYPE: wireguard
+              VPN_INTERFACE: wg0
+              FIREWALL_INPUT_PORTS: "8388,8888,9999"
+              HEALTH_SERVER_ADDRESS: "9999"
+              HTTPPROXY: "on"
+              HTTPPROXY_LISTENING_ADDRESS: &port 8888
+              HTTPPROXY_LOG: "on"
+              TZ: Europe/Berlin
+              UPDATER_PERIOD: 24h
+              FREE_ONLY: "on"
+            envFrom:
+              - secretRef:
+                  name: gluetun-secret
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 9999
+                  timeoutSeconds: 10
+                  periodSeconds: 30
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 9999
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  failureThreshold: 5
+            securityContext:
+              capabilities:
+                add:
+                  - NET_ADMIN
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+
+    service:
+      app:
+        controller: gluetun
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: 192.168.0.101
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.harissaeed.com"
+        parentRefs:
+          - name: envoy-tailscale
+            namespace: network
+
