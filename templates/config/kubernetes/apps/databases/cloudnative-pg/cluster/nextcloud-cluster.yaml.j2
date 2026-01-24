@@ -44,12 +44,12 @@ spec:
         barmanObjectName: minio-store
         # Note: serverName version needs to be incremented
         # when recovering from an existing cnpg cluster
-        serverName: postgres-nc
+        serverName: nextcloud-cluster
   # Note: previousCluster needs to be set to the name of the previous
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      source: &previousCluster postgres-nc
+      source: &previousCluster nextcloud-cluster
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   externalClusters:
     - name: *previousCluster
