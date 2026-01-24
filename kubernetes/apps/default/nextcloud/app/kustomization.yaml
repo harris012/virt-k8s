@@ -10,10 +10,4 @@ resources:
   - ./grafanadashboard.yaml
   #- ./nfs-pvc.yaml
 
-# configMapGenerator:
-#   - name: nextcloud-scripts
-#     files:
-#       - ./scripts/cron.sh
-#       - ./scripts/post-start.sh
-# generatorOptions:
-#   disableNameSuffixHash: true
+
