@@ -81,6 +81,49 @@ spec:
             'default_phone_region' => 'ID',
             'maintenance_window_start' => 20,
           );
+        caching.config.php: |-
+          <?php
+          $CONFIG = array (
+            'memcache.local' => '\\OC\\Memcache\\APCu',
+            'memcache.distributed' => '\\OC\\Memcache\\Redis',
+            'memcache.locking' => '\\OC\\Memcache\\Redis',
+            'filelocking.enabled' => true,
+            'redis' => array(
+              'host' => 'dragonfly.databases.svc.cluster.local',
+              'port' => 6379,
+              'timeout' => 0.0,
+              'password' => '',
+            ),
+          );
+        performance.config.php: |-
+          <?php
+          $CONFIG = array (
+            'enable_previews' => true,
+            'enabledPreviewProviders' => array(
+              'OC\Preview\PNG',
+              'OC\Preview\JPEG',
+              'OC\Preview\GIF',
+              'OC\Preview\BMP',
+              'OC\Preview\XBitmap',
+              'OC\Preview\MP3',
+              'OC\Preview\TXT',
+              'OC\Preview\MarkDown',
+              'OC\Preview\OpenDocument',
+              'OC\Preview\Krita',
+              'OC\Preview\HEIC',
+              'OC\Preview\PDF',
+              'OC\Preview\TIFF',
+              'OC\Preview\SVG',
+              'OC\Preview\MP4',
+              'OC\Preview\Movie',
+            ),
+            'preview_max_x' => 2048,
+            'preview_max_y' => 2048,
+            'preview_max_scale_factor' => 1,
+            'preview_concurrency_new' => 4,
+            'preview_concurrency_all' => 4,
+            'jpeg_quality' => 60,
+          );
       extraEnv:
         - name: REDIS_HOST
           value: dragonfly.databases.svc.cluster.local
