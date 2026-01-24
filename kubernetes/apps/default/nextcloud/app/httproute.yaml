@@ -176,7 +176,7 @@ kind: HTTPRoute
 metadata:
   name: nextcloud
 spec:
-  hostnames: ["cloud.${SECRET_DOMAIN}"]
+  hostnames: ["cloud.harissaeed.com"]
   parentRefs:
     - name: envoy-tailscale
       namespace: network
