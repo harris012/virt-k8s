@@ -38,27 +38,10 @@ spec:
 
   # barman-cloud Plugin for backups (to minio)
   plugins:
-    - name: &plugin barman-cloud.cloudnative-pg.io
+    - name: barman-cloud.cloudnative-pg.io
       isWALArchiver: true
-      parameters: &barmanParameters
+      parameters:
         barmanObjectName: minio-store
-        # Note: serverName version needs to be incremented
-        # when recovering from an existing cnpg cluster
-        serverName: nextcloud-cluster-1
-  # Note: previousCluster needs to be set to the name of the previous
-  # cluster when recovering from an existing cnpg cluster
-  bootstrap:
-    recovery:
-      source: &previousCluster nextcloud-cluster
-  # Note: externalClusters is needed when recovering from an existing cnpg cluster
-  externalClusters:
-    - name: *previousCluster
-      plugin:
-        enabled: true
-        isWALArchiver: false
-        name: *plugin
-        parameters: *barmanParameters
-
 
   # bootstrap:
   #   initdb:

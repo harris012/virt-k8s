@@ -12,5 +12,5 @@ resources:
   - ./podmonitor.yaml
   # - ./recovery-immich-cluster.yaml
   - ./recovery-objectstore.yaml
-  - ./recovery-nextcloud-cluster.yaml
+  #- ./recovery-nextcloud-cluster.yaml
 
