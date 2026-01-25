@@ -13,8 +13,8 @@ configMapGenerator:
       - csp.yaml=./config/csp.yaml
       - proxy.yaml=./config/proxy.yaml
       - app-registry.yaml=./config/app-registry.yaml
-generatorOptions:
-  disableNameSuffixHash: true
-# configurations:
-#   - ./config/kustomizeconfig.yaml
+# generatorOptions:
+#   disableNameSuffixHash: true
+configurations:
+  - ./config/kustomizeconfig.yaml
 
