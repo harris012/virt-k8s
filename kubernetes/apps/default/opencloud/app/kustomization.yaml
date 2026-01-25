@@ -16,5 +16,5 @@ configMapGenerator:
 # generatorOptions:
 #   disableNameSuffixHash: true
 configurations:
-  - ./config/kustomizeconfig.yaml
+  - ./../config/kustomizeconfig.yaml
 
