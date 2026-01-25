@@ -10,11 +10,10 @@ resources:
 configMapGenerator:
   - name: opencloud-config
     files:
-      - csp.yaml=./config/csp.yaml
-      - proxy.yaml=./config/proxy.yaml
-      - app-registry.yaml=./config/app-registry.yaml
-# generatorOptions:
-#   disableNameSuffixHash: true
+      - csp.yaml=./../config/csp.yaml
+      - proxy.yaml=./../config/proxy.yaml
+      - app-registry.yaml=./../config/app-registry.yaml
+
 configurations:
   - ./../config/kustomizeconfig.yaml
 
