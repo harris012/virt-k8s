@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres18-immich-lb
+  name: nextcloud-cluster-lb
   namespace: databases
   annotations:
     io.cilium/lb-ipam-ips: 192.168.0.13
@@ -14,5 +14,5 @@ spec:
       protocol: TCP
       targetPort: 5432
   selector:
-    cnpg.io/cluster: postgres18-immich
+    cnpg.io/cluster: nextcloud-cluster
     role: primary
