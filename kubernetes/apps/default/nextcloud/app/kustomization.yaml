@@ -8,6 +8,6 @@ resources:
   - ./helmrelease.yaml
   - ./httproute.yaml
   - ./grafanadashboard.yaml
-  #- ./nfs-pvc.yaml
+  - ./nfs-pvc.yaml
 
 
