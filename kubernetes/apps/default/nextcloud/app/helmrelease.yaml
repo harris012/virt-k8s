@@ -22,11 +22,14 @@ spec:
       enabled: true
     nextcloud:
       host: cloud.harissaeed.com
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
+      podSecurityContext:
+        supplementalGroups:
+          - 33
+      # securityContext:
+      #   runAsUser: 1000
+      #   runAsGroup: 1000
+      #   runAsNonRoot: true
+      #   readOnlyRootFilesystem: false
       extraInitContainers:
         - name: init-db
           image: ghcr.io/home-operations/postgres-init:18.1@sha256:3c54d39f19fdb82ed5b3f286450e4071133cc6025bd0e25856bc2c522f8fc030
