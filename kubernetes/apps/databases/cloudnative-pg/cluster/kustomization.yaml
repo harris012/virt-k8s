@@ -7,8 +7,8 @@ resources:
   - ./nextcloud.yaml
   - ./objectstore.yaml
   - ./pooler.yaml
-  #- ./scheduledbackup.yaml
-  #- ./service.yaml
+  - ./scheduledbackup.yaml
+  - ./service.yaml
   - ./podmonitor.yaml
   # - ./recovery-immich-cluster.yaml
   #- ./recovery-objectstore.yaml
