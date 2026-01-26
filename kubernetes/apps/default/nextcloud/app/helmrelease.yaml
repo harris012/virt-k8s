@@ -22,9 +22,9 @@ spec:
       enabled: true
     nextcloud:
       host: cloud.harissaeed.com
-      podSecurityContext:
-        supplementalGroups:
-          - 33
+      # podSecurityContext:
+      #   supplementalGroups:
+      #     - 33
       # securityContext:
       #   runAsUser: 1000
       #   runAsGroup: 1000
@@ -162,8 +162,8 @@ spec:
         enabled: false
     cronjob:
       enabled: true
-      sidecar:
-        securityContext:
-          runAsGroup: 1000
-    securityContext:
-      fsGroupChangePolicy: OnRootMismatch
+    #   sidecar:
+    #     securityContext:
+    #       runAsGroup: 1000
+    # securityContext:
+    #   fsGroupChangePolicy: OnRootMismatch
