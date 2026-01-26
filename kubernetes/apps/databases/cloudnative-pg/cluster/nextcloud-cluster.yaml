@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: nextcloud-cluster
+  name: nextcloud
   namespace: databases
   # annotations:
   #   cnpg.io/skipEmptyWalArchiveCheck: enabled
@@ -43,10 +43,10 @@ spec:
       parameters:
         barmanObjectName: minio-store
 
-  # bootstrap:
-  #   initdb:
-  #     database: nextcloud
-  #     owner: nextcloud
+  bootstrap:
+    initdb:
+      database: nextcloud
+      owner: nextcloud
 
 
   # ============================================================================

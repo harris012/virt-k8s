@@ -27,7 +27,7 @@ metadata:
   namespace: databases
 spec:
   cluster:
-    name: nextcloud-cluster
+    name: nextcloud
   instances: 1
   type: rw
   pgbouncer:

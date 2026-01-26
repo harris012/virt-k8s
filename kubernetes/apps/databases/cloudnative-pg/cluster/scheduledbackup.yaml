@@ -36,7 +36,7 @@ spec:
   target: primary
   method: plugin
   cluster:
-    name: nextcloud-cluster
+    name: nextcloud
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io
     parameters:

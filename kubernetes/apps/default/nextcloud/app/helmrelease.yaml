@@ -92,7 +92,7 @@ spec:
           max_execution_time = 3600
     persistence:
       enabled: true
-      existingClaim: nextcloud-config
+      existingClaim: nextcloud
       nextcloudData:
         enabled: true
         existingClaim: nextcloud-data
