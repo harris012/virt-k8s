@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: nextcloud-cluster
+  name: nestcloud
   namespace: databases
   # annotations:
   #   cnpg.io/skipEmptyWalArchiveCheck: enabled
@@ -46,4 +46,4 @@ spec:
         name: barman-cloud.cloudnative-pg.io
         parameters:
           barmanObjectName: minio-store-recovery
-          serverName: nextcloud-cluster
+          serverName: nestcloud
