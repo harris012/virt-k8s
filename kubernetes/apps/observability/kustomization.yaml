@@ -11,4 +11,5 @@ resources:
   - ./keda/ks.yaml
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
+  - ./blackbox-exporter/ks.yaml
 
