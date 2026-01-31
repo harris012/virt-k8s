@@ -38,7 +38,7 @@ nodes:
         vip:
           ip: "192.168.0.163"
     patches:
-      - "@./patches/alpha/machine-lables.yaml"
+      - "@./patches/alpha/machine-labels.yaml"
   - hostname: "bravo"
     ipAddress: "192.168.0.69"
     installDisk: "/dev/sda"
