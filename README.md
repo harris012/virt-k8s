@@ -96,7 +96,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 ### Stage 3: Cloudflare configuration
 
 > [!WARNING]
-> If any of the commands fail with `command not found` or `unknown command` it means `mise` is either not install or configured incorrectly.
+> If any of the commands fail with `command not found` or `unknown command` it means `mise` is either not installed or configured incorrectly.
 
 1. Create a Cloudflare API token for use with cloudflared and external-dns by reviewing the official [documentation](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) and following the instructions below.
 
@@ -145,7 +145,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 ### Stage 5: Bootstrap Talos, Kubernetes, and Flux
 
 > [!WARNING]
-> It might take a while for the cluster to be setup (10+ minutes is normal). During which time you will see a variety of error messages like: "couldn't get current server API group list," "error: no matching resources found", etc. 'Ready' will remain "False" as no CNI is deployed yet. **This is a normal.** If this step gets interrupted, e.g. by pressing <kbd>Ctrl</kbd> + <kbd>C</kbd>, you likely will need to [reset the cluster](#-reset) before trying again
+> It might take a while for the cluster to be setup (10+ minutes is normal). During which time you will see a variety of error messages like: "couldn't get current server API group list," "error: no matching resources found", etc. 'Ready' will remain "False" as no CNI is deployed yet. **This is normal.** If this step gets interrupted, e.g. by pressing <kbd>Ctrl</kbd> + <kbd+C</kbd>, you likely will need to [reset the cluster](#-reset) before trying again
 
 1. Install Talos:
 
