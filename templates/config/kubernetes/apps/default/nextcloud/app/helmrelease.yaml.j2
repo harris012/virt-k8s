@@ -22,11 +22,14 @@ spec:
       enabled: true
     nextcloud:
       host: cloud.harissaeed.com
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
+      # podSecurityContext:
+      #   supplementalGroups:
+      #     - 33
+      # securityContext:
+      #   runAsUser: 1000
+      #   runAsGroup: 1000
+      #   runAsNonRoot: true
+      #   readOnlyRootFilesystem: false
       extraInitContainers:
         - name: init-db
           image: ghcr.io/home-operations/postgres-init:18.1@sha256:3c54d39f19fdb82ed5b3f286450e4071133cc6025bd0e25856bc2c522f8fc030
@@ -84,15 +87,27 @@ spec:
               'dbindex' => getenv('REDIS_DATABASE') ?: 0,
             ),
           );
-      phpConfigs:
-        uploadLimit.ini: |
-          upload_max_filesize = 16G
-          post_max_size = 16G
-          max_input_time = 3600
-          max_execution_time = 3600
+      previews.config.php: |-
+        <?php
+        $CONFIG = array (
+          'enable_previews' => true,
+          'enabledPreviewProviders' => array (
+            'OC\Preview\Movie',
+            'OC\Preview\PNG',
+            'OC\Preview\JPEG',
+            'OC\Preview\GIF',
+            'OC\Preview\BMP',
+            'OC\Preview\XBitmap',
+            'OC\Preview\MP3',
+            'OC\Preview\MP4',
+            'OC\Preview\TXT',
+            'OC\Preview\MarkDown',
+            'OC\Preview\PDF'
+          ),
+        );
     persistence:
       enabled: true
-      existingClaim: nextcloud-config
+      existingClaim: nextcloud
       nextcloudData:
         enabled: true
         existingClaim: nextcloud-data
@@ -159,8 +174,8 @@ spec:
         enabled: false
     cronjob:
       enabled: true
-      sidecar:
-        securityContext:
-          runAsGroup: 1000
-    securityContext:
-      fsGroupChangePolicy: OnRootMismatch
+    #   sidecar:
+    #     securityContext:
+    #       runAsGroup: 1000
+    # securityContext:
+    #   fsGroupChangePolicy: OnRootMismatch

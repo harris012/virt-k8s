@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: nestcloud
+  name: nextcloud
   namespace: databases
   # annotations:
   #   cnpg.io/skipEmptyWalArchiveCheck: enabled
@@ -14,7 +14,7 @@ spec:
   primaryUpdateMethod: switchover
 
   storage:
-    size: 25Gi
+    size: 15Gi
     storageClass: openebs-hostpath
 
   resources:
