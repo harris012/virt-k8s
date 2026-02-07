@@ -29,3 +29,5 @@ TALOSCONFIG = "{{config_root}}/talos/clusterconfig/talosconfig"
 "aqua:derailed/k9s" = "v0.50.18"
 "aqua:cloudnative-pg/cloudnative-pg/kubectl-cnpg" = "1.28.1"
 "aqua:ahmetb/kubectx/kubens" = "0.9.5"
+"aqua:kopia/kopia" = "0.22.3"
+
