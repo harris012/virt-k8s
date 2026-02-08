@@ -23,7 +23,7 @@ spec:
               capabilities:
                 drop: ["ALL"]
             env:
-              DOMAIN: https://vault.harissaeed.com
+              DOMAIN: https://bw.cloud.nh.harissaeed.com
               TZ: "Europe/Berlin"
               SIGNUPS_ALLOWED: "true"
               INVITATIONS_ALLOWED: "false"
@@ -69,7 +69,7 @@ spec:
             port: 80
     route:
       app:
-        hostnames: ["vault.harissaeed.com"]
+        hostnames: ["bw.cloud.nh.harissaeed.com"]
         parentRefs:
           - name: envoy-tailscale
             namespace: network
