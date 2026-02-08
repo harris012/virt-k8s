@@ -25,7 +25,8 @@ spec:
             env:
               DOMAIN: https://vault.harissaeed.com
               TZ: "Europe/Berlin"
-              SIGNUPS_ALLOWED: "true"
+              SIGNUPS_ALLOWED: "false"
+              SIGNUPS_VERIFY: "true"
               INVITATIONS_ALLOWED: "false"
               SENDS_ALLOWED: "true"
               EMERGENCY_ACCESS_ALLOWED: "true"
