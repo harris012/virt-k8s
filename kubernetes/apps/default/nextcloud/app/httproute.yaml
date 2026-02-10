@@ -39,7 +39,7 @@ spec:
               replacePrefixMatch: /index.php/.well-known/webfinger
       backendRefs: &backendRef
         - name: nextcloud
-          namespace: selfhosted
+          namespace: default
           port: 8080
 
     # .well-known/nodeinfo (federation)
