@@ -113,7 +113,7 @@ spec:
           php occ db:add-missing-primary-keys
     persistence:
       enabled: true
-      existingClaim: nextcloud
+      existingClaim: nextcloud-config
       nextcloudData:
         enabled: true
         existingClaim: nextcloud-data
