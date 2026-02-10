@@ -164,8 +164,8 @@ spec:
         tag: "1.29.5"
       config:
         default: true
-      securityContext:
-        runAsGroup: 33
+      # securityContext:
+      #   runAsGroup: 33
       resources:
         requests:
           cpu: 10m
@@ -202,7 +202,7 @@ spec:
 
     securityContext:
       fsGroupChangePolicy: OnRootMismatch
-      fsGroup: 33
+      # fsGroup: 33
 
     service:
       type: ClusterIP
