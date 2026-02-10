@@ -1,194 +1,23 @@
-# ---
-# # yaml-language-server: $schema=https://datreeio.github.io/CRDs-catalog/gateway.networking.k8s.io/httproute_v1.json
-# apiVersion: gateway.networking.k8s.io/v1
-# kind: HTTPRoute
-# metadata:
-#   name: nextcloud-internal
-#   namespace: default
-# spec:
-#   parentRefs:
-#     - name: envoy-tailscale
-#       namespace: network
-#       sectionName: http
-#   hostnames:
-#     - "127.0.0.1"
-#     - "localhost"
-#   rules:
-#     - backendRefs:
-#         - name: nextcloud
-#           port: 8080
-#       matches:
-#         - path:
-#             type: PathPrefix
-#             value: /
-#       filters:
-#         - type: URLRewrite
-#           urlRewrite:
-#             path:
-#               type: ReplacePrefixMatch
-#               replacePrefixMatch: /
-# ---
-# # yaml-language-server: $schema=https://datreeio.github.io/CRDs-catalog/gateway.networking.k8s.io/httproute_v1.json
-# apiVersion: gateway.networking.k8s.io/v1
-# kind: HTTPRoute
-# metadata:
-#   name: nextcloud
-#   # annotations:
-#   #   gatus.home-operations.com/enabled: "false"
-# spec:
-#   parentRefs:
-#     - name: envoy-tailscale
-#       namespace: network
-#   hostnames: ["cloud.harissaeed.com"]
-#   rules:
-#     # Route /push/ to notify_push service (must be before catch-all route)
-#     - matches:
-#         - path:
-#             type: PathPrefix
-#             value: /push/
-#       backendRefs:
-#         - name: notify-push
-#           port: 7867
-#     - backendRefs: &backendRef
-#         - name: nextcloud
-#           port: 8080
-#       matches:
-#         - path:
-#             type: PathPrefix
-#             value: /
-#     - matches:
-#         - path:
-#             type: PathPrefix
-#             value: /.well-known/webfinger
-#       filters:
-#         - type: URLRewrite # TODO do better after https://github.com/kubernetes-sigs/gateway-api/issues/2177
-#           urlRewrite:
-#             path:
-#               type: ReplacePrefixMatch
-#               replacePrefixMatch: /index.php/.well-known/webfinger
-
-#       backendRefs: *backendRef
-#     - matches:
-#         - path:
-#             type: PathPrefix
-#             value: /.well-known/nodeinfo
-#       filters:
-#         - type: URLRewrite
-#           urlRewrite:
-#             path:
-#               type: ReplacePrefixMatch
-#               replacePrefixMatch: /index.php/.well-known/nodeinfo
-#       backendRefs: *backendRef
-#     - matches:
-#         - path:
-#             type: Exact
-#             value: /.well-known/host-meta
-#       filters:
-#         - type: URLRewrite
-#           urlRewrite:
-#             path:
-#               type: ReplaceFullPath
-#               replaceFullPath: /public.php?service=host-meta
-#       backendRefs: *backendRef
-#     - matches:
-#         - path:
-#             type: Exact
-#             value: /.well-known/host-meta.json
-#       filters:
-#         - type: URLRewrite
-#           urlRewrite:
-#             path:
-#               type: ReplaceFullPath
-#               replaceFullPath: /public.php?service=host-meta-json
-#       backendRefs: *backendRef
-#     - matches:
-#         - path:
-#             type: PathPrefix
-#             value: /.well-known/caldav
-#       filters:
-#         - type: URLRewrite
-#           urlRewrite:
-#             path:
-#               type: ReplacePrefixMatch
-#               replacePrefixMatch: /remote.php/dav
-#       backendRefs: *backendRef
-#     - matches:
-#         - path:
-#             type: PathPrefix
-#             value: /.well-known/carddav
-#       filters:
-#         - type: URLRewrite
-#           urlRewrite:
-#             path:
-#               type: ReplacePrefixMatch
-#               replacePrefixMatch: /remote.php/dav
-#       backendRefs: *backendRef
-#     # Block restricted paths
-#     - matches:
-#         - path:
-#             type: PathPrefix
-#             value: /build
-#         - path:
-#             type: PathPrefix
-#             value: /tests
-#         - path:
-#             type: PathPrefix
-#             value: /config
-#         - path:
-#             type: PathPrefix
-#             value: /lib
-#         - path:
-#             type: PathPrefix
-#             value: /3rdparty
-#         - path:
-#             type: PathPrefix
-#             value: /templates
-#         - path:
-#             type: PathPrefix
-#             value: /data
-#         - path:
-#             type: PathPrefix
-#             value: /autotest
-#         - path:
-#             type: PathPrefix
-#             value: /occ
-#         - path:
-#             type: PathPrefix
-#             value: /issue
-#         - path:
-#             type: PathPrefix
-#             value: /indie
-#         - path:
-#             type: PathPrefix
-#             value: /db_
-#         - path:
-#             type: PathPrefix
-#             value: /console
-#       backendRefs: [] # No backend = deny # TODO do better after https://github.com/kubernetes-sigs/gateway-api/issues/2826
-
-
-
-
 ---
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: nextcloud
 spec:
-  hostnames: ["cloud.harissaeed.com"]
+  hostnames:
+    - cloud.harissaeed.com
   parentRefs:
     - name: envoy-tailscale
       namespace: network
-      sectionName: https
   rules:
-    - backendRefs:
-        - name: nextcloud
-          port: 8080
+    # CalDAV/CardDAV redirects (required for mobile apps)
     - matches:
         - path:
-            type: RegularExpression
-            value: /.well-known/(?:card|cal)dav
+            type: Exact
+            value: /.well-known/carddav
+        - path:
+            type: Exact
+            value: /.well-known/caldav
       filters:
         - type: RequestRedirect
           requestRedirect:
@@ -196,13 +25,45 @@ spec:
               type: ReplaceFullPath
               replaceFullPath: /remote.php/dav/
             statusCode: 301
-    # fix security and setup warnings failing to load in the web ui
-    - backendRefs:
-        - name: nextcloud
-          port: 8080
-      matches:
+
+    # .well-known/webfinger (federation)
+    - matches:
         - path:
             type: PathPrefix
-            value: /settings/ajax/checksetup
-      timeouts:
-        request: 300s
+            value: /.well-known/webfinger
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /index.php/.well-known/webfinger
+      backendRefs: &backendRef
+        - name: nextcloud
+          namespace: selfhosted
+          port: 8080
+
+    # .well-known/nodeinfo (federation)
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /.well-known/nodeinfo
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /index.php/.well-known/nodeinfo
+      backendRefs: *backendRef
+
+    # Default route with HSTS
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            add:
+              - name: Strict-Transport-Security
+                value: max-age=31536000; includeSubDomains
+      backendRefs: *backendRef
