@@ -109,21 +109,21 @@ spec:
           php occ db:add-missing-indices
           php occ db:add-missing-columns
           php occ db:add-missing-primary-keys
-      lifecycle:
-        postStartCommand:
-        - su
-        - www-data
-        - -s
-        - /bin/sh
-        - -c
-        - >-
-          cd /var/www/html;
-          ./occ upgrade;
-          ./occ db:add-missing-indices;
-          /bin/true
+      # lifecycle:
+      #   postStartCommand:
+      #   - su
+      #   - www-data
+      #   - -s
+      #   - /bin/sh
+      #   - -c
+      #   - >-
+      #     cd /var/www/html;
+      #     ./occ upgrade;
+      #     ./occ db:add-missing-indices;
+      #     /bin/true
     persistence:
       enabled: true
-      existingClaim: nextcloud
+      existingClaim: nextcloud-config
       nextcloudData:
         enabled: true
         existingClaim: nextcloud-data
