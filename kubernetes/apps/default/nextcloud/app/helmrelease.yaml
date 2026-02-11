@@ -30,26 +30,6 @@ spec:
     nextcloud:
       host: cloud.harissaeed.com
       datadir: /var/www/data
-      # podSecurityContext:
-      #   supplementalGroups:
-      #     - 33
-      # securityContext:
-      #   runAsUser: 1000
-      #   runAsGroup: 1000
-      #   runAsNonRoot: true
-      #   readOnlyRootFilesystem: false
-      # extraInitContainers:
-      #   - name: init-db
-      #     image: ghcr.io/home-operations/postgres-init:18.1@sha256:3c54d39f19fdb82ed5b3f286450e4071133cc6025bd0e25856bc2c522f8fc030
-      #     envFrom:
-      #       - secretRef:
-      #           name: nextcloud-init-db
-      # extraEnv:
-      #   - name: REDIS_HOST
-      #     value: dragonfly.databases.svc.cluster.local
-      #   - name: REDIS_PORT
-      #     value: "6379"
-
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
@@ -128,6 +108,7 @@ spec:
       nextcloudData:
         enabled: true
         existingClaim: nextcloud-data
+        accessMode: ReadWriteMany
     resources:
       requests:
         cpu: 100m
