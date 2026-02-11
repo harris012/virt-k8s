@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: expanse.internal
-    path: /mnt/storage/k8s/cloud
+    path: /mnt/storage/k8s/nextcloud
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

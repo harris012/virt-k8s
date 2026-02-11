@@ -29,6 +29,7 @@ spec:
 
     nextcloud:
       host: cloud.harissaeed.com
+      datadir: /var/www/data
       # podSecurityContext:
       #   supplementalGroups:
       #     - 33

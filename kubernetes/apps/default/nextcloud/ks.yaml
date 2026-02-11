@@ -20,6 +20,8 @@ spec:
       namespace: rook-ceph
     - name: volsync
       namespace: volsync-system
+    - name: csi-driver-nfs
+      namespace: kube-system
   interval: 1h
   path: "./kubernetes/apps/default/nextcloud/app"
   postBuild:
