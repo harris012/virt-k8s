@@ -25,7 +25,7 @@ spec:
   postBuild:
     substitute:
       APP: nextcloud
-      VOLSYNC_CAPACITY: 5Gi
+      VOLSYNC_CAPACITY: 1Gi
   prune: true
   sourceRef:
     kind: GitRepository
