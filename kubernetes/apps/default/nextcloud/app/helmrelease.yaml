@@ -29,7 +29,7 @@ spec:
 
     nextcloud:
       host: cloud.harissaeed.com
-      datadir: /var/www/data
+      # datadir: /var/www/data
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
@@ -46,7 +46,7 @@ spec:
           host: ${SMTP_HOST}
           port: 465
           authtype: LOGIN
-          secure: starttls
+          secure: ssl
 
       phpConfigs:
         uploadLimit.ini: |
@@ -78,31 +78,31 @@ spec:
           php occ db:add-missing-indices
           php occ db:add-missing-columns
           php occ db:add-missing-primary-keys
-        before-starting: |-
-          # disable unneceserry apps
-          for appname in activity circles systemtags federation privacy \
-              nextcloud_announcements announcementcenter support survey_client \
-              user_status weather_status dashboard app_api
-            do
-            php occ app:disable "$appname"
-          done
+        # before-starting: |-
+        #   # disable unneceserry apps
+        #   for appname in activity circles systemtags federation privacy \
+        #       nextcloud_announcements announcementcenter support survey_client \
+        #       user_status weather_status dashboard app_api
+        #     do
+        #     php occ app:disable "$appname"
+        #   done
         post-upgrade: |-
           php occ maintenance:repair --include-expensive
           php occ db:add-missing-indices
           php occ db:add-missing-columns
           php occ db:add-missing-primary-keys
-      # lifecycle:
-      #   postStartCommand:
-      #   - su
-      #   - www-data
-      #   - -s
-      #   - /bin/sh
-      #   - -c
-      #   - >-
-      #     cd /var/www/html;
-      #     ./occ upgrade;
-      #     ./occ db:add-missing-indices;
-      #     /bin/true
+      lifecycle:
+        postStartCommand:
+        - su
+        - www-data
+        - -s
+        - /bin/sh
+        - -c
+        - >-
+          cd /var/www/html;
+          ./occ upgrade;
+          ./occ db:add-missing-indices;
+          /bin/true
     persistence:
       enabled: true
       existingClaim: nextcloud-conf
