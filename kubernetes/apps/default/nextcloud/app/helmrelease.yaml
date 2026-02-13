@@ -180,9 +180,9 @@ spec:
       cronjob:
         schedule: "0 */4 * * *"
 
-    securityContext:
-      fsGroupChangePolicy: OnRootMismatch
-      fsGroup: 82
+    # securityContext:
+    #   fsGroupChangePolicy: OnRootMismatch
+    #   fsGroup: 82
 
     service:
       type: ClusterIP
