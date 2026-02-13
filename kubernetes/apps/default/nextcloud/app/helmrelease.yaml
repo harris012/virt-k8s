@@ -103,93 +103,93 @@ spec:
           ./occ upgrade;
           ./occ db:add-missing-indices;
           /bin/true
-    persistence:
-      enabled: true
-      existingClaim: nextcloud-conf
-      nextcloudData:
+      persistence:
         enabled: true
-        existingClaim: nextcloud-data
-        accessMode: ReadWriteMany
-    resources:
-      requests:
-        cpu: 100m
-        memory: 212Mi
-      limits:
-        memory: 2Gi
-    startupProbe:
-      enabled: true
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 360
-      successThreshold: 1
-    livenessProbe:
-      enabled: true
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-      successThreshold: 1
-    readinessProbe:
-      enabled: true
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-      successThreshold: 1
-    nginx:
-      enabled: true
-      image:
-        repository: public.ecr.aws/nginx/nginx
-        tag: "1.29.5"
-      config:
-        default: true
-      # securityContext:
-      #   runAsGroup: 33
+        existingClaim: nextcloud-conf
+        nextcloudData:
+          enabled: true
+          existingClaim: nextcloud-data
+          accessMode: ReadWriteMany
       resources:
         requests:
-          cpu: 10m
-          memory: 20Mi
+          cpu: 100m
+          memory: 212Mi
         limits:
-          memory: 100Mi
-    internalDatabase:
-      enabled: false
-    externalDatabase:
-      enabled: true
-      type: postgresql
-      database: nextcloud
-      existingSecret:
+          memory: 2Gi
+      startupProbe:
         enabled: true
-        secretName: nextcloud-secret
-        databaseKey: POSTGRES_DB
-        hostKey: POSTGRES_HOST
-        passwordKey: POSTGRES_PASS
-        usernameKey: POSTGRES_USER
-
-    redis:
-      enabled: false
-    externalRedis:
-      enabled: true
-      host: dragonfly.databases.svc.cluster.local
-      port: 6379
-    collabora:
-      enabled: false
-
-    cronjob:
-      enabled: true
-      cronjob:
-        schedule: "0 */4 * * *"
-
-    # securityContext:
-    #   fsGroupChangePolicy: OnRootMismatch
-      # fsGroup: 33
-
-    service:
-      type: ClusterIP
-      port: 8080
-    metrics:
-      enabled: false
-      https: true
-      serviceMonitor:
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 360
+        successThreshold: 1
+      livenessProbe:
+        enabled: true
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 3
+        successThreshold: 1
+      readinessProbe:
+        enabled: true
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 3
+        successThreshold: 1
+      nginx:
+        enabled: true
+        image:
+          repository: public.ecr.aws/nginx/nginx
+          tag: "1.29.5"
+        config:
+          default: true
+        # securityContext:
+        #   runAsGroup: 33
+        resources:
+          requests:
+            cpu: 10m
+            memory: 20Mi
+          limits:
+            memory: 100Mi
+      internalDatabase:
         enabled: false
+      externalDatabase:
+        enabled: true
+        type: postgresql
+        database: nextcloud
+        existingSecret:
+          enabled: true
+          secretName: nextcloud-secret
+          databaseKey: POSTGRES_DB
+          hostKey: POSTGRES_HOST
+          passwordKey: POSTGRES_PASS
+          usernameKey: POSTGRES_USER
+
+      redis:
+        enabled: false
+      externalRedis:
+        enabled: true
+        host: dragonfly.databases.svc.cluster.local
+        port: 6379
+      collabora:
+        enabled: false
+
+      cronjob:
+        enabled: true
+        cronjob:
+          schedule: "0 */4 * * *"
+
+      # securityContext:
+      #   fsGroupChangePolicy: OnRootMismatch
+        # fsGroup: 33
+
+      service:
+        type: ClusterIP
+        port: 8080
+      metrics:
+        enabled: false
+        https: true
+        serviceMonitor:
+          enabled: false
 

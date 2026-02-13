@@ -1,33 +1,18 @@
-# ---
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: nextcloud-data
-# spec:
-#   storageClassName: nextcloud-data
-#   accessModes: ["ReadWriteMany"]
-#   capacity:
-#     storage: 500Gi
-#   persistentVolumeReclaimPolicy: Retain
-#   nfs:
-#     server: "192.168.0.158"
-#     path: "/mnt/storage/k8s/nextcloud"
-#   mountOptions:
-#     - nfsvers=4.2
-#     - nconnect=8
-#     - hard
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: nextcloud-data
-# spec:
-#   storageClassName: nextcloud-data
-#   accessModes: ["ReadWriteMany"]
-#   resources:
-#     requests:
-#       storage: 500Gi
-
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nextcloud-data
+spec:
+  storageClassName: nextcloud-data
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 500Gi
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: expanse.internal
+    path: /mnt/storage/k8s/nextcloud
 
 ---
 apiVersion: v1
@@ -35,9 +20,23 @@ kind: PersistentVolumeClaim
 metadata:
   name: nextcloud-data
 spec:
-  storageClassName: nfs-slow
-  accessModes: ["ReadWriteMany"]
+  storageClassName: nextcloud-data
+  accessModes:
+    - ReadWriteMany
   resources:
     requests:
       storage: 500Gi
+
+
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: nextcloud-data
+# spec:
+#   storageClassName: nfs-slow
+#   accessModes: ["ReadWriteMany"]
+#   resources:
+#     requests:
+#       storage: 500Gi
 
