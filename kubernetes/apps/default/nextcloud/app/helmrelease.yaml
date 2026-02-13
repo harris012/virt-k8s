@@ -72,12 +72,12 @@ spec:
             'overwrite.cli.url' => 'https://cloud.harissaeed.com',
           );
 
-      hooks:
-        post-installation: |-
-          php occ maintenance:repair --include-expensive
-          php occ db:add-missing-indices
-          php occ db:add-missing-columns
-          php occ db:add-missing-primary-keys
+      # hooks:
+      #   post-installation: |-
+      #     php occ maintenance:repair --include-expensive
+      #     php occ db:add-missing-indices
+      #     php occ db:add-missing-columns
+      #     php occ db:add-missing-primary-keys
         # before-starting: |-
         #   # disable unneceserry apps
         #   for appname in activity circles systemtags federation privacy \
@@ -86,23 +86,23 @@ spec:
         #     do
         #     php occ app:disable "$appname"
         #   done
-        post-upgrade: |-
-          php occ maintenance:repair --include-expensive
-          php occ db:add-missing-indices
-          php occ db:add-missing-columns
-          php occ db:add-missing-primary-keys
-      lifecycle:
-        postStartCommand:
-        - su
-        - www-data
-        - -s
-        - /bin/sh
-        - -c
-        - >-
-          cd /var/www/html;
-          ./occ upgrade;
-          ./occ db:add-missing-indices;
-          /bin/true
+      #   post-upgrade: |-
+      #     php occ maintenance:repair --include-expensive
+      #     php occ db:add-missing-indices
+      #     php occ db:add-missing-columns
+      #     php occ db:add-missing-primary-keys
+      # lifecycle:
+      #   postStartCommand:
+      #   - su
+      #   - www-data
+      #   - -s
+      #   - /bin/sh
+      #   - -c
+      #   - >-
+      #     cd /var/www/html;
+      #     ./occ upgrade;
+      #     ./occ db:add-missing-indices;
+      #     /bin/true
     persistence:
       enabled: true
       existingClaim: nextcloud-conf
@@ -182,7 +182,7 @@ spec:
 
     securityContext:
       fsGroupChangePolicy: OnRootMismatch
-      # fsGroup: 33
+      fsGroup: 33
 
     service:
       type: ClusterIP
