@@ -182,7 +182,7 @@ spec:
 
     securityContext:
       fsGroupChangePolicy: OnRootMismatch
-      fsGroup: 33
+      # fsGroup: 33
 
     service:
       type: ClusterIP
