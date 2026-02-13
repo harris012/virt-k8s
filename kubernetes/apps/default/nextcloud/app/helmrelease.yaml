@@ -29,7 +29,7 @@ spec:
 
     nextcloud:
       host: cloud.harissaeed.com
-      # datadir: /var/www/data
+      datadir: /var/www/data
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
@@ -180,8 +180,8 @@ spec:
       cronjob:
         schedule: "0 */4 * * *"
 
-    securityContext:
-      fsGroupChangePolicy: OnRootMismatch
+    # securityContext:
+    #   fsGroupChangePolicy: OnRootMismatch
       # fsGroup: 33
 
     service:
