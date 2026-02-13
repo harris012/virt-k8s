@@ -78,14 +78,14 @@ spec:
           php occ db:add-missing-indices
           php occ db:add-missing-columns
           php occ db:add-missing-primary-keys
-        before-starting: |-
-          # disable unneceserry apps
-          for appname in activity circles systemtags federation privacy \
-              nextcloud_announcements announcementcenter support survey_client \
-              user_status weather_status dashboard app_api
-            do
-            php occ app:disable "$appname"
-          done
+        # before-starting: |-
+        #   # disable unneceserry apps
+        #   for appname in activity circles systemtags federation privacy \
+        #       nextcloud_announcements announcementcenter support survey_client \
+        #       user_status weather_status dashboard app_api
+        #     do
+        #     php occ app:disable "$appname"
+        #   done
         post-upgrade: |-
           php occ maintenance:repair --include-expensive
           php occ db:add-missing-indices
