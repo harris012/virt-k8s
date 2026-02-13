@@ -24,8 +24,8 @@ spec:
     ingress:
       enabled: false
 
-    phpClientHttpsFix:
-      enabled: true
+    # phpClientHttpsFix:
+    #   enabled: true
 
     nextcloud:
       host: cloud.harissaeed.com
@@ -139,19 +139,19 @@ spec:
       successThreshold: 1
     nginx:
       enabled: true
-      image:
-        repository: public.ecr.aws/nginx/nginx
-        tag: "1.29.5"
-      config:
-        default: true
+      # image:
+      #   repository: public.ecr.aws/nginx/nginx
+      #   tag: "1.29.5"
+      # config:
+      #   default: true
       # securityContext:
       #   runAsGroup: 33
-      resources:
-        requests:
-          cpu: 10m
-          memory: 20Mi
-        limits:
-          memory: 100Mi
+      # resources:
+      #   requests:
+      #     cpu: 10m
+      #     memory: 20Mi
+      #   limits:
+      #     memory: 100Mi
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -189,12 +189,12 @@ spec:
       runAsGroup: 33
       runAsNonRoot: true
 
-    service:
-      type: ClusterIP
-      port: 8080
-    metrics:
-      enabled: false
-      https: true
-      serviceMonitor:
-        enabled: false
+    # service:
+    #   type: ClusterIP
+    #   port: 8080
+    # metrics:
+    #   enabled: false
+    #   https: true
+    #   serviceMonitor:
+    #     enabled: false
 
