@@ -184,10 +184,10 @@ spec:
     #   fsGroupChangePolicy: OnRootMismatch
     #   fsGroup: 82
 
-    securityContext:
-      runAsUser: 33
-      runAsGroup: 33
-      runAsNonRoot: true
+    # securityContext:
+    #   runAsUser: 33
+    #   runAsGroup: 33
+    #   runAsNonRoot: true
 
     # service:
     #   type: ClusterIP
