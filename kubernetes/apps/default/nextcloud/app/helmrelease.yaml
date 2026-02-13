@@ -105,7 +105,7 @@ spec:
       #     /bin/true
     persistence:
       enabled: true
-      existingClaim: nextcloud
+      existingClaim: nextcloud-config
       nextcloudData:
         enabled: true
         existingClaim: nextcloud-data
