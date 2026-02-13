@@ -10,7 +10,7 @@ spec:
     storage: 500Gi
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: expanse.internal
+    server: 192.168.0.158
     path: "/mnt/storage/k8s/nextcloud"
   mountOptions:
     - nfsvers=4.2
