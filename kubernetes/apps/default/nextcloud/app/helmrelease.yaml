@@ -184,6 +184,11 @@ spec:
     #   fsGroupChangePolicy: OnRootMismatch
     #   fsGroup: 82
 
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+
     service:
       type: ClusterIP
       port: 8080
