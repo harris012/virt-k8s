@@ -5,9 +5,6 @@ kind: Kustomization
 metadata:
   name: minio
 spec:
-  dependsOn:
-    - name: csi-driver-nfs
-      namespace: kube-system
   interval: 1h
   path: ./kubernetes/apps/databases/minio/app
   prune: true
