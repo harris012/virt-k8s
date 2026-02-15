@@ -1,0 +1,15 @@
+- [x] setup internal routes.
+- [x] Fix extension Secrets service.
+- [x] Cloudnative PG implementation with backup to S3.
+- [x] Add support for nfs by using CSI driver.
+- [x] Add monitoring (prometheus, grafana, alertmanager).
+- [ ] Setup Nextcloud (with datadir on NFS mount PVC and DB on CNPG).
+- [x] Setup dragonfly.
+- [ ] Setup External Secrets Operator with VW.
+- [-] Test Kubevirt with GPU acceleration.
+- [x] Install taliscale Operator.
+- [ ] setup gatus.
+- [ ] test GPG key encryption instead of age.
+- [ ] Setup GitOps CNPG recovery.
+- [ ] Setup TCP envoy gateway to access Gluetun (https://gateway.envoyproxy.io/docs/tasks/traffic/tcp-routing/)
+- [ ] add nfsrahead & mei extension on talos.
