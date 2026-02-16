@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: nextcloud
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: nextcloud
+  interval: 1h
   install:
     remediation:
       retries: -1
