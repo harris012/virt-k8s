@@ -595,7 +595,7 @@ spec:
                 subPath: data
                 readOnly: false
       app-config:
-        existingClaim: nextcloud
+        existingClaim: nextcloud-app
         advancedMounts:
           main:
             init-chmod-pvc:
