@@ -97,73 +97,73 @@ spec:
             image:
               repository: nginxinc/nginx-unprivileged
               tag: 1.29-alpine@sha256:bae24904860527735a08e04722a92add40784b91e61389b710367c7d0e6d3b25
-          clamav:
-            image:
-              repository: clamav/clamav
-              tag: 1.5.1-25@sha256:bb4f25aad81c7a430ed49ee24ee8c69caa56d81d59884901e31a407aaaa19b4d
-            env:
-              CLAMAV_NO_CLAMD: false
-              CLAMAV_NO_FRESHCLAMD: false
-              CLAMAV_NO_MILTERD: true
-              FRESHCLAM_CHECKS: 4
-            probes:
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
-            securityContext:
-              runAsUser: 0
-              runAsGroup: 0
-              fsGroup: 0
-          collabora:
-            image:
-              repository: collabora/code
-              tag: 25.04.8.3.1@sha256:fa876e9fc1fdeb9aabac545e9fced19360e3a0492879432d857c17be4e4ea025
-            env:
-              - name: username
-                valueFrom:
-                  secretKeyRef:
-                    name: nextcloud-secret
-                    key: COLLABORA_USERNAME
-              - name: password
-                valueFrom:
-                  secretKeyRef:
-                    name: nextcloud-secret
-                    key: COLLABORA_PASSWORD
-              - name: extra_params
-                value: "--o:ssl.termination=true --o:ssl.enable=false --o:welcome.enable=false --o:languagetool.enabled=true --o:languagetool.base_url=http://nextcloud-languagetool.default.svc.cluster.local:8010/v2 --o:net.proxy_allowed_hosts=192.168.0.0/16,10.0.0.0/8,cloud.${SECRET_DOMAIN} --o:admin_console.enable=false"
-              - name: dictionaries
-                value: "de_DE en_GB en_US es_ES fr_FR"
-              - name: server_name
-                value: "office.${SECRET_DOMAIN}"
-            securityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-              fsGroup: 1000
-          languagetool:
-            image:
-              repository: collabora/languagetool
-              tag: 6.6@sha256:a93a2470a49c28e36b0e3b73f4562dab21a532ad10819ddc50bf69f80e98240d
-          whiteboard:
-            image:
-              repository: ghcr.io/nextcloud-releases/whiteboard
-              tag: v1.5.6@sha256:0a261558fa6d5d5cfea5da6b24ff2aeee691d46a7ced943edb478751919a4649
-            env:
-              - name: NEXTCLOUD_URL
-                value: "https://cloud.${SECRET_DOMAIN}"
-              - name: JWT_SECRET_KEY
-                valueFrom:
-                  secretKeyRef:
-                    name: nextcloud-secret
-                    key: WHITEBOARD_JWT_SECRET_KEY
-              - name: STORAGE_STRATEGY
-                value: "redis"
-              - name: REDIS_URL
-                value: "redis://dragonfly.databases.svc.cluster.local:6379/9"
-            securityContext:
-              runAsUser: 65534
-              runAsGroup: 65534
-              fsGroup: 65534
+          # clamav:
+          #   image:
+          #     repository: clamav/clamav
+          #     tag: 1.5.1-25@sha256:bb4f25aad81c7a430ed49ee24ee8c69caa56d81d59884901e31a407aaaa19b4d
+          #   env:
+          #     CLAMAV_NO_CLAMD: false
+          #     CLAMAV_NO_FRESHCLAMD: false
+          #     CLAMAV_NO_MILTERD: true
+          #     FRESHCLAM_CHECKS: 4
+          #   probes:
+          #     liveness:
+          #       enabled: true
+          #     readiness:
+          #       enabled: true
+          #   securityContext:
+          #     runAsUser: 0
+          #     runAsGroup: 0
+          #     fsGroup: 0
+          # collabora:
+          #   image:
+          #     repository: collabora/code
+          #     tag: 25.04.8.3.1@sha256:fa876e9fc1fdeb9aabac545e9fced19360e3a0492879432d857c17be4e4ea025
+          #   env:
+          #     - name: username
+          #       valueFrom:
+          #         secretKeyRef:
+          #           name: nextcloud-secret
+          #           key: COLLABORA_USERNAME
+          #     - name: password
+          #       valueFrom:
+          #         secretKeyRef:
+          #           name: nextcloud-secret
+          #           key: COLLABORA_PASSWORD
+          #     - name: extra_params
+          #       value: "--o:ssl.termination=true --o:ssl.enable=false --o:welcome.enable=false --o:languagetool.enabled=true --o:languagetool.base_url=http://nextcloud-languagetool.default.svc.cluster.local:8010/v2 --o:net.proxy_allowed_hosts=192.168.0.0/16,10.0.0.0/8,cloud.${SECRET_DOMAIN} --o:admin_console.enable=false"
+          #     - name: dictionaries
+          #       value: "de_DE en_GB en_US es_ES fr_FR"
+          #     - name: server_name
+          #       value: "office.${SECRET_DOMAIN}"
+          #   securityContext:
+          #     runAsUser: 1000
+          #     runAsGroup: 1000
+          #     fsGroup: 1000
+          # languagetool:
+          #   image:
+          #     repository: collabora/languagetool
+          #     tag: 6.6@sha256:a93a2470a49c28e36b0e3b73f4562dab21a532ad10819ddc50bf69f80e98240d
+          # whiteboard:
+          #   image:
+          #     repository: ghcr.io/nextcloud-releases/whiteboard
+          #     tag: v1.5.6@sha256:0a261558fa6d5d5cfea5da6b24ff2aeee691d46a7ced943edb478751919a4649
+          #   env:
+          #     - name: NEXTCLOUD_URL
+          #       value: "https://cloud.${SECRET_DOMAIN}"
+          #     - name: JWT_SECRET_KEY
+          #       valueFrom:
+          #         secretKeyRef:
+          #           name: nextcloud-secret
+          #           key: WHITEBOARD_JWT_SECRET_KEY
+          #     - name: STORAGE_STRATEGY
+          #       value: "redis"
+          #     - name: REDIS_URL
+          #       value: "redis://dragonfly.databases.svc.cluster.local:6379/9"
+          #   securityContext:
+          #     runAsUser: 65534
+          #     runAsGroup: 65534
+          #     fsGroup: 65534
         initContainers:
           init-chmod-pvc:
             image:
@@ -180,26 +180,26 @@ spec:
         ports:
           http:
             port: 8080
-      clamav:
-        controller: main
-        ports:
-          clamd:
-            port: 3310
-      collabora:
-        controller: main
-        ports:
-          http:
-            port: 9980
-      languagetool:
-        controller: main
-        ports:
-          http:
-            port: 8010
-      whiteboard:
-        controller: main
-        ports:
-          http:
-            port: 3002
+      # clamav:
+      #   controller: main
+      #   ports:
+      #     clamd:
+      #       port: 3310
+      # collabora:
+      #   controller: main
+      #   ports:
+      #     http:
+      #       port: 9980
+      # languagetool:
+      #   controller: main
+      #   ports:
+      #     http:
+      #       port: 8010
+      # whiteboard:
+      #   controller: main
+      #   ports:
+      #     http:
+      #       port: 3002
     route:
       nextcloud:
         hostnames:
@@ -212,17 +212,17 @@ spec:
           - backendRefs:
               - name: nextcloud-nginx
                 port: 8080
-      collabora:
-        hostnames:
-          - office.harissaeed.com
-        parentRefs:
-          - name: envoy-tailscale
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - name: nextcloud-collabora
-                port: 9980
+      # collabora:
+      #   hostnames:
+      #     - office.harissaeed.com
+      #   parentRefs:
+      #     - name: envoy-tailscale
+      #       namespace: network
+      #       sectionName: https
+      #   rules:
+      #     - backendRefs:
+      #         - name: nextcloud-collabora
+      #           port: 9980
     configMaps:
       nextcloud-config:
         enabled: true
@@ -360,12 +360,12 @@ spec:
             opcache.validate_timestamps=0
             opcache.jit=1255
             opcache.jit_buffer_size=128M
-          redis-session.ini: |
-            session.save_handler = redis
-            session.save_path = "tcp://$${REDIS_HOST}:$${REDIS_HOST_PORT}
-            redis.session.locking_enabled = 1
-            redis.session.lock_retries = -1
-            redis.session.lock_wait_time = 10000
+          # redis-session.ini: |
+          #   session.save_handler = redis
+          #   session.save_path = "tcp://$${REDIS_HOST}:$${REDIS_HOST_PORT}
+          #   redis.session.locking_enabled = 1
+          #   redis.session.lock_retries = -1
+          #   redis.session.lock_wait_time = 10000
           uploadLimit.ini: |
             upload_max_filesize = 16G
             post_max_size = 16G
@@ -567,15 +567,15 @@ spec:
                         try_files $uri $uri/ /index.php$request_uri;
                     }
 
-                    # Whiteboard reverse proxy
-                    location /whiteboard/ {
-                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                        proxy_set_header Host $host;
-                        proxy_pass http://nextcloud-whiteboard.default.svc.cluster.local:3002/;
-                        proxy_http_version 1.1;
-                        proxy_set_header Upgrade $http_upgrade;
-                        proxy_set_header Connection "upgrade";
-                    }
+                    # # Whiteboard reverse proxy
+                    # location /whiteboard/ {
+                    #     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    #     proxy_set_header Host $host;
+                    #     proxy_pass http://nextcloud-whiteboard.default.svc.cluster.local:3002/;
+                    #     proxy_http_version 1.1;
+                    #     proxy_set_header Upgrade $http_upgrade;
+                    #     proxy_set_header Connection "upgrade";
+                    # }
 
                     # Fallback
                     location / {
