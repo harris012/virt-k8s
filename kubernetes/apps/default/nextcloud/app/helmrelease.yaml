@@ -203,7 +203,7 @@ spec:
     route:
       nextcloud:
         hostnames:
-          - cloud.${SECRET_DOMAIN}
+          - cloud.harissaeed.com
         parentRefs:
           - name: envoy-tailscale
             namespace: network
@@ -214,7 +214,7 @@ spec:
                 port: 8080
       collabora:
         hostnames:
-          - office.${SECRET_DOMAIN}
+          - office.harissaeed.com
         parentRefs:
           - name: envoy-tailscale
             namespace: network
