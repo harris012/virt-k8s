@@ -25,9 +25,8 @@ spec:
       restartPolicy: OnFailure
       volumes:
       - name: data
-        type: nfs
-        server: expanse.internal
-        path: /mnt/storage/k8s/nextcloud
+        persistentVolumeClaim:
+          claimName: nextcloud-data
       - name: app-config
         persistentVolumeClaim:
           claimName: nextcloud-app
@@ -59,9 +58,8 @@ spec:
       restartPolicy: OnFailure
       volumes:
       - name: data
-        type: nfs
-        server: expanse.internal
-        path: /mnt/storage/k8s/nextcloud
+        persistentVolumeClaim:
+          claimName: nextcloud-data
       - name: app-config
         persistentVolumeClaim:
           claimName: nextcloud-app
@@ -271,9 +269,8 @@ spec:
               persistentVolumeClaim:
                 claimName: nextcloud-app
             - name: data
-              nfs:
-                server: expanse.internal
-                path: /mnt/storage/k8s/nextcloud
+              persistentVolumeClaim:
+                claimName: nextcloud-data
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -320,9 +317,8 @@ spec:
             persistentVolumeClaim:
               claimName: nextcloud-app
           - name: data
-            nfs:
-              server: expanse.internal
-              path: /mnt/storage/k8s/nextcloud
+            persistentVolumeClaim:
+              claimName: nextcloud-data
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -368,6 +364,5 @@ spec:
             persistentVolumeClaim:
               claimName: nextcloud-app
           - name: data
-            type: nfs
-            server: expanse.internal
-            path: /mnt/storage/k8s/nextcloud
+            persistentVolumeClaim:
+              claimName: nextcloud-data

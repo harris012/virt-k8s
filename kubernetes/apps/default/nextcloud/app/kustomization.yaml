@@ -8,5 +8,6 @@ resources:
   - ./helmrelease.yaml
   - ./grafanadashboard.yaml
   - ./jobs.yaml
+  - ./nfs-pvc.yaml
 
 

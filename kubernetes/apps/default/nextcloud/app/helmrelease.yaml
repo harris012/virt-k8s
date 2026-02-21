@@ -585,9 +585,8 @@ spec:
             }
     persistence:
       data:
-        type: nfs
-        server: expanse.internal
-        path: /mnt/storage/k8s/nextcloud
+        type: persistentVolumeClaim
+        existingClaim: nextcloud-data
         advancedMounts:
           main:
             nextcloud:
