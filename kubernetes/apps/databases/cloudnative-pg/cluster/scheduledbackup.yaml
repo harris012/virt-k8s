@@ -24,22 +24,22 @@ spec:
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/postgresql.cnpg.io/scheduledbackup_v1.json
 
-apiVersion: postgresql.cnpg.io/v1
-kind: ScheduledBackup
-metadata:
-  name: daily-nextcloud-db-backup
-  namespace: databases
-spec:
-  schedule: "0 3 0 * * *"
-  immediate: true
-  backupOwnerReference: self
-  target: primary
-  method: plugin
-  cluster:
-    name: nextcloud
-  pluginConfiguration:
-    name: barman-cloud.cloudnative-pg.io
-    parameters:
-      immediateCheckpoint: "true"
-      waitForArchive: "true"
-      compression: "zstd"
+# apiVersion: postgresql.cnpg.io/v1
+# kind: ScheduledBackup
+# metadata:
+#   name: daily-nextcloud-db-backup
+#   namespace: databases
+# spec:
+#   schedule: "0 3 0 * * *"
+#   immediate: true
+#   backupOwnerReference: self
+#   target: primary
+#   method: plugin
+#   cluster:
+#     name: nextcloud
+#   pluginConfiguration:
+#     name: barman-cloud.cloudnative-pg.io
+#     parameters:
+#       immediateCheckpoint: "true"
+#       waitForArchive: "true"
+#       compression: "zstd"

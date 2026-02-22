@@ -172,7 +172,7 @@ spec:
           claimName: nextcloud-data
       - name: app-config
         persistentVolumeClaim:
-          claimName: nextcloud-conf
+          claimName: nextcloud
 ---
 apiVersion: batch/v1
 kind: Job
@@ -220,7 +220,7 @@ spec:
           claimName: nextcloud-data
       - name: app-config
         persistentVolumeClaim:
-          claimName: nextcloud-conf
+          claimName: nextcloud
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -267,7 +267,7 @@ spec:
           volumes:
             - name: app-config
               persistentVolumeClaim:
-                claimName: nextcloud-conf
+                claimName: nextcloud
             - name: data
               persistentVolumeClaim:
                 claimName: nextcloud-data
@@ -316,7 +316,7 @@ spec:
           volumes:
           - name: app-config
             persistentVolumeClaim:
-              claimName: nextcloud-conf
+              claimName: nextcloud
           - name: data
             persistentVolumeClaim:
               claimName: nextcloud-data
