@@ -21,7 +21,7 @@ spec:
   path: "./kubernetes/apps/default/nextcloud/app"
   postBuild:
     substitute:
-      APP: nextcloud-app
+      APP: nextcloud-config
       VOLSYNC_CAPACITY: 1Gi
   prune: true
   sourceRef:

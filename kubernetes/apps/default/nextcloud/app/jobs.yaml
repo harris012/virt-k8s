@@ -29,7 +29,7 @@ spec:
           claimName: nextcloud-data
       - name: app-config
         persistentVolumeClaim:
-          claimName: nextcloud-app
+          claimName: nextcloud-config
 ---
 apiVersion: batch/v1
 kind: Job
@@ -62,7 +62,7 @@ spec:
           claimName: nextcloud-data
       - name: app-config
         persistentVolumeClaim:
-          claimName: nextcloud-app
+          claimName: nextcloud-config
 # ---
 # apiVersion: batch/v1
 # kind: Job
@@ -124,7 +124,7 @@ spec:
 #           claimName: nextcloud-data-pvc
 #       - name: app-config
 #         persistentVolumeClaim:
-#           claimName: nextcloud-app-pvc
+#           claimName: nextcloud-config-pvc
 # ---
 # apiVersion: batch/v1
 # kind: Job
@@ -172,7 +172,7 @@ spec:
 #           claimName: nextcloud-data-pvc
 #       - name: app-config
 #         persistentVolumeClaim:
-#           claimName: nextcloud-app-pvc
+#           claimName: nextcloud-config-pvc
 # ---
 # apiVersion: batch/v1
 # kind: Job
@@ -220,7 +220,7 @@ spec:
 #           claimName: nextcloud-data-pvc
 #       - name: app-config
 #         persistentVolumeClaim:
-#           claimName: nextcloud-app-pvc
+#           claimName: nextcloud-config-pvc
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -267,7 +267,7 @@ spec:
           volumes:
             - name: app-config
               persistentVolumeClaim:
-                claimName: nextcloud-app
+                claimName: nextcloud-config
             - name: data
               persistentVolumeClaim:
                 claimName: nextcloud-data
@@ -316,7 +316,7 @@ spec:
           volumes:
           - name: app-config
             persistentVolumeClaim:
-              claimName: nextcloud-app
+              claimName: nextcloud-config
           - name: data
             persistentVolumeClaim:
               claimName: nextcloud-data
@@ -363,7 +363,7 @@ spec:
 #           volumes:
 #           - name: app-config
 #             persistentVolumeClaim:
-#               claimName: nextcloud-app
+#               claimName: nextcloud-config
 #           - name: data
 #             persistentVolumeClaim:
 #               claimName: nextcloud-data
