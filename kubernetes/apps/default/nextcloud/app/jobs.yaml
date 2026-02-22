@@ -173,54 +173,54 @@ spec:
 #       - name: app-config
 #         persistentVolumeClaim:
 #           claimName: nextcloud-pvc
-# ---
-# apiVersion: batch/v1
-# kind: Job
-# metadata:
-#   name: nextcloud-job-config-richdocuments
-# spec:
-#   template:
-#     spec:
-#       ttlSecondsAfterFinished: 7200
-#       securityContext:
-#         runAsUser: 3000
-#         runAsGroup: 3000
-#         fsGroup: 3000
-#       containers:
-#       - name: nextcloud-job-config-richdocuments
-#         image: docker.io/library/nextcloud:32.0.6-fpm-alpine
-#         command: ["/bin/sh", "-c"]
-#         args:
-#           - |
-#             sleep 1020;
-#             until php /var/www/html/occ status --output json | grep -q '"installed":true'; do
-#               echo "Waiting for Nextcloud installation...";
-#               sleep 10;
-#             done;
-#             echo "Nextcloud is installed. Waiting for Nextcloud Office..."
-#             until php /var/www/html/occ app:list | grep -q 'richdocuments'; do
-#               echo "Waiting for Nextcloud Office installation..."
-#               sleep 10;
-#             done;
-#             echo "Nextcloud Office is installed. Configuring...";
-#             php /var/www/html/occ config:app:set --value http://nextcloud-collabora.default.svc.cluster.local:9980 richdocuments wopi_url
-#             php /var/www/html/occ richdocuments:activate-config
-#             echo "Nextcloud Office configuration completed.";
-#         volumeMounts:
-#         - name: app-config
-#           mountPath: /var/www/html
-#           subPath: config
-#         - name: data
-#           mountPath: /data
-#           subPath: data
-#       restartPolicy: OnFailure
-#       volumes:
-#       - name: data
-#         persistentVolumeClaim:
-#           claimName: nextcloud-data-pvc
-#       - name: app-config
-#         persistentVolumeClaim:
-#           claimName: nextcloud-pvc
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nextcloud-job-config-richdocuments
+spec:
+  template:
+    spec:
+      ttlSecondsAfterFinished: 7200
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: nextcloud-job-config-richdocuments
+        image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            sleep 1020;
+            until php /var/www/html/occ status --output json | grep -q '"installed":true'; do
+              echo "Waiting for Nextcloud installation...";
+              sleep 10;
+            done;
+            echo "Nextcloud is installed. Waiting for Nextcloud Office..."
+            until php /var/www/html/occ app:list | grep -q 'richdocuments'; do
+              echo "Waiting for Nextcloud Office installation..."
+              sleep 10;
+            done;
+            echo "Nextcloud Office is installed. Configuring...";
+            php /var/www/html/occ config:app:set --value http://nextcloud-collabora.default.svc.cluster.local:9980 richdocuments wopi_url
+            php /var/www/html/occ richdocuments:activate-config
+            echo "Nextcloud Office configuration completed.";
+        volumeMounts:
+        - name: app-config
+          mountPath: /var/www/html
+          subPath: config
+        - name: data
+          mountPath: /data
+          subPath: data
+      restartPolicy: OnFailure
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: nextcloud-data
+      - name: app-config
+        persistentVolumeClaim:
+          claimName: nextcloud
 ---
 apiVersion: batch/v1
 kind: CronJob
