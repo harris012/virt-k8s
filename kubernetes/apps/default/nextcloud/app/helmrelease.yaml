@@ -610,7 +610,7 @@ spec:
                 readOnly: false
       app-config:
         type: persistentVolumeClaim
-        existingClaim: nextcloud-config
+        existingClaim: nextcloud-conf
         advancedMounts:
           main:
             init-chmod-pvc:
