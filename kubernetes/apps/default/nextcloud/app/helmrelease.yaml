@@ -248,7 +248,7 @@ spec:
                 'backgroundjobs_mode' => 'cron',
                 'activity_expire_days' => 14,
                 'allow_local_remote_servers' => true,
-                'auth.bruteforce.protection.enabled' => true,
+                'auth.bruteforce.protection.enabled' => false,
                 'overwriteprotocol' => 'https',
                 'overwrite.cli.url' => 'https://cloud.harissaeed.com',
                 'trusted_domains' => array(
