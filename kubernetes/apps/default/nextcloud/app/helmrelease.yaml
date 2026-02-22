@@ -182,7 +182,7 @@ spec:
               runAsGroup: 0
     service:
       nginx:
-        controller: main
+        # controller: main
         ports:
           http:
             port: 8080
@@ -215,7 +215,7 @@ spec:
             namespace: network
         rules:
           - backendRefs:
-              - identifier: nextcloud-nginx
+              - identifier: nginx
                 port: 8080
             filters:
               - type: ResponseHeaderModifier
