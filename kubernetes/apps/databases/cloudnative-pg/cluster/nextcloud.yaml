@@ -14,7 +14,7 @@ spec:
   primaryUpdateMethod: switchover
 
   storage:
-    size: 1Gi
+    size: 5Gi
     storageClass: openebs-hostpath
 
   resources:
@@ -43,10 +43,10 @@ spec:
       parameters:
         barmanObjectName: minio-store
 
-  # bootstrap:
-  #   initdb:
-  #     database: nextcloud
-  #     owner: nextcloud
+  bootstrap:
+    initdb:
+      database: nextcloud
+      owner: nextcloud
 
 
   # ============================================================================
