@@ -224,7 +224,7 @@ spec:
       #         - name: nextcloud-collabora
       #           port: 9980
     configMaps:
-      nextcloud-conf:
+      nextcloud:
         enabled: true
         data:
           extra.config.php: |
@@ -594,7 +594,7 @@ spec:
                 subPath: data
                 readOnly: false
       app-config:
-        existingClaim: nextcloud-conf
+        existingClaim: nextcloud
         advancedMounts:
           main:
             init-chmod-pvc:
