@@ -185,7 +185,7 @@ spec:
         controller: main
         ports:
           http:
-            port: &port 8080
+            port: 8080
       clamav:
         controller: main
         ports:
@@ -216,13 +216,13 @@ spec:
         rules:
           - backendRefs:
               - identifier: nginx
-                port: *port
-            filters:
-              - type: ResponseHeaderModifier
-                responseHeaderModifier:
-                  add:
-                    - name: Strict-Transport-Security
-                      value: "max-age=31536000; includeSubDomains; preload"
+                port: 8080
+            # filters:
+            #   - type: ResponseHeaderModifier
+            #     responseHeaderModifier:
+            #       add:
+            #         - name: Strict-Transport-Security
+            #           value: "max-age=31536000; includeSubDomains; preload"
         # rules:
         #   - backendRefs:
         #       - name: nextcloud-nginx
