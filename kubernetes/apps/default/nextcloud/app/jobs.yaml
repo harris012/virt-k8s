@@ -125,54 +125,54 @@ spec:
 #       - name: app-config
 #         persistentVolumeClaim:
 #           claimName: nextcloud-pvc
-# ---
-# apiVersion: batch/v1
-# kind: Job
-# metadata:
-#   name: nextcloud-job-config-whiteboard
-# spec:
-#   template:
-#     spec:
-#       ttlSecondsAfterFinished: 7200
-#       securityContext:
-#         runAsUser: 3000
-#         runAsGroup: 3000
-#         fsGroup: 3000
-#       containers:
-#       - name: nextcloud-job-config-whiteboard
-#         image: docker.io/library/nextcloud:32.0.6-fpm-alpine
-#         command: ["/bin/sh", "-c"]
-#         args:
-#           - |
-#             sleep 960;
-#             until php /var/www/html/occ status --output json | grep -q '"installed":true'; do
-#               echo "Waiting for Nextcloud installation...";
-#               sleep 10;
-#             done;
-#             echo "Nextcloud is installed. Waiting for Whiteboard..."
-#             until php /var/www/html/occ app:list | grep -q 'whiteboard'; do
-#               echo "Waiting for Whiteboard installation..."
-#               sleep 10;
-#             done;
-#             echo "Whiteboard is installed. Configuring...";
-#             php /var/www/html/occ config:app:set whiteboard collabBackendUrl --value="https://cloud.${SECRET_DOMAIN}/whiteboard/";
-#             php /var/www/html/occ config:app:set whiteboard jwt_secret_key --value="${NEXTLOUD_WHITEBOARD_SECRET}";
-#             echo "Whiteboard configuration completed.";
-#         volumeMounts:
-#         - name: app-config
-#           mountPath: /var/www/html
-#           subPath: config
-#         - name: data
-#           mountPath: /data
-#           subPath: data
-#       restartPolicy: OnFailure
-#       volumes:
-#       - name: data
-#         persistentVolumeClaim:
-#           claimName: nextcloud-data-pvc
-#       - name: app-config
-#         persistentVolumeClaim:
-#           claimName: nextcloud-pvc
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nextcloud-job-config-whiteboard
+spec:
+  template:
+    spec:
+      ttlSecondsAfterFinished: 7200
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: nextcloud-job-config-whiteboard
+        image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            sleep 960;
+            until php /var/www/html/occ status --output json | grep -q '"installed":true'; do
+              echo "Waiting for Nextcloud installation...";
+              sleep 10;
+            done;
+            echo "Nextcloud is installed. Waiting for Whiteboard..."
+            until php /var/www/html/occ app:list | grep -q 'whiteboard'; do
+              echo "Waiting for Whiteboard installation..."
+              sleep 10;
+            done;
+            echo "Whiteboard is installed. Configuring...";
+            php /var/www/html/occ config:app:set whiteboard collabBackendUrl --value="https://cloud.${SECRET_DOMAIN}/whiteboard/";
+            php /var/www/html/occ config:app:set whiteboard jwt_secret_key --value="${NEXTLOUD_WHITEBOARD_SECRET}";
+            echo "Whiteboard configuration completed.";
+        volumeMounts:
+        - name: app-config
+          mountPath: /var/www/html
+          subPath: config
+        - name: data
+          mountPath: /data
+          subPath: data
+      restartPolicy: OnFailure
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: nextcloud-data
+      - name: app-config
+        persistentVolumeClaim:
+          claimName: nextcloud
 ---
 apiVersion: batch/v1
 kind: Job
