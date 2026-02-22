@@ -377,7 +377,7 @@ spec:
             opcache.jit_buffer_size=128M
           redis-session.ini: |
             session.save_handler = redis
-            session.save_path = "tcp://$${REDIS_HOST}:$${REDIS_HOST_PORT}
+            session.save_path = "tcp://$${REDIS_HOST}:$${REDIS_HOST_PORT}"
             redis.session.locking_enabled = 1
             redis.session.lock_retries = -1
             redis.session.lock_wait_time = 10000
