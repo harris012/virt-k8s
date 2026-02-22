@@ -185,7 +185,7 @@ spec:
         # controller: main
         ports:
           http:
-            port: 8080
+            port: &port 8080
       # clamav:
       #   controller: main
       #   ports:
@@ -216,7 +216,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: nginx
-                port: 8080
+                port: *port
             filters:
               - type: ResponseHeaderModifier
                 responseHeaderModifier:
