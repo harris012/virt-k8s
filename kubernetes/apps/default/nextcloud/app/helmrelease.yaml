@@ -37,6 +37,12 @@ spec:
               runAsGroup: 1000
               fsGroup: 1000
             env:
+              # - name: NEXTCLOUD_TRUSTED_DOMAINS
+              #   value: "localhost cloud.harissaeed.com id.harissaeed.com nextcloud-collabora.default.svc.cluster.local"
+              # - name: OVERWRITEPROTOCOL
+              #   value: "https"
+              # - name: OVERWRITECLIURL
+              #   value: "https://cloud.harissaeed.com"
               - name: TZ
                 value: "${TIMEZONE}"
               - name: NEXTCLOUD_ADMIN_USER
@@ -207,11 +213,20 @@ spec:
         parentRefs:
           - name: envoy-tailscale
             namespace: network
-            # sectionName: https
         rules:
           - backendRefs:
-              - name: nextcloud-nginx
+              - identifier: nextcloud-nginx
                 port: 8080
+            filters:
+              - type: ResponseHeaderModifier
+                responseHeaderModifier:
+                  add:
+                    - name: Strict-Transport-Security
+                      value: "max-age=31536000; includeSubDomains; preload"
+        # rules:
+        #   - backendRefs:
+        #       - name: nextcloud-nginx
+        #         port: 8080
       # collabora:
       #   hostnames:
       #     - office.harissaeed.com
