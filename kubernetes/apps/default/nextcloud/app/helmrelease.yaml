@@ -59,6 +59,11 @@ spec:
                   secretKeyRef:
                     name: nextcloud-secret
                     key: SMTP_FROM
+              - name: MAIL_DOMAIN
+                valueFrom:
+                  secretKeyRef:
+                    name: nextcloud-secret
+                    key: MAIL_DOMAIN
               - name: SMTP_PASSWORD
                 valueFrom:
                   secretKeyRef:
@@ -319,7 +324,7 @@ spec:
                 'mail_smtppassword' => getenv('SMTP_PASSWORD'),
                 'mail_smtpname' => getenv('SMTP_USERNAME'),
                 'mail_from_address' => getenv('SMTP_FROM'),
-                # 'mail_domain' => getenv('MAIL_DOMAIN'),
+                'mail_domain' => getenv('MAIL_DOMAIN'),
                 "mail_smtptimeout"  => 30,
                 'mail_smtpstreamoptions' => array (
                   'ssl' => array (
