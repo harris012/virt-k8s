@@ -318,19 +318,15 @@ spec:
 
                 'htaccess.RewriteBase' => '/',
 
-                'mail_smtpmode' => 'smtp',
-                'mail_smtptimeout' => 30,
                 'mail_sendmailmode' => 'smtp',
                 'mail_smtphost' => getenv('SMTP_HOST'),
                 'mail_smtpport' => '465',
                 'mail_smtpsecure' => 'ssl',
-                'mail_smtpauth' => false,
-                'mail_smtpauthtype' => '1',
+                'mail_smtpauth' => 1,
                 'mail_smtppassword' => getenv('SMTP_PASSWORD'),
                 'mail_smtpname' => getenv('SMTP_USERNAME'),
                 'mail_from_address' => getenv('SMTP_FROM'),
                 'mail_domain' => getenv('MAIL_DOMAIN'),
-                "mail_smtptimeout"  => 30,
                 'mail_smtpstreamoptions' => array (
                   'ssl' => array (
                     'allow_self_signed' => true,
