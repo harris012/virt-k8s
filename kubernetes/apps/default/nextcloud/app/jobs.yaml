@@ -319,50 +319,50 @@ spec:
           - name: data
             persistentVolumeClaim:
               claimName: nextcloud-data
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: nextcloud-cronjob-ai-worker
-  namespace: nextcloud
-spec:
-  schedule: "*/1 * * * *"  # Every minute
-  concurrencyPolicy: Forbid
-  successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 1
-  jobTemplate:
-    spec:
-      ttlSecondsAfterFinished: 60
-      backoffLimit: 1
-      template:
-        spec:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-          containers:
-          - name: nextcloud-cronjob-ai-worker
-            image: docker.io/library/nextcloud:32.0.6-fpm-alpine
-            command: ["/bin/sh", "-c"]
-            args:
-              - |
-                until php /var/www/html/occ status --output json | grep -q '"installed":true'; do
-                  echo "Waiting for Nextcloud installation...";
-                  sleep 10;
-                done;
-                php /var/www/html/occ background-job:worker -v -t 60 "OC\TaskProcessing\SynchronousBackgroundJob"
-            volumeMounts:
-            - name: app-config
-              mountPath: /var/www/html
-              subPath: config
-            - name: data
-              mountPath: /data
-              subPath: data
-          restartPolicy: OnFailure
-          volumes:
-          - name: app-config
-            persistentVolumeClaim:
-              claimName: nextcloud-app
-          - name: data
-            persistentVolumeClaim:
-              claimName: nextcloud-data
+# ---
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: nextcloud-cronjob-ai-worker
+#   namespace: nextcloud
+# spec:
+#   schedule: "*/1 * * * *"  # Every minute
+#   concurrencyPolicy: Forbid
+#   successfulJobsHistoryLimit: 1
+#   failedJobsHistoryLimit: 1
+#   jobTemplate:
+#     spec:
+#       ttlSecondsAfterFinished: 60
+#       backoffLimit: 1
+#       template:
+#         spec:
+#           securityContext:
+#             runAsUser: 1000
+#             runAsGroup: 1000
+#             fsGroup: 1000
+#           containers:
+#           - name: nextcloud-cronjob-ai-worker
+#             image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+#             command: ["/bin/sh", "-c"]
+#             args:
+#               - |
+#                 until php /var/www/html/occ status --output json | grep -q '"installed":true'; do
+#                   echo "Waiting for Nextcloud installation...";
+#                   sleep 10;
+#                 done;
+#                 php /var/www/html/occ background-job:worker -v -t 60 "OC\TaskProcessing\SynchronousBackgroundJob"
+#             volumeMounts:
+#             - name: app-config
+#               mountPath: /var/www/html
+#               subPath: config
+#             - name: data
+#               mountPath: /data
+#               subPath: data
+#           restartPolicy: OnFailure
+#           volumes:
+#           - name: app-config
+#             persistentVolumeClaim:
+#               claimName: nextcloud-app
+#           - name: data
+#             persistentVolumeClaim:
+#               claimName: nextcloud-data
