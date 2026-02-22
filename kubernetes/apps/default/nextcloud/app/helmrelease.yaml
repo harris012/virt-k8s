@@ -139,13 +139,13 @@ spec:
               - name: extra_params
                 value: "--o:ssl.termination=true --o:ssl.enable=false --o:welcome.enable=false --o:languagetool.enabled=true --o:languagetool.base_url=http://nextcloud-languagetool.default.svc.cluster.local:8010/v2 --o:net.proxy_allowed_hosts=192.168.0.0/16,10.0.0.0/8,cloud.harissaeed.com --o:admin_console.enable=false"
               - name: dictionaries
-                value: "de_DE en_GB en_US es_ES fr_FR"
+                value: "de_DE en_GB en_US"
               - name: server_name
                 value: "office.harissaeed.com"
             securityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-              fsGroup: 1000
+              runAsUser: 1001
+              runAsGroup: 1001
+              fsGroup: 1001
           languagetool:
             image:
               repository: collabora/languagetool
@@ -236,7 +236,7 @@ spec:
             # sectionName: https
         rules:
           - backendRefs:
-              - name: nextcloud-collabora
+              - identifier: collabora
                 port: 9980
     configMaps:
       nextcloud-config:
@@ -358,7 +358,7 @@ spec:
                 'bulkupload.enabled' => false,
 
                 'backgroundjobs_mode' => 'webcron',
-                'default_language' => 'de',
+                'default_language' => 'en',
                 'default_locale' => 'de_DE',
                 'default_phone_region' => 'DE',
                 'default_timezone' => 'Europe/Berlin',
