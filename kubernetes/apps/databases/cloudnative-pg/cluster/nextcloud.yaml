@@ -9,7 +9,7 @@ metadata:
   #   cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.1-minimal-trixie@sha256:238b88d7fc09dfa74c972730799ac5dc0e8dc64eb8d7636ed1475dca1158ab1e
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.8-minimal-trixie@sha256:2beaf0401cdf95d3bb0c083ec33f044cc5ad5f80cfa9490ba1ab6dc8342a2bbc
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
 
@@ -43,10 +43,10 @@ spec:
       parameters:
         barmanObjectName: minio-store
 
-  # bootstrap:
-  #   initdb:
-  #     database: nextcloud
-  #     owner: nextcloud
+  bootstrap:
+    initdb:
+      database: nextcloud
+      owner: nextcloud
 
 
   # ============================================================================
