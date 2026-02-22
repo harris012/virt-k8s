@@ -49,19 +49,21 @@ spec:
                   secretKeyRef:
                     name: nextcloud-secret
                     key: ADMIN_PASS
-              # - name: SMTP_HOST
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: nextcloud-secret
-              #       key: SMTP_HOST
-              # - name: SMTP_PORT
-              #   value: "465"
-              # - name: SMTP_AUTHTYPE
-              #   value: ""
-              # - name: MAIL_FROM_ADDRESS
-              #   value: "mail"
-              # - name: MAIL_DOMAIN
-              #   value: "harissaeed.com"
+              - name: SMTP_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: nextcloud-secret
+                    key: SMTP_HOST
+              - name: SMTP_FROM
+                valueFrom:
+                  secretKeyRef:
+                    name: nextcloud-secret
+                    key: SMTP_FROM
+              - name: SMTP_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: nextcloud-secret
+                    key: SMTP_PASSWORD
               - name: POSTGRES_HOST
                 valueFrom:
                   secretKeyRef:
@@ -306,26 +308,26 @@ spec:
 
                 'htaccess.RewriteBase' => '/',
 
-                # 'mail_smtpmode' => 'smtp',
-                # 'mail_smtptimeout' => 30,
-                # 'mail_sendmailmode' => 'smtp',
-                # 'mail_smtphost' => getenv('SMTP_HOST'),
-                # 'mail_smtpport' => 25,
-                # 'mail_smtpsecure' => '',
-                # 'mail_smtpauth' => false,
-                # 'mail_smtpauthtype' => '',
-                # 'mail_smtppassword' => getenv('SMTP_PASSWORD'),
-                # 'mail_smtpname' => getenv('SMTP_NAME'),
-                # 'mail_from_address' => getenv('MAIL_FROM_ADDRESS'),
+                'mail_smtpmode' => 'smtp',
+                'mail_smtptimeout' => 30,
+                'mail_sendmailmode' => 'smtp',
+                'mail_smtphost' => getenv('SMTP_HOST'),
+                'mail_smtpport' => '465',
+                'mail_smtpsecure' => 'ssl',
+                'mail_smtpauth' => false,
+                'mail_smtpauthtype' => '1',
+                'mail_smtppassword' => getenv('SMTP_PASSWORD'),
+                'mail_smtpname' => getenv('SMTP_USERNAME'),
+                'mail_from_address' => getenv('SMTP_FROM'),
                 # 'mail_domain' => getenv('MAIL_DOMAIN'),
-                # "mail_smtptimeout"  => 30,
-                # 'mail_smtpstreamoptions' => array (
-                #   'ssl' => array (
-                #     'allow_self_signed' => true,
-                #     'verify_peer' => false,
-                #     'verify_peer_name' => false
-                #     ),
-                #   ),
+                "mail_smtptimeout"  => 30,
+                'mail_smtpstreamoptions' => array (
+                  'ssl' => array (
+                    'allow_self_signed' => true,
+                    'verify_peer' => false,
+                    'verify_peer_name' => false
+                    ),
+                  ),
 
                 'enable_previews' => true,
                 'enabledPreviewProviders' =>
