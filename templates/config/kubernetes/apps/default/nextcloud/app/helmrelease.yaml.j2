@@ -49,19 +49,31 @@ spec:
                   secretKeyRef:
                     name: nextcloud-secret
                     key: ADMIN_PASS
-              # - name: SMTP_HOST
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: nextcloud-secret
-              #       key: SMTP_HOST
-              # - name: SMTP_PORT
-              #   value: "465"
-              # - name: SMTP_AUTHTYPE
-              #   value: ""
-              # - name: MAIL_FROM_ADDRESS
-              #   value: "mail"
-              # - name: MAIL_DOMAIN
-              #   value: "harissaeed.com"
+              - name: SMTP_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: nextcloud-secret
+                    key: SMTP_HOST
+              - name: SMTP_FROM
+                valueFrom:
+                  secretKeyRef:
+                    name: nextcloud-secret
+                    key: SMTP_FROM
+              - name: MAIL_DOMAIN
+                valueFrom:
+                  secretKeyRef:
+                    name: nextcloud-secret
+                    key: MAIL_DOMAIN
+              - name: SMTP_USERNAME
+                valueFrom:
+                  secretKeyRef:
+                    name: nextcloud-secret
+                    key: SMTP_USERNAME
+              - name: SMTP_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: nextcloud-secret
+                    key: SMTP_PASSWORD
               - name: POSTGRES_HOST
                 valueFrom:
                   secretKeyRef:
@@ -131,7 +143,7 @@ spec:
                     name: nextcloud-secret
                     key: COLLABORA_PASSWORD
               - name: extra_params
-                value: "--o:ssl.termination=true --o:ssl.enable=false --o:welcome.enable=false --o:languagetool.enabled=true --o:languagetool.base_url=http://nextcloud-languagetool.default.svc.cluster.local:8010/v2 --o:net.proxy_allowed_hosts=192.168.0.0/16,10.0.0.0/8,cloud.harissaeed.com --o:admin_console.enable=false"
+                value: "--o:ssl.termination=true --o:ssl.enable=false --o:welcome.enable=false --o:languagetool.enabled=true --o:languagetool.base_url=http://nextcloud-languagetool.default.svc.cluster.local:8010/v2 --o:net.proxy_allowed_hosts=192.168.0.0/16,10.0.0.0/8,10.42.0.0/16,cloud.harissaeed.com --o:admin_console.enable=false"
               - name: dictionaries
                 value: "de_DE en_GB en_US"
               - name: server_name
@@ -256,6 +268,7 @@ spec:
                     1 => '10.0.0.0/8',
                     2 => '172.16.0.0/12',
                     3 => '192.168.0.0/16',
+                    4 => '10.42.0.0/16',
                 ),
                 'forwarded_for_headers' => array(
                   0 => 'HTTP_X_FORWARDED_FOR',
@@ -305,26 +318,22 @@ spec:
 
                 'htaccess.RewriteBase' => '/',
 
-                # 'mail_smtpmode' => 'smtp',
-                # 'mail_smtptimeout' => 30,
-                # 'mail_sendmailmode' => 'smtp',
-                # 'mail_smtphost' => getenv('SMTP_HOST'),
-                # 'mail_smtpport' => 25,
-                # 'mail_smtpsecure' => '',
-                # 'mail_smtpauth' => false,
-                # 'mail_smtpauthtype' => '',
-                # 'mail_smtppassword' => getenv('SMTP_PASSWORD'),
-                # 'mail_smtpname' => getenv('SMTP_NAME'),
-                # 'mail_from_address' => getenv('MAIL_FROM_ADDRESS'),
-                # 'mail_domain' => getenv('MAIL_DOMAIN'),
-                # "mail_smtptimeout"  => 30,
-                # 'mail_smtpstreamoptions' => array (
-                #   'ssl' => array (
-                #     'allow_self_signed' => true,
-                #     'verify_peer' => false,
-                #     'verify_peer_name' => false
-                #     ),
-                #   ),
+                'mail_sendmailmode' => 'smtp',
+                'mail_smtphost' => getenv('SMTP_HOST'),
+                'mail_smtpport' => '465',
+                'mail_smtpsecure' => 'ssl',
+                'mail_smtpauth' => 1,
+                'mail_smtppassword' => getenv('SMTP_PASSWORD'),
+                'mail_smtpname' => getenv('SMTP_USERNAME'),
+                'mail_from_address' => getenv('SMTP_FROM'),
+                'mail_domain' => getenv('MAIL_DOMAIN'),
+                'mail_smtpstreamoptions' => array (
+                  'ssl' => array (
+                    'allow_self_signed' => true,
+                    'verify_peer' => false,
+                    'verify_peer_name' => false
+                    ),
+                  ),
 
                 'enable_previews' => true,
                 'enabledPreviewProviders' =>
