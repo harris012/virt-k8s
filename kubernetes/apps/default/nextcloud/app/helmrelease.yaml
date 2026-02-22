@@ -224,7 +224,7 @@ spec:
       #         - name: nextcloud-collabora
       #           port: 9980
     configMaps:
-      nextcloud:
+      nextcloud-config:
         enabled: true
         data:
           extra.config.php: |
@@ -594,6 +594,7 @@ spec:
                 subPath: data
                 readOnly: false
       app-config:
+        type: persistentVolumeClaim
         existingClaim: nextcloud
         advancedMounts:
           main:
@@ -645,7 +646,7 @@ spec:
               - path: /usr/local/etc/php/conf.d/opcache-recommended.ini
                 subPath: opcache-recommended-ini
                 readOnly: true
-      nextcloud-conf:
+      nextcloud-config:
         type: "configMap"
         name: nextcloud-nextcloud-config
         advancedMounts:
