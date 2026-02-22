@@ -30,39 +30,39 @@ spec:
       - name: app-config
         persistentVolumeClaim:
           claimName: nextcloud
-# ---
-# apiVersion: batch/v1
-# kind: Job
-# metadata:
-#   name: nextcloud-job-config-addapps
-# spec:
-#   template:
-#     spec:
-#       ttlSecondsAfterFinished: 3600
-#       securityContext:
-#         runAsUser: 1000
-#         runAsGroup: 1000
-#         fsGroup: 1000
-#       containers:
-#       - name: nextcloud-job-config-addapps
-#         image: docker.io/library/nextcloud:32.0.6-fpm-alpine
-#         command: ["/bin/sh", "-c"]
-#         args: ["sleep 660; until php /var/www/html/occ status --output json | grep -q '\"installed\":true'; do sleep 10; done && php /var/www/html/occ app:disable firstrunwizard && php /var/www/html/occ app:disable support && php /var/www/html/occ app:disable federation && php /var/www/html/occ app:disable survey_client && php /var/www/html/occ app:disable user_status && php /var/www/html/occ app:enable admin_audit && php /var/www/html/occ app:enable files_pdfviewer && php /var/www/html/occ app:enable groupfolders && php /var/www/html/occ app:install richdocuments && php /var/www/html/occ app:install files_antivirus && php /var/www/html/occ app:install whiteboard && php /var/www/html/occ app:install deck && php /var/www/html/occ app:install tables && php /var/www/html/occ app:install forms && php /var/www/html/occ app:install quota_warning && php /var/www/html/occ app:install calendar && php /var/www/html/occ app:install files_retention"]
-#         volumeMounts:
-#         - name: app-config
-#           mountPath: /var/www/html
-#           subPath: config
-#         - name: data
-#           mountPath: /data
-#           subPath: data
-#       restartPolicy: OnFailure
-#       volumes:
-#       - name: data
-#         persistentVolumeClaim:
-#           claimName: nextcloud-data
-#       - name: app-config
-#         persistentVolumeClaim:
-#           claimName: nextcloud
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nextcloud-job-config-addapps
+spec:
+  template:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: nextcloud-job-config-addapps
+        image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+        command: ["/bin/sh", "-c"]
+        args: ["sleep 660; until php /var/www/html/occ status --output json | grep -q '\"installed\":true'; do sleep 10; done && php /var/www/html/occ app:disable firstrunwizard && php /var/www/html/occ app:disable support && php /var/www/html/occ app:disable federation && php /var/www/html/occ app:disable survey_client && php /var/www/html/occ app:disable user_status && php /var/www/html/occ app:enable admin_audit && php /var/www/html/occ app:enable files_pdfviewer && php /var/www/html/occ app:enable groupfolders && php /var/www/html/occ app:install richdocuments && php /var/www/html/occ app:install files_antivirus && php /var/www/html/occ app:install whiteboard && php /var/www/html/occ app:install deck && php /var/www/html/occ app:install tables && php /var/www/html/occ app:install forms && php /var/www/html/occ app:install quota_warning && php /var/www/html/occ app:install calendar && php /var/www/html/occ app:install files_retention"]
+        volumeMounts:
+        - name: app-config
+          mountPath: /var/www/html
+          subPath: config
+        - name: data
+          mountPath: /data
+          subPath: data
+      restartPolicy: OnFailure
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: nextcloud-data
+      - name: app-config
+        persistentVolumeClaim:
+          claimName: nextcloud
 # ---
 # apiVersion: batch/v1
 # kind: Job
