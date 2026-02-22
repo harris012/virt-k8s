@@ -224,7 +224,7 @@ spec:
       #         - name: nextcloud-collabora
       #           port: 9980
     configMaps:
-      nextcloud-config:
+      nextcloud-conf:
         enabled: true
         data:
           extra.config.php: |
@@ -594,7 +594,7 @@ spec:
                 subPath: data
                 readOnly: false
       app-config:
-        existingClaim: nextcloud-config
+        existingClaim: nextcloud-conf
         advancedMounts:
           main:
             init-chmod-pvc:
@@ -620,7 +620,7 @@ spec:
                 readOnly: true
       upload-limit-ini:
         type: "configMap"
-        name: nextcloud-nextcloud-config
+        name: nextcloud-nextcloud-conf
         advancedMounts:
           main:
             nextcloud:
@@ -629,7 +629,7 @@ spec:
                 readOnly: true
       www-conf:
         type: "configMap"
-        name: nextcloud-nextcloud-config
+        name: nextcloud-nextcloud-conf
         advancedMounts:
           main:
             nextcloud:
@@ -638,16 +638,16 @@ spec:
                 readOnly: true
       opcache-recommended-ini:
         type: "configMap"
-        name: nextcloud-nextcloud-config
+        name: nextcloud-nextcloud-conf
         advancedMounts:
           main:
             nextcloud:
               - path: /usr/local/etc/php/conf.d/opcache-recommended.ini
                 subPath: opcache-recommended-ini
                 readOnly: true
-      nextcloud-config:
+      nextcloud-conf:
         type: "configMap"
-        name: nextcloud-nextcloud-config
+        name: nextcloud-nextcloud-conf
         advancedMounts:
           main:
             nextcloud:
@@ -656,7 +656,7 @@ spec:
                 readOnly: true
       redis-session-ini:
         type: "configMap"
-        name: nextcloud-nextcloud-config
+        name: nextcloud-nextcloud-conf
         advancedMounts:
           main:
             nextcloud:
