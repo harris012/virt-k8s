@@ -5,9 +5,6 @@ kind: Kustomization
 metadata:
   name: nextcloud
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: nextcloud
   components:
     - ../../../../components/nfs-scaler
     - ../../../../components/volsync
@@ -32,6 +29,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: default
-  timeout: 5m
   wait: false
 

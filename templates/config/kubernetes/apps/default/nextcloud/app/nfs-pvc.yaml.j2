@@ -2,24 +2,27 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nextcloud-pv
+  name: nextcloud-data
 spec:
-  storageClassName: nextcloud-nfs
-  accessModes: ["ReadWriteMany"]
+  storageClassName: nextcloud-data
+  accessModes:
+    - ReadWriteMany
   capacity:
     storage: 500Gi
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: expanse.internal
     path: /mnt/storage/k8s/nextcloud
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: nextcloud-data
 spec:
-  storageClassName: nextcloud-nfs
-  accessModes: ["ReadWriteMany"]
+  storageClassName: nextcloud-data
+  accessModes:
+    - ReadWriteMany
   resources:
     requests:
       storage: 500Gi
