@@ -150,26 +150,26 @@ spec:
             image:
               repository: collabora/languagetool
               tag: 6.6@sha256:a93a2470a49c28e36b0e3b73f4562dab21a532ad10819ddc50bf69f80e98240d
-          # whiteboard:
-          #   image:
-          #     repository: ghcr.io/nextcloud-releases/whiteboard
-          #     tag: v1.5.6@sha256:0a261558fa6d5d5cfea5da6b24ff2aeee691d46a7ced943edb478751919a4649
-          #   env:
-          #     - name: NEXTCLOUD_URL
-          #       value: "https://cloud.harissaeed.com"
-          #     - name: JWT_SECRET_KEY
-          #       valueFrom:
-          #         secretKeyRef:
-          #           name: nextcloud-secret
-          #           key: WHITEBOARD_JWT_SECRET_KEY
-          #     - name: STORAGE_STRATEGY
-          #       value: "redis"
-          #     - name: REDIS_URL
-          #       value: "redis://dragonfly.databases.svc.cluster.local:6379/9"
-          #   securityContext:
-          #     runAsUser: 65534
-          #     runAsGroup: 65534
-          #     fsGroup: 65534
+          whiteboard:
+            image:
+              repository: ghcr.io/nextcloud-releases/whiteboard
+              tag: v1.5.6@sha256:0a261558fa6d5d5cfea5da6b24ff2aeee691d46a7ced943edb478751919a4649
+            env:
+              - name: NEXTCLOUD_URL
+                value: "https://cloud.harissaeed.com"
+              - name: JWT_SECRET_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: nextcloud-secret
+                    key: WHITEBOARD_JWT_SECRET_KEY
+              - name: STORAGE_STRATEGY
+                value: "redis"
+              - name: REDIS_URL
+                value: "redis://dragonfly.databases.svc.cluster.local:6379/9"
+            securityContext:
+              runAsUser: 65534
+              runAsGroup: 65534
+              fsGroup: 65534
         initContainers:
           init-chmod-pvc:
             image:
@@ -201,11 +201,11 @@ spec:
         ports:
           http:
             port: 8010
-      # whiteboard:
-      #   controller: main
-      #   ports:
-      #     http:
-      #       port: 3002
+      whiteboard:
+        controller: main
+        ports:
+          http:
+            port: 3002
     route:
       nextcloud:
         hostnames:
@@ -248,7 +248,7 @@ spec:
                 'backgroundjobs_mode' => 'cron',
                 'activity_expire_days' => 14,
                 'allow_local_remote_servers' => true,
-                'auth.bruteforce.protection.enabled' => false,
+                'auth.bruteforce.protection.enabled' => true,
                 'overwriteprotocol' => 'https',
                 'overwrite.cli.url' => 'https://cloud.harissaeed.com',
                 'trusted_domains' => array(
@@ -358,7 +358,7 @@ spec:
                 'bulkupload.enabled' => false,
 
                 'backgroundjobs_mode' => 'webcron',
-                'default_language' => 'de',
+                'default_language' => 'en',
                 'default_locale' => 'de_DE',
                 'default_phone_region' => 'DE',
                 'default_timezone' => 'Europe/Berlin',
