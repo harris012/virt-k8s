@@ -22,6 +22,8 @@ spec:
         - name: data
           mountPath: /data
           subPath: data
+      nodeSelector:
+        kubernetes.io/hostname: "bravo"
       restartPolicy: OnFailure
       volumes:
       - name: data
@@ -55,6 +57,8 @@ spec:
         - name: data
           mountPath: /data
           subPath: data
+      nodeSelector:
+        kubernetes.io/hostname: "bravo"
       restartPolicy: OnFailure
       volumes:
       - name: data
@@ -165,6 +169,8 @@ spec:
         - name: data
           mountPath: /data
           subPath: data
+      nodeSelector:
+        kubernetes.io/hostname: "bravo"
       restartPolicy: OnFailure
       volumes:
       - name: data
@@ -213,6 +219,8 @@ spec:
         - name: data
           mountPath: /data
           subPath: data
+      nodeSelector:
+        kubernetes.io/hostname: "bravo"
       restartPolicy: OnFailure
       volumes:
       - name: data
@@ -263,6 +271,8 @@ spec:
                 - name: data
                   mountPath: /data
                   subPath: data
+          nodeSelector:
+            kubernetes.io/hostname: "bravo"
           restartPolicy: OnFailure
           volumes:
             - name: app-config
@@ -312,6 +322,8 @@ spec:
             - name: data
               mountPath: /data
               subPath: data
+          nodeSelector:
+            kubernetes.io/hostname: "bravo"
           restartPolicy: OnFailure
           volumes:
           - name: app-config
