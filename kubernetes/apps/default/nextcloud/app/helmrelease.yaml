@@ -21,14 +21,14 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
         secret.reloader.stakater.com/reload: "nextcloud-secret"
+      nodeSelector:
+        kubernetes.io/hostname: "bravo"
     controllers:
       main:
         replicas: 1
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
-        nodeSelector:
-            kubernetes.io/hostname: "bravo"
         containers:
           nextcloud:
             image:
