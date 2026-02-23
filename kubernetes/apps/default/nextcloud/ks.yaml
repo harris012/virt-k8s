@@ -23,7 +23,6 @@ spec:
     substitute:
       APP: nextcloud
       VOLSYNC_CAPACITY: 5Gi
-      VOLSYNC_ACCESSMODES: ReadWriteMany
   prune: true
   sourceRef:
     kind: GitRepository

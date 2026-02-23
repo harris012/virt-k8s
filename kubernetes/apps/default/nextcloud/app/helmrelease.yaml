@@ -27,6 +27,8 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
+        nodeSelector:
+            kubernetes.io/hostname: "bravo"
         containers:
           nextcloud:
             image:
