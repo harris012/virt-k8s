@@ -21,6 +21,8 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
         secret.reloader.stakater.com/reload: "nextcloud-secret"
+      nodeSelector: # prefere schedule to one node because of pvc readWriteOnce
+        kubernetes.io/hostname: "bravo"
     controllers:
       main:
         replicas: 1
