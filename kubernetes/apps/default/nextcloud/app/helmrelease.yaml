@@ -246,6 +246,38 @@ spec:
           - backendRefs:
               - identifier: collabora
                 port: 9980
+      nextcloud-local:
+        hostnames:
+          - cloud.harissaeed.com
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: nginx
+                port: 8080
+            # filters:
+            #   - type: ResponseHeaderModifier
+            #     responseHeaderModifier:
+            #       add:
+            #         - name: Strict-Transport-Security
+            #           value: "max-age=31536000; includeSubDomains; preload"
+        # rules:
+        #   - backendRefs:
+        #       - name: nextcloud-nginx
+        #         port: 8080
+      collabora-local:
+        hostnames:
+          - office.harissaeed.com
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            # sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: collabora
+                port: 9980
+
     configMaps:
       nextcloud-config:
         enabled: true
