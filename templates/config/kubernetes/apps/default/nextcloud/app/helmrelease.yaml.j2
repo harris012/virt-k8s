@@ -158,26 +158,26 @@ spec:
             image:
               repository: collabora/languagetool
               tag: 6.6@sha256:a93a2470a49c28e36b0e3b73f4562dab21a532ad10819ddc50bf69f80e98240d
-          whiteboard:
-            image:
-              repository: ghcr.io/nextcloud-releases/whiteboard
-              tag: v1.5.6@sha256:0a261558fa6d5d5cfea5da6b24ff2aeee691d46a7ced943edb478751919a4649
-            env:
-              - name: NEXTCLOUD_URL
-                value: "https://cloud.harissaeed.com"
-              - name: JWT_SECRET_KEY
-                valueFrom:
-                  secretKeyRef:
-                    name: nextcloud-secret
-                    key: WHITEBOARD_JWT_SECRET_KEY
-              - name: STORAGE_STRATEGY
-                value: "redis"
-              - name: REDIS_URL
-                value: "redis://dragonfly.databases.svc.cluster.local:6379/9"
-            securityContext:
-              runAsUser: 65534
-              runAsGroup: 65534
-              fsGroup: 65534
+          # whiteboard:
+          #   image:
+          #     repository: ghcr.io/nextcloud-releases/whiteboard
+          #     tag: v1.5.6@sha256:0a261558fa6d5d5cfea5da6b24ff2aeee691d46a7ced943edb478751919a4649
+          #   env:
+          #     - name: NEXTCLOUD_URL
+          #       value: "https://cloud.harissaeed.com"
+          #     - name: JWT_SECRET_KEY
+          #       valueFrom:
+          #         secretKeyRef:
+          #           name: nextcloud-secret
+          #           key: WHITEBOARD_JWT_SECRET_KEY
+          #     - name: STORAGE_STRATEGY
+          #       value: "redis"
+          #     - name: REDIS_URL
+          #       value: "redis://dragonfly.databases.svc.cluster.local:6379/9"
+          #   securityContext:
+          #     runAsUser: 65534
+          #     runAsGroup: 65534
+          #     fsGroup: 65534
         initContainers:
           init-chmod-pvc:
             image:
@@ -209,11 +209,11 @@ spec:
         ports:
           http:
             port: 8010
-      whiteboard:
-        controller: main
-        ports:
-          http:
-            port: 3002
+      # whiteboard:
+      #   controller: main
+      #   ports:
+      #     http:
+      #       port: 3002
     route:
       nextcloud:
         hostnames:
@@ -619,15 +619,15 @@ spec:
                         try_files $uri $uri/ /index.php$request_uri;
                     }
 
-                    # Whiteboard reverse proxy
-                    location /whiteboard/ {
-                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                        proxy_set_header Host $host;
-                        proxy_pass http://nextcloud-whiteboard.default.svc.cluster.local:3002/;
-                        proxy_http_version 1.1;
-                        proxy_set_header Upgrade $http_upgrade;
-                        proxy_set_header Connection "upgrade";
-                    }
+                    # # Whiteboard reverse proxy
+                    # location /whiteboard/ {
+                    #     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    #     proxy_set_header Host $host;
+                    #     proxy_pass http://nextcloud-whiteboard.default.svc.cluster.local:3002/;
+                    #     proxy_http_version 1.1;
+                    #     proxy_set_header Upgrade $http_upgrade;
+                    #     proxy_set_header Connection "upgrade";
+                    # }
 
                     # Fallback
                     location / {
