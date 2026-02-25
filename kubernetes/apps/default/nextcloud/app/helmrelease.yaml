@@ -149,7 +149,7 @@ spec:
               - name: dictionaries
                 value: "de_DE en_GB en_US"
               - name: server_name
-                value: "office.harissaeed.com"
+                value: "http://nextcloud-collabora.default.svc.cluster.local:9980"
             securityContext:
               runAsUser: 1001
               runAsGroup: 1001
