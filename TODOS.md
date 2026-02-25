@@ -12,4 +12,4 @@
 - [ ] test GPG key encryption instead of age.
 - [ ] Setup GitOps CNPG recovery.
 - [ ] Setup TCP envoy gateway to access Gluetun (https://gateway.envoyproxy.io/docs/tasks/traffic/tcp-routing/)
-- [ ] add nfsrahead & mei extension on talos.
+- [ ] add nfsrahead & mei extension on talos (check if really needed).

@@ -11,6 +11,7 @@ customization:
       - intel_iommu=on                      # PCI Passthrough
       - iommu=pt                            # PCI Passthrough
       - pcie_aspm=off                       # Disable PCIe ASPM
+      - pcie_port_pm=off                    # Disable PCIe Port PM
       - mitigations=off                     # Less security, faster puter
       - security=none                       # Less security, faster puter
       - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU / iGPU
@@ -18,4 +19,4 @@ customization:
 
 
 
-#-init_on_alloc -init_on_free -selinux apparmor=0 i915.enable_guc=3 init_on_alloc=0 init_on_free=0 intel_iommu=on iommu=pt pcie_aspm=off mitigations=off security=none sysctl.kernel.kexec_load_disabled=1 talos.auditd.disabled=1
+#-init_on_alloc -init_on_free -selinux apparmor=0 i915.enable_guc=3 init_on_alloc=0 init_on_free=0 intel_iommu=on iommu=pt pcie_aspm=off pcie_port_pm=off mitigations=off security=none sysctl.kernel.kexec_load_disabled=1 talos.auditd.disabled=1
