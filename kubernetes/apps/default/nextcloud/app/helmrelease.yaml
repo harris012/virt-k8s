@@ -149,7 +149,7 @@ spec:
               - name: dictionaries
                 value: "de_DE en_GB en_US"
               - name: server_name
-                value: "http://nextcloud-collabora.default.svc.cluster.local:9980"
+                value: "https://office.harissaeed.com"
             securityContext:
               runAsUser: 1001
               runAsGroup: 1001
@@ -401,10 +401,6 @@ spec:
                 'default_phone_region' => 'DE',
                 'default_timezone' => 'Europe/Berlin',
                 'maintenance_window_start' => 1,
-
-                'richdocuments' => array(
-                'wopi_url' => 'nextcloud-collabora.default.svc.cluster.local:9980',
-            ),
 
               );
           opcache-recommended-ini: |
