@@ -145,7 +145,7 @@ spec:
                     name: nextcloud-secret
                     key: COLLABORA_PASSWORD
               - name: extra_params
-                value: "--o:ssl.termination=true --o:ssl.enable=false --o:welcome.enable=false --o:security.capabilities=false  --o:languagetool.enabled=true --o:languagetool.base_url=http://nextcloud-languagetool.default.svc.cluster.local:8010/v2 --o:logging.level=error --o:net.proxy_allowed_hosts=192.168.0.0/16,10.0.0.0/8,10.42.0.0/16,cloud.harissaeed.com --o:admin_console.enable=false"
+                value: "--o:ssl.termination=true --o:ssl.enable=false --o:welcome.enable=false  --o:languagetool.enabled=true --o:languagetool.base_url=http://nextcloud-languagetool.default.svc.cluster.local:8010/v2 --o:net.proxy_allowed_hosts=192.168.0.0/16,10.0.0.0/8,10.42.0.0/16,cloud.harissaeed.com --o:admin_console.enable=false"
               - name: dictionaries
                 value: "de_DE en_GB en_US"
               - name: server_name
