@@ -129,55 +129,6 @@ spec:
               runAsUser: 0
               runAsGroup: 0
               fsGroup: 0
-          collabora:
-            image:
-              repository: collabora/code
-              tag: 25.04.9.1.1@sha256:1709b3ba91e8486318f5480250358ead10b3ca8f36a2ae1d3a53c13b49466dee
-            env:
-              - name: username
-                valueFrom:
-                  secretKeyRef:
-                    name: nextcloud-secret
-                    key: COLLABORA_USERNAME
-              - name: password
-                valueFrom:
-                  secretKeyRef:
-                    name: nextcloud-secret
-                    key: COLLABORA_PASSWORD
-              - name: extra_params
-                value: "--o:ssl.termination=true --o:ssl.enable=false --o:welcome.enable=false --o:security.capabilities=false  --o:languagetool.enabled=true --o:languagetool.base_url=http://nextcloud-languagetool.default.svc.cluster.local:8010/v2 --o:logging.level=error --o:net.proxy_allowed_hosts=192.168.0.0/16,10.0.0.0/8,10.42.0.0/16,cloud.harissaeed.com --o:admin_console.enable=false"
-              - name: dictionaries
-                value: "de_DE en_GB en_US"
-              - name: server_name
-                value: "office.harissaeed.com"
-            securityContext:
-              runAsUser: 1001
-              runAsGroup: 1001
-              fsGroup: 1001
-          languagetool:
-            image:
-              repository: collabora/languagetool
-              tag: 6.6@sha256:a93a2470a49c28e36b0e3b73f4562dab21a532ad10819ddc50bf69f80e98240d
-          # whiteboard:
-          #   image:
-          #     repository: ghcr.io/nextcloud-releases/whiteboard
-          #     tag: v1.5.6@sha256:0a261558fa6d5d5cfea5da6b24ff2aeee691d46a7ced943edb478751919a4649
-          #   env:
-          #     - name: NEXTCLOUD_URL
-          #       value: "https://cloud.harissaeed.com"
-          #     - name: JWT_SECRET_KEY
-          #       valueFrom:
-          #         secretKeyRef:
-          #           name: nextcloud-secret
-          #           key: WHITEBOARD_JWT_SECRET_KEY
-          #     - name: STORAGE_STRATEGY
-          #       value: "redis"
-          #     - name: REDIS_URL
-          #       value: "redis://dragonfly.databases.svc.cluster.local:6379/9"
-          #   securityContext:
-          #     runAsUser: 65534
-          #     runAsGroup: 65534
-          #     fsGroup: 65534
         initContainers:
           init-chmod-pvc:
             image:
@@ -199,21 +150,6 @@ spec:
         ports:
           clamd:
             port: 3310
-      collabora:
-        controller: main
-        ports:
-          http:
-            port: 9980
-      languagetool:
-        controller: main
-        ports:
-          http:
-            port: 8010
-      # whiteboard:
-      #   controller: main
-      #   ports:
-      #     http:
-      #       port: 3002
     route:
       nextcloud:
         hostnames:
@@ -235,17 +171,6 @@ spec:
         #   - backendRefs:
         #       - name: nextcloud-nginx
         #         port: 8080
-      collabora:
-        hostnames:
-          - office.harissaeed.com
-        parentRefs:
-          - name: envoy-tailscale
-            namespace: network
-            # sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: collabora
-                port: 9980
       # nextcloud-local:
       #   hostnames:
       #     - cloud.harissaeed.com
@@ -262,21 +187,6 @@ spec:
             #       add:
             #         - name: Strict-Transport-Security
             #           value: "max-age=31536000; includeSubDomains; preload"
-        # rules:
-        #   - backendRefs:
-        #       - name: nextcloud-nginx
-        #         port: 8080
-      # collabora-local:
-      #   hostnames:
-      #     - office.harissaeed.com
-      #   parentRefs:
-      #     - name: envoy-internal
-      #       namespace: network
-      #       # sectionName: https
-      #   rules:
-      #     - backendRefs:
-      #         - identifier: collabora
-      #           port: 9980
 
     configMaps:
       nextcloud-config:
@@ -294,8 +204,7 @@ spec:
                 'trusted_domains' => array(
                     0 => 'localhost',
                     1 => 'cloud.harissaeed.com',
-                    2 => 'office.harissaeed.com',
-                    3 => 'nextcloud-collabora.default.svc.cluster.local',
+
                 ),
                 'trusted_proxies' => array(
                     0 => '127.0.0.1',
@@ -619,16 +528,6 @@ spec:
                         limit_req_status 429;
                         try_files $uri $uri/ /index.php$request_uri;
                     }
-
-                    # # Whiteboard reverse proxy
-                    # location /whiteboard/ {
-                    #     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                    #     proxy_set_header Host $host;
-                    #     proxy_pass http://nextcloud-whiteboard.default.svc.cluster.local:3002/;
-                    #     proxy_http_version 1.1;
-                    #     proxy_set_header Upgrade $http_upgrade;
-                    #     proxy_set_header Connection "upgrade";
-                    # }
 
                     # Fallback
                     location / {
