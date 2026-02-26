@@ -149,7 +149,7 @@ spec:
               - name: dictionaries
                 value: "de_DE en_GB en_US"
               - name: server_name
-                value: "https://office.harissaeed.com"
+                value: "office.harissaeed.com"
             securityContext:
               runAsUser: 1001
               runAsGroup: 1001
@@ -246,16 +246,16 @@ spec:
           - backendRefs:
               - identifier: collabora
                 port: 9980
-      nextcloud-local:
-        hostnames:
-          - cloud.harissaeed.com
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-        rules:
-          - backendRefs:
-              - identifier: nginx
-                port: 8080
+      # nextcloud-local:
+      #   hostnames:
+      #     - cloud.harissaeed.com
+      #   parentRefs:
+      #     - name: envoy-internal
+      #       namespace: network
+      #   rules:
+      #     - backendRefs:
+      #         - identifier: nginx
+      #           port: 8080
             # filters:
             #   - type: ResponseHeaderModifier
             #     responseHeaderModifier:
@@ -266,17 +266,17 @@ spec:
         #   - backendRefs:
         #       - name: nextcloud-nginx
         #         port: 8080
-      collabora-local:
-        hostnames:
-          - office.harissaeed.com
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-            # sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: collabora
-                port: 9980
+      # collabora-local:
+      #   hostnames:
+      #     - office.harissaeed.com
+      #   parentRefs:
+      #     - name: envoy-internal
+      #       namespace: network
+      #       # sectionName: https
+      #   rules:
+      #     - backendRefs:
+      #         - identifier: collabora
+      #           port: 9980
 
     configMaps:
       nextcloud-config:
@@ -397,7 +397,7 @@ spec:
 
                 'backgroundjobs_mode' => 'webcron',
                 'default_language' => 'en',
-                'default_locale' => 'de_DE',
+                'default_locale' => 'en_US',
                 'default_phone_region' => 'DE',
                 'default_timezone' => 'Europe/Berlin',
                 'maintenance_window_start' => 1,
