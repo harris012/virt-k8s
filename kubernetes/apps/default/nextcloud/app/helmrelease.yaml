@@ -149,7 +149,7 @@ spec:
               - name: dictionaries
                 value: "de_DE en_GB en_US"
               - name: server_name
-                value: "https://office.harissaeed.com"
+                value: "office.harissaeed.com"
             securityContext:
               runAsUser: 1001
               runAsGroup: 1001
@@ -397,7 +397,7 @@ spec:
 
                 'backgroundjobs_mode' => 'webcron',
                 'default_language' => 'en',
-                'default_locale' => 'de_DE',
+                'default_locale' => 'en_US',
                 'default_phone_region' => 'DE',
                 'default_timezone' => 'Europe/Berlin',
                 'maintenance_window_start' => 1,
