@@ -12,7 +12,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: nextcloud-job-config-postinstall
-        image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+        image: docker.io/library/nextcloud:33.0.0-fpm-alpine
         command: ["/bin/sh", "-c"]
         args: ["sleep 600; until php /var/www/html/occ status --output json | grep -q '\"installed\":true'; do sleep 10; done && php /var/www/html/occ upgrade && php /var/www/html/occ db:add-missing-indices && php /var/www/html/occ db:add-missing-columns && php /var/www/html/occ db:add-missing-primary-keys && php /var/www/html/occ db:convert-filecache-bigint && php /var/www/html/occ maintenance:repair --include-expensive"]
         volumeMounts:
@@ -47,7 +47,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: nextcloud-job-config-addapps
-        image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+        image: docker.io/library/nextcloud:33.0.0-fpm-alpine
         command: ["/bin/sh", "-c"]
         args: ["sleep 660; until php /var/www/html/occ status --output json | grep -q '\"installed\":true'; do sleep 10; done && php /var/www/html/occ app:disable firstrunwizard && php /var/www/html/occ app:disable support && php /var/www/html/occ app:disable federation && php /var/www/html/occ app:disable app_api && php /var/www/html/occ app:disable survey_client && php /var/www/html/occ app:disable user_status && php /var/www/html/occ app:enable admin_audit && php /var/www/html/occ app:enable files_pdfviewer && php /var/www/html/occ app:enable groupfolders && php /var/www/html/occ app:enable user_migration && php /var/www/html/occ app:install files_antivirus && php /var/www/html/occ app:install deck && php /var/www/html/occ app:install calendar && php /var/www/html/occ app:install files_retention && php /var/www/html/occ app:install duplicatefinder"]
         volumeMounts:
@@ -89,7 +89,7 @@ spec:
             fsGroup: 1000
           containers:
             - name: nextcloud-cronjob-cron
-              image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+              image: docker.io/library/nextcloud:33.0.0-fpm-alpine
               command:
                 - sh
                 - -c
@@ -143,7 +143,7 @@ spec:
             fsGroup: 1000
           containers:
           - name: nextcloud-cronjob-missingindices
-            image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+            image: docker.io/library/nextcloud:33.0.0-fpm-alpine
             command: ["/bin/sh", "-c"]
             args:
               - |
