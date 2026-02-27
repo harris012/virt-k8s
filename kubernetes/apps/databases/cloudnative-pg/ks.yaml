@@ -35,8 +35,6 @@ spec:
       namespace: databases
     - name: minio
       namespace: databases
-    - name: cert-manager
-      namespace: cert-manager
   path: ./kubernetes/apps/databases/cloudnative-pg/barman-cloud
   prune: true
   sourceRef:
@@ -59,8 +57,8 @@ spec:
       namespace: databases
     - name: barman-cloud
       namespace: databases
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: openebs
+      namespace: openebs-system
   interval: 1h
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
   prune: true
