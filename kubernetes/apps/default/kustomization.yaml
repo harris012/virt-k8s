@@ -11,7 +11,7 @@ resources:
   #- ./echo/ks.yaml
   #- ./atuin/ks.yaml
   #- ./opencloud/ks.yaml
-  #- ./n8n/ks.yaml
+  - ./n8n/ks.yaml
   - ./immich/ks.yaml
   - ./nextcloud/ks.yaml ## source: https://github.com/cypr0/k8s-home/blob/main/kubernetes/apps/default/nextcloud/app/helmrelease.yaml
   - ./vaultwarden/ks.yaml
