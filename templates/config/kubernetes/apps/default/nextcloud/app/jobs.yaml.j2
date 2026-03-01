@@ -34,39 +34,43 @@ spec:
           claimName: nextcloud
 ---
 apiVersion: batch/v1
-kind: Job
+kind: CronJob
 metadata:
-  name: nextcloud-job-config-addapps
+  name: nextcloud-cronjob-addapps
 spec:
-  ttlSecondsAfterFinished: 3600
-  template:
+  # ttlSecondsAfterFinished: 3600
+  schedule: "0 4 * * 6"  # at 4:00 a.m. on Saturday
+  jobTemplate:
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-      containers:
-      - name: nextcloud-job-config-addapps
-        image: docker.io/library/nextcloud:32.0.6-fpm-alpine
-        command: ["/bin/sh", "-c"]
-        args: ["sleep 660; until php /var/www/html/occ status --output json | grep -q '\"installed\":true'; do sleep 10; done && php /var/www/html/occ app:disable firstrunwizard && php /var/www/html/occ app:disable support && php /var/www/html/occ app:disable federation && php /var/www/html/occ app:disable app_api && php /var/www/html/occ app:disable survey_client && php /var/www/html/occ app:disable user_status && php /var/www/html/occ app:enable admin_audit && php /var/www/html/occ app:enable files_pdfviewer && php /var/www/html/occ app:enable groupfolders && php /var/www/html/occ app:enable user_migration && php /var/www/html/occ app:install files_antivirus && php /var/www/html/occ app:install deck && php /var/www/html/occ app:install calendar && php /var/www/html/occ app:install files_retention && php /var/www/html/occ app:install duplicatefinder"]
-        volumeMounts:
-        - name: app-config
-          mountPath: /var/www/html
-          subPath: config
-        - name: data
-          mountPath: /data
-          subPath: data
-      nodeSelector:
-        kubernetes.io/hostname: "bravo"
-      restartPolicy: OnFailure
-      volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: nextcloud-data
-      - name: app-config
-        persistentVolumeClaim:
-          claimName: nextcloud
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+          containers:
+            - name: nextcloud-job-config-addapps
+              image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+              command: ["/bin/sh", "-c"]
+              args: ["sleep 660; until php /var/www/html/occ status --output json | grep -q '\"installed\":true'; do sleep 10; done && php /var/www/html/occ app:disable firstrunwizard && php /var/www/html/occ app:disable support && php /var/www/html/occ app:disable federation && php /var/www/html/occ app:disable app_api && php /var/www/html/occ app:disable survey_client && php /var/www/html/occ app:disable user_status && php /var/www/html/occ app:enable admin_audit && php /var/www/html/occ app:enable files_pdfviewer && php /var/www/html/occ app:enable groupfolders && php /var/www/html/occ app:enable user_migration && php /var/www/html/occ app:install files_antivirus && php /var/www/html/occ app:install deck && php /var/www/html/occ app:install calendar && php /var/www/html/occ app:install files_retention && php /var/www/html/occ app:install duplicatefinder"]
+              volumeMounts:
+                - name: app-config
+                  mountPath: /var/www/html
+                  subPath: config
+                - name: data
+                  mountPath: /data
+                  subPath: data
+          nodeSelector:
+            kubernetes.io/hostname: "bravo"
+          restartPolicy: OnFailure
+          volumes:
+          - name: data
+            persistentVolumeClaim:
+              claimName: nextcloud-data
+          - name: app-config
+            persistentVolumeClaim:
+              claimName: nextcloud
 
 ---
 apiVersion: batch/v1
@@ -127,7 +131,6 @@ metadata:
   name: nextcloud-cronjob-missingindices
   namespace: nextcloud
 spec:
-  #schedule: "*/1 * * * *" # Every minute
   schedule: "0 3 * * *"  # Every day at 3:00 a.m.
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
