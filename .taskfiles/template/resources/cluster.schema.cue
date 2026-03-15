@@ -50,6 +50,9 @@ import (
 	MAIL_DOMAIN: string
 	WIREGUARD_PRIVATE_KEY: string
 	WIREGUARD_ADDRESSES: string
+	GARAGE_RPC_SECRET: string
+	GARAGE_ADMIN_TOKEN: string
+	GARAGE_METRICS_TOKEN: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN
