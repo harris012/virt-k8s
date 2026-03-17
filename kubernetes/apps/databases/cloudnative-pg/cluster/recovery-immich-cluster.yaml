@@ -16,7 +16,7 @@ spec:
   primaryUpdateMethod: switchover
 
   storage:
-    size: 5Gi
+    size: 3Gi
     storageClass: openebs-hostpath
 
   resources:
