@@ -12,7 +12,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: nextcloud-job-config-postinstall
-        image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+        image: docker.io/library/nextcloud:32.0.8-fpm-alpine
         command: ["/bin/sh", "-c"]
         args: ["sleep 600; until php /var/www/html/occ status --output json | grep -q '\"installed\":true'; do sleep 10; done && php /var/www/html/occ upgrade && php /var/www/html/occ db:add-missing-indices && php /var/www/html/occ db:add-missing-columns && php /var/www/html/occ db:add-missing-primary-keys && php /var/www/html/occ db:convert-filecache-bigint && php /var/www/html/occ maintenance:repair --include-expensive"]
         volumeMounts:
@@ -93,7 +93,7 @@ spec:
             fsGroup: 1000
           containers:
             - name: nextcloud-cronjob-cron
-              image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+              image: docker.io/library/nextcloud:32.0.8-fpm-alpine
               command:
                 - sh
                 - -c
@@ -146,7 +146,7 @@ spec:
             fsGroup: 1000
           containers:
           - name: nextcloud-cronjob-missingindices
-            image: docker.io/library/nextcloud:32.0.6-fpm-alpine
+            image: docker.io/library/nextcloud:32.0.8-fpm-alpine
             command: ["/bin/sh", "-c"]
             args:
               - |
