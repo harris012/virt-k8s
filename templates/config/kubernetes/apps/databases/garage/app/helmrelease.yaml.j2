@@ -8,7 +8,7 @@ spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: garage
   values:
     controllers:
       garage:
@@ -93,12 +93,12 @@ spec:
       data:
         type: nfs
         server: expanse.internal
-        path: /mnt/storage/garage/data
+        path: /mnt/storage/k8s/garage/data
         globalMounts:
           - path: /data
       meta:
         type: nfs
         server: expanse.internal
-        path: /mnt/storage/garage/meta
+        path: /mnt/storage/k8s/garage/meta
         globalMounts:
           - path: /meta
