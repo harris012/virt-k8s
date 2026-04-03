@@ -37,7 +37,7 @@ spec:
             securityContext:
               runAsUser: 1000
               runAsGroup: 1000
-              fsGroup: 1000
+              # fsGroup: 1000 ## FIXME causing issues in helmchart
             env:
               - name: TZ
                 value: "${TIMEZONE}"
@@ -128,7 +128,7 @@ spec:
             securityContext:
               runAsUser: 0
               runAsGroup: 0
-              fsGroup: 0
+              # fsGroup: 0 ## FIXME causing issues in helmchart
         initContainers:
           init-chmod-pvc:
             image:
