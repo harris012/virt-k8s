@@ -125,10 +125,10 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
-            securityContext:
-              runAsUser: 0
-              runAsGroup: 0
-              fsGroup: 0
+            # securityContext:
+            #   runAsUser: 0
+            #   runAsGroup: 0
+            #   fsGroup: 0
         initContainers:
           init-chmod-pvc:
             image:
