@@ -37,7 +37,7 @@ spec:
             securityContext:
               runAsUser: 1000
               runAsGroup: 1000
-              fsGroup: 1000
+              # fsGroup: 1000
             env:
               - name: TZ
                 value: "${TIMEZONE}"
@@ -125,9 +125,9 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
-            # securityContext:
-            #   runAsUser: 0
-            #   runAsGroup: 0
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
             #   fsGroup: 0
         initContainers:
           init-chmod-pvc:
