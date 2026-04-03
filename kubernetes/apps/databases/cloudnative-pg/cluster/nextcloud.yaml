@@ -14,13 +14,13 @@ spec:
   primaryUpdateMethod: switchover
 
   storage:
-    size: 5Gi
+    size: 2Gi
     storageClass: openebs-hostpath
 
   resources:
     requests:
       cpu: 20m
-      memory: 1024Mi
+      memory: 240Mi
     limits:
       memory: 2G
   superuserSecret:
