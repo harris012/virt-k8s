@@ -11,6 +11,6 @@ resources:
   - ./service.yaml
   - ./podmonitor.yaml
   # - ./recovery-immich-cluster.yaml
-  # - ./recovery-objectstore.yaml
-  # - ./recovery-nextcloud.yaml
+  - ./recovery-objectstore.yaml
+  - ./recovery-nextcloud.yaml
 
