@@ -14,17 +14,17 @@ spec:
       opencloud:
         pod:
           annotations:
-          # reloader.stakater.com/auto: "true"
-            secret.reloader.stakater.com/reload: *app
-            configmap.reloader.stakater.com/reload: &configmap opencloud-config
+          reloader.stakater.com/auto: "true"
+            # secret.reloader.stakater.com/reload: *app
+            # configmap.reloader.stakater.com/reload: &configmap opencloud-config
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
             runAsNonRoot: true
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 65542 # gladius:external-services
+            # supplementalGroups:
+            #   - 65542 # gladius:external-services
 
         containers:
           opencloud:
@@ -32,8 +32,8 @@ spec:
               repository: docker.io/opencloudeu/opencloud-rolling
               tag: 6.0.0@sha256:283b1df495bd7c8571868bb8662336cc6e6fe3078b0bf907955651f245cf938f
             command:
-              - /bin/sh
-              - -c
+              - "/bin/sh"
+              - "-c"
               - "opencloud init || true; opencloud server"
             env:
               IDM_CREATE_DEMO_USERS: false
@@ -54,7 +54,7 @@ spec:
                 enabled: true
             resources:
               requests:
-                cpu: 20m
+                cpu: 10m
                 memory: 108Mi
               limits:
                 memory: 1000Mi
@@ -78,15 +78,15 @@ spec:
           - path: /etc/opencloud
             subPath: config
 
-      config:
-        enabled: true
-        type: configMap
-        name: *configmap
-        globalMounts:
-          - subPath: proxy.yaml
-            path: /etc/opencloud/proxy.yaml
-          - subPath: csp.yaml
-            path: /etc/opencloud/csp.yaml
+      # config:
+      #   enabled: true
+      #   type: configMap
+      #   name: *configmap
+      #   globalMounts:
+      #     - subPath: proxy.yaml
+      #       path: /etc/opencloud/proxy.yaml
+      #     - subPath: csp.yaml
+      #       path: /etc/opencloud/csp.yaml
 
       tmpfs:
         type: emptyDir
