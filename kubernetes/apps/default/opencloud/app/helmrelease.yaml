@@ -14,7 +14,7 @@ spec:
       opencloud:
         pod:
           annotations:
-          reloader.stakater.com/auto: "true"
+            reloader.stakater.com/auto: "true"
             # secret.reloader.stakater.com/reload: *app
             # configmap.reloader.stakater.com/reload: &configmap opencloud-config
           securityContext:
