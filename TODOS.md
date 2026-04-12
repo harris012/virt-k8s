@@ -16,4 +16,4 @@
 
 
 Bugs
-- [ ] fsgroup is causing issues in helmchart, need to investigate further.
+- [ ] Nextcloud fsgroup is causing issues in helmchart, need to investigate further.
