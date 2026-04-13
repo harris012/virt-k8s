@@ -20,7 +20,7 @@ spec:
   resources:
     requests:
       cpu: 40m
-      memory: 1024Mi
+      memory: 240Mi
     limits:
       memory: 2G
   superuserSecret:
