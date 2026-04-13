@@ -7,13 +7,13 @@ resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
 
-configMapGenerator:
-  - name: opencloud-config
-    files:
-      - csp.yaml=./../config/csp.yaml
-      - proxy.yaml=./../config/proxy.yaml
-      - app-registry.yaml=./../config/app-registry.yaml
+# configMapGenerator:
+#   - name: opencloud-config
+#     files:
+#       - csp.yaml=./../config/csp.yaml
+#       - proxy.yaml=./../config/proxy.yaml
+#       - app-registry.yaml=./../config/app-registry.yaml
 
-configurations:
-  - ./../config/kustomizeconfig.yaml
+# configurations:
+#   - ./../config/kustomizeconfig.yaml
 
