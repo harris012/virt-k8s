@@ -17,3 +17,4 @@
 
 Bugs
 - [ ] Nextcloud fsgroup is causing issues in helmchart, need to investigate further.
+- [ ] Opencloud restore not fully restoring saved data.
