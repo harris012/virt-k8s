@@ -13,7 +13,7 @@
 - [ ] Setup GitOps CNPG recovery.
 - [ ] Setup TCP envoy gateway to access Gluetun (https://gateway.envoyproxy.io/docs/tasks/traffic/tcp-routing/)
 - [ ] add nfsrahead & mei extension on talos (check if really needed).
-
+- [ ] Add extraKernelArgs to talos config for better performance.
 
 Bugs
 - [ ] Nextcloud fsgroup is causing issues in helmchart, need to investigate further.
