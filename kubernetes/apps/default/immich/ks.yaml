@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: immich
   components:
-    - ../../../../components/nfs-scaler
+    # - ../../../../components/nfs-scaler
     - ../../../../components/gpu
   dependsOn:
     - name: cloudnative-pg-cluster
