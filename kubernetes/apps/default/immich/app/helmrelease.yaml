@@ -42,7 +42,7 @@ spec:
               # IMMICH_TRUSTED_PROXIES: "10.69.0.0/16,10.96.0.0/16"
               IMMICH_MEDIA_LOCATION: &mediaLocation /library
               # Prevent NFS mount check failures
-              # IMMICH_IGNORE_MOUNT_CHECK_ERRORS: "true"
+              IMMICH_IGNORE_MOUNT_CHECK_ERRORS: "true"
               DB_HOSTNAME:
                 valueFrom:
                   secretKeyRef:
@@ -74,14 +74,15 @@ spec:
               resourceClaimTemplateName: immich-gpu
           annotations:
             reloader.stakater.com/auto: "true"
-          nodeSelector:
-            kubernetes.io/hostname: "alpha"
-            node.kubernetes.io/gpu: "true"
+          # nodeSelector:
+          #   kubernetes.io/hostname: "alpha"
+          #   node.kubernetes.io/gpu: "true"
         containers:
           main:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v2.7.5-openvino@sha256:71cd5a681823c4b818f4b24b3f05816eccc3d085559e7615f695bde77e64f1f2
+              # Using CPU version - OpenVINO has compatibility issues with some iGPUs
+              tag: v2.7.5@sha256:a2501141440f10516d329fdfba2c68082e19eb9ba6016c061ac80d23beadf7f3
             env:
               TZ: Europe/Berlin
               REDIS_HOSTNAME: *redisHostname
@@ -99,10 +100,10 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
-              claims:
-                - name: gpu
+              # claims:
+              #   - name: gpu
               requests:
-                cpu: 20m
+                cpu: 80m
                 memory: 212Mi
               limits:
                 memory: 8Gi
