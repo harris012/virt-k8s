@@ -19,6 +19,9 @@ spec:
               resourceClaimTemplateName: immich-gpu
           annotations:
             reloader.stakater.com/auto: "true"
+          nodeSelector:
+            kubernetes.io/hostname: "alpha"
+            node.kubernetes.io/gpu: "true"
         initContainers:
           init-db:
             image:
@@ -55,9 +58,6 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-              nodeSelector:
-                kubernetes.io/hostname: "alpha"
-                node.kubernetes.io/gpu: "true"
             resources:
               claims:
                 - name: gpu
