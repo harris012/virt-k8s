@@ -15,7 +15,10 @@ spec:
 
   storage:
     size: 2Gi
-    storageClass: openebs-hostpath
+    storageClass: ceph-block
+  walStorage:
+    size: 1Gi
+    storageClass: ceph-block
 
   resources:
     requests:
@@ -35,6 +38,11 @@ spec:
   nodeMaintenanceWindow:
     inProgress: false
     reusePVC: true
+
+  backup:
+    # Volume snapshot backups
+    volumeSnapshot:
+       className: csi-ceph-blockpool
 
   # barman-cloud Plugin for backups (to minio)
   plugins:

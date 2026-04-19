@@ -39,17 +39,22 @@ spec:
     inProgress: false
     reusePVC: true
 
-  # # barman-cloud Plugin for backups (to minio)
-  # plugins:
-  #   - name: barman-cloud.cloudnative-pg.io
-  #     isWALArchiver: true
-  #     parameters:
-  #       barmanObjectName: minio-store
+  backup:
+    # Volume snapshot backups
+    volumeSnapshot:
+       className: csi-ceph-blockpool
 
-  bootstrap:
-    initdb:
-      database: nextcloud
-      owner: nextcloud
+  # barman-cloud Plugin for backups (to minio)
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: minio-store
+
+  # bootstrap:
+  #   initdb:
+  #     database: nextcloud
+  #     owner: nextcloud
 
 
   # ============================================================================
