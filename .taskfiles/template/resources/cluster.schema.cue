@@ -53,6 +53,8 @@ import (
 	GARAGE_RPC_SECRET: string
 	GARAGE_ADMIN_TOKEN: string
 	GARAGE_METRICS_TOKEN: string
+	CNPG_BUCKET_KEY: string
+	CNPG_BUCKET_SEC: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN
