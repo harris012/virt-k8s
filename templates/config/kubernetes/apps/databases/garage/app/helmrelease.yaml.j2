@@ -51,7 +51,7 @@ spec:
             port: 3903
     route:
       app:
-        hostnames: ["s3.harissaeed.com"]
+        hostnames: ["s3.garage.harissaeed.com"]
         parentRefs:
           - name: envoy-internal
             namespace: network
@@ -78,7 +78,7 @@ spec:
             [s3_api]
             s3_region = "us-east-1"
             api_bind_addr = "[::]:3900"
-            root_domain = ".s3.harissaeed.com"
+            root_domain = ".s3.garage.harissaeed.com"
 
             [admin]
             api_bind_addr = "[::]:3903"

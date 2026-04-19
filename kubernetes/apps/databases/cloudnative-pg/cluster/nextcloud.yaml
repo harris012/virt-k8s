@@ -15,7 +15,10 @@ spec:
 
   storage:
     size: 2Gi
-    storageClass: openebs-hostpath
+    storageClass: ceph-block
+  walStorage:
+    size: 1Gi
+    storageClass: ceph-block
 
   resources:
     requests:
@@ -36,17 +39,17 @@ spec:
     inProgress: false
     reusePVC: true
 
-  # barman-cloud Plugin for backups (to minio)
-  plugins:
-    - name: barman-cloud.cloudnative-pg.io
-      isWALArchiver: true
-      parameters:
-        barmanObjectName: minio-store
+  # # barman-cloud Plugin for backups (to minio)
+  # plugins:
+  #   - name: barman-cloud.cloudnative-pg.io
+  #     isWALArchiver: true
+  #     parameters:
+  #       barmanObjectName: minio-store
 
-  # bootstrap:
-  #   initdb:
-  #     database: nextcloud
-  #     owner: nextcloud
+  bootstrap:
+    initdb:
+      database: nextcloud
+      owner: nextcloud
 
 
   # ============================================================================
