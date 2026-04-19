@@ -14,6 +14,8 @@ spec:
       staticPath: /var/cdi/static
       dynamicPath: /var/cdi/dynamic
     kubeletPlugin:
+      privileged: true
+      healthMonitoring:
+        enabled: false
       nodeSelector:
-        kubernetes.io/hostname: "alpha"
         node.kubernetes.io/gpu: "true"
