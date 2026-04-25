@@ -55,6 +55,7 @@ import (
 	GARAGE_METRICS_TOKEN: string
 	CNPG_BUCKET_KEY: string
 	CNPG_BUCKET_SEC: string
+	ACCESS_KEY_ID: string
 	repository_branch?: string & !=""
 	repository_visibility?: *"public" | "private"
 	cloudflare_domain: net.FQDN
