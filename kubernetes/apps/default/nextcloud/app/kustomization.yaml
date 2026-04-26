@@ -6,8 +6,9 @@ resources:
   - ./secret.sops.yaml
   - ./ocirepository.yaml
   - ./helmrelease.yaml
-  - ./grafanadashboard.yaml
-  - ./jobs.yaml
-  - ./nfs-pvc.yaml
+  - ./httproute.yaml
+  # - ./grafanadashboard.yaml
+  # - ./jobs.yaml
+  # - ./nfs-pvc.yaml
 
 
