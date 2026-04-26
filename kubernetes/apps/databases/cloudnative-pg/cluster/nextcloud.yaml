@@ -43,10 +43,10 @@ spec:
       parameters:
         barmanObjectName: garage-store
 
-  bootstrap:
-    initdb:
-      database: nextcloud
-      owner: nextcloud
+  # bootstrap:
+  #   initdb:
+  #     database: nextcloud
+  #     owner: nextcloud
 
 
   # ============================================================================
