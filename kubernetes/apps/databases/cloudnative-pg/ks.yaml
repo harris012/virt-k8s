@@ -33,7 +33,7 @@ spec:
   dependsOn:
     - name: cloudnative-pg
       namespace: databases
-    - name: minio
+    - name: garage
       namespace: databases
   path: ./kubernetes/apps/databases/cloudnative-pg/barman-cloud
   prune: true
