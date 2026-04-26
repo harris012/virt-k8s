@@ -1,0 +1,72 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app stirling-pdf
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: stirling-pdf
+  interval: 1h
+  values:
+    controllers:
+      stirling-pdf:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/stirling-tools/s-pdf
+              tag: 2.10.0@sha256:4d9abedcd57a9aa4d36ffb8fc9a4801aea2d295bf6ad349e23dd4b45661a5e42
+            env:
+              TZ: "Europe/Berlin"
+              DOCKER_ENABLE_SECURITY: false
+              LANGS: en_US
+              METRICS_ENABLED: false
+              SYSTEM_CUSTOMPATHS_OPERATIONS_WEASYPRINT: "/opt/venv/bin/weasyprint"
+              SYSTEM_CUSTOMPATHS_OPERATIONS_UNOCONVERT: "/opt/venv/bin/unoconvert"
+              SYSTEM_DEFAULTLOCALE: en-US
+              SYSTEM_ENABLEANALYTICS: false
+              SECURITY_ENABLE_LOGIN: false
+              SYSTEM_GOOGLEVISIBILITY: false
+              SYSTEM_SHOW_UPDATE: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 156Mi
+              limits:
+                memory: 8Gi
+
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 8080
+
+    route:
+      app:
+        hostnames:
+          - "pdftools.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-tailscale
+            namespace: network
+
+    persistence:
+      temporary:
+        type: emptyDir
+        medium: Memory
+        globalMounts:
+          - path: /configs
+            subPath: configs
+          - path: /customFiles
+            subPath: customFiles
+          - path: /logs
+            subPath: logs
+          - path: /pipeline
+            subPath: pipeline
+          - path: /tmp
+            subPath: tmp
+          - path: /usr/share/tessdata
+            subPath: tessdata
