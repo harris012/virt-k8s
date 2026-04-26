@@ -29,13 +29,18 @@ spec:
 # metadata:
 #   name: daily-nextcloud-db-backup
 #   namespace: databases
-#   annotations:
-#     backup.cnpg.io/volumeSnapshotDeadline: "20"
 # spec:
 #   schedule: "0 3 0 * * *"
 #   immediate: true
 #   backupOwnerReference: self
-#   method: volumeSnapshot
+#   target: primary
+#   method: plugin
 #   cluster:
 #     name: nextcloud
+#   pluginConfiguration:
+#     name: barman-cloud.cloudnative-pg.io
+#     parameters:
+#       immediateCheckpoint: "true"
+#       waitForArchive: "true"
+#       compression: "zstd"
 
