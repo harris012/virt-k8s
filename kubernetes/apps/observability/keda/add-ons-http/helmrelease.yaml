@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: keda-add-ons-http
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: keda-add-ons-http
+  interval: 1h
+  values:  # https://github.com/kedacore/charts/tree/main/http-add-on#configuration
+    interceptor:
+      replicas:
+        min: 0
+        max: 1
+      keepAlive: 5s
+      responseHeaderTimeout: 30s
+      tcpConnectTimeout: 30s
+    scaler:
+      replicas: 1
