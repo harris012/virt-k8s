@@ -6,7 +6,7 @@ resources:
   - ./immich-cluster.yaml
   # - ./nextcloud.yaml
   - ./objectstore.yaml
-  # - ./pooler.yaml
+  - ./pooler.yaml
   # - ./scheduledbackup.yaml
   # - ./service.yaml
   - ./podmonitor.yaml
