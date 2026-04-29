@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: stirling-pdf-route
+spec:
+  parentRefs:
+    - name: envoy-tailscale
+      namespace: network
+  hostnames:
+    - pdftools.harissaeed.com
+  rules:
+    - backendRefs:
+        - name: stirling-pdf-interceptor-route
+          namespace: default
+          port: 8080

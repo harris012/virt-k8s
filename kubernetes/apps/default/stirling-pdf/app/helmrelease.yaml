@@ -45,16 +45,16 @@ spec:
           http:
             port: 8080
 
-    route:
-      app:
-        hostnames: ["pdftools.harissaeed.com"]
-        parentRefs:
-          - name: envoy-tailscale
-            namespace: network
-        rules:
-          - backendRefs:
-              - name: stirling-pdf-interceptor-route
-                port: 8080
+    # route:
+    #   app:
+    #     hostnames: ["pdftools.harissaeed.com"]
+    #     parentRefs:
+    #       - name: envoy-tailscale
+    #         namespace: network
+    #     rules:
+    #       - backendRefs:
+    #           - name: stirling-pdf-interceptor-route
+    #             port: 8080
 
     persistence:
       temporary:

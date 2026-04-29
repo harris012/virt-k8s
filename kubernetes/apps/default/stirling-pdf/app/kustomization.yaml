@@ -7,3 +7,4 @@ resources:
   - ./ocirepository.yaml
   - ./interceptorroute.yaml
   - ./scaledobject.yaml
+  - ./httproute.yaml
