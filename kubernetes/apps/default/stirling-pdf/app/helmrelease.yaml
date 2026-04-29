@@ -52,8 +52,9 @@ spec:
             namespace: network
         rules:
           - backendRefs:
-              - Kind: Service
+              - kind: Service
                 name: keda-add-ons-http-interceptor-proxy
+                namespace: observability
                 port: 8080
 
 
