@@ -6,7 +6,7 @@ metadata:
 spec:
   target:
     service: stirling-pdf
-    port: 8080
+    port: 8081
   rules:
     - hosts:
         - pdftools.harissaeed.com
