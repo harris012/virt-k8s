@@ -4,7 +4,7 @@ metadata:
   name: stirling-pdf-route
 spec:
   parentRefs:
-    - name: envoy-tailscale
+    - name: envoy-internal
       namespace: network
   hostnames:
     - pdftools.harissaeed.com
