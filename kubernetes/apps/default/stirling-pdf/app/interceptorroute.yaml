@@ -1,0 +1,16 @@
+---
+apiVersion: http.keda.sh/v1beta1
+kind: InterceptorRoute
+metadata:
+  name: stirling-pdf-interceptor-route
+spec:
+  target:
+    service: stirling-pdf
+    port: 8080
+  rules:
+    - hosts:
+        - pdftools.harissaeed.com
+  scalingMetric:
+    concurrency:
+      targetValue: 100
+
