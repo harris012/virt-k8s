@@ -68,12 +68,12 @@ spec:
               - path: /home/node/.n8n
 
     route:
-      app:
-        hostnames:
-          - *hostName
-        parentRefs:
-          - name: envoy-tailscale
-            namespace: network
+      # app:
+      #   hostnames:
+      #     - *hostName
+      #   parentRefs:
+      #     - name: envoy-tailscale
+      #       namespace: network
 
       webhooks:
         hostnames:

@@ -1,10 +1,10 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: stirling-pdf
+  name: n8n
 spec:
   scaleTargetRef:
-    name: stirling-pdf
+    name: n8n
   minReplicaCount: 0
   maxReplicaCount: 1
   cooldownPeriod: 300
@@ -12,4 +12,4 @@ spec:
     - type: external-push
       metadata:
         scalerAddress: keda-add-ons-http-external-scaler.observability:9090
-        interceptorRoute: stirling-pdf-interceptor-route
+        interceptorRoute: n8n-interceptor-route
