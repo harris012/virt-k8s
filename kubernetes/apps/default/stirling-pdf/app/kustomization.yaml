@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./ocirepository.yaml
-  - ./interceptorroute.yaml
-  - ./scaledobject.yaml
+  # - ./interceptorroute.yaml
+  # - ./scaledobject.yaml
   - ./httproute.yaml
   # - ./keda-add-ons-http-interceptor-proxy.yaml
