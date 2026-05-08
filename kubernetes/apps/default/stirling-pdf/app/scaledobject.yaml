@@ -5,7 +5,7 @@ metadata:
 spec:
   scaleTargetRef:
     name: stirling-pdf
-  minReplicaCount: 2
+  minReplicaCount: 0
   maxReplicaCount: 4
   cooldownPeriod: 30
   triggers:
