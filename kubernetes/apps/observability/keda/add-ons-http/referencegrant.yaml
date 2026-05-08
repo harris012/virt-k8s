@@ -8,7 +8,7 @@ spec:
   from:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      namespace: default
+      namespace: network
     # - group: gateway.networking.k8s.io
     #   kind: HTTPRoute
     #   namespace: flux-system
