@@ -10,9 +10,9 @@ spec:
     - pdftools.harissaeed.com
   rules:
     - backendRefs:
-        - kind: Service
-          name: stirling-pdf
-          port: 8080
-        # - name: keda-add-ons-http-interceptor-proxy
-        #   namespace: observability
+        # - kind: Service
+        #   name: stirling-pdf
         #   port: 8080
+        - name: keda-add-ons-http-interceptor-proxy
+          namespace: observability
+          port: 8080
