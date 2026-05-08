@@ -6,4 +6,3 @@ resources:
   - ./helmrelease.yaml
   - ./referencegrant.yaml
   - ./ocirepository.yaml
-  #- ./keda-add-ons-http-interceptor-proxy.yaml

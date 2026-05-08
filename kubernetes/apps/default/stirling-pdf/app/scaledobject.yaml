@@ -1,7 +1,7 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: stirling-pdf-scaler
+  name: stirling-pdf
 spec:
   scaleTargetRef:
     name: stirling-pdf

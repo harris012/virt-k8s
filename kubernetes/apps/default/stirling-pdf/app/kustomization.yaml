@@ -8,3 +8,4 @@ resources:
   - ./interceptorroute.yaml
   - ./scaledobject.yaml
   - ./httproute.yaml
+  - ./keda-add-ons-http-interceptor-proxy.yaml
