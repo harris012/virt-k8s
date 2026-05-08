@@ -15,4 +15,4 @@ spec:
   to:
     - group: ""
       kind: Service
-      name: stirling-pdf-interceptor-route
+      name: keda-add-ons-http-interceptor-proxy

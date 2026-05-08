@@ -10,6 +10,6 @@ spec:
     - pdftools.harissaeed.com
   rules:
     - backendRefs:
-        - name: stirling-pdf-interceptor-route
+        - name: keda-add-ons-http-interceptor-proxy
           namespace: default
           port: 8080
