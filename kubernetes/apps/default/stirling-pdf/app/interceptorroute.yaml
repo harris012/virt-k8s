@@ -2,7 +2,7 @@
 apiVersion: http.keda.sh/v1beta1
 kind: InterceptorRoute
 metadata:
-  name: keda-add-ons-http-interceptor-proxy
+  name: interceptor-route
 spec:
   target:
     service: stirling-pdf

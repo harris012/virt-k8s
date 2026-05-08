@@ -12,4 +12,4 @@ spec:
     - type: external-push
       metadata:
         scalerAddress: keda-add-ons-http-external-scaler.observability:9090
-        interceptorRoute: keda-add-ons-http-interceptor-proxy
+        interceptorRoute: interceptor-route
