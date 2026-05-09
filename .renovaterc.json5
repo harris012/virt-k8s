@@ -48,6 +48,14 @@
       minimumGroupSize: 3,
     },
     {
+      description: "Auto-merge Mise Tools",
+      matchManagers: ["mise"],
+      automerge: true,
+      automergeType: "branch",
+      matchUpdateTypes: ["minor", "patch"],
+      ignoreTests: true,
+    },
+    {
       description: "Auto-merge GitHub Actions",
       matchManagers: ["github-actions"],
       automerge: true,
