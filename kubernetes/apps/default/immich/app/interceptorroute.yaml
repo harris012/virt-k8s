@@ -25,7 +25,7 @@ spec:
     port: 3003
   rules:
     - hosts:
-        - http://immich-machine-learning-proxy.default.svc.cluster.local:3003
+        - immich-machine-learning-proxy.default.svc.cluster.local
   scalingMetric:
     concurrency:
       targetValue: 100
