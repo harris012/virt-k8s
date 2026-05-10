@@ -151,11 +151,18 @@ spec:
             port: 8081
           metrics-ms:
             port: 8082
-      machine-learning:
-        controller: machine-learning
-        ports:
-          http:
-            port: *mlPort
+      # machine-learning:
+      #   controller: machine-learning
+      #   ports:
+      #     http:
+      #       port: *mlPort
+      # machine-learning-proxy:
+      #   controller: machine-learning-proxy
+      #   spec:
+      #     type: ExternalName
+      #     externalName: keda-add-ons-http-interceptor-proxy.observability.svc.cluster.local
+      #     ports:
+      #       - port: 8080
     serviceMonitor:
       immich:
         enabled: true
