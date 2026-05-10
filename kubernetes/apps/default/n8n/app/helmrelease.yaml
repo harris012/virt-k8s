@@ -68,12 +68,17 @@ spec:
               - path: /home/node/.n8n
 
     route:
-      # app:
-      #   hostnames:
-      #     - *hostName
-      #   parentRefs:
-      #     - name: envoy-tailscale
-      #       namespace: network
+      app:
+        hostnames:
+          - *hostName
+        parentRefs:
+          - name: envoy-tailscale
+            namespace: network
+        rules:
+          - backendRefs:
+              - name: keda-add-ons-http-interceptor-proxy
+                namespace: observability
+                port: 8080
 
       webhooks:
         hostnames:
