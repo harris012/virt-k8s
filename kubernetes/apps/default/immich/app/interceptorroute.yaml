@@ -18,14 +18,14 @@ spec:
 apiVersion: http.keda.sh/v1beta1
 kind: InterceptorRoute
 metadata:
-  name: machine-learning-interceptor-route
+  name: immich-machine-learning-interceptor-route
 spec:
   target:
     service: machine-learning
     port: 3003
   rules:
     - hosts:
-        - memories.harissaeed.com
+        - immich-machine-learning-proxy.default.svc.cluster.local:3003
   scalingMetric:
     concurrency:
       targetValue: 100

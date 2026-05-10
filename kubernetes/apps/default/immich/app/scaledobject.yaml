@@ -20,7 +20,7 @@ spec:
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: machine-learning
+  name: immich-machine-learning
 spec:
   scaleTargetRef:
     name: immich-machine-learning
@@ -31,5 +31,5 @@ spec:
     - type: external-push
       metadata:
         scalerAddress: keda-add-ons-http-external-scaler.observability:9090
-        interceptorRoute: machine-learning-interceptor-route
+        interceptorRoute: immich-machine-learning-interceptor-route
 
