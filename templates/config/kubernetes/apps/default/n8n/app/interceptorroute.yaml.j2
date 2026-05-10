@@ -1,0 +1,16 @@
+---
+apiVersion: http.keda.sh/v1beta1
+kind: InterceptorRoute
+metadata:
+  name: n8n-interceptor-route
+spec:
+  target:
+    service: n8n
+    port: 8080
+  rules:
+    - hosts:
+        - n8n.harissaeed.com
+  scalingMetric:
+    concurrency:
+      targetValue: 100
+

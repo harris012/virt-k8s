@@ -9,9 +9,6 @@ spec:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       namespace: default
-    # - group: ""
-    #   kind: Service
-    #   namespace: default
     # - group: gateway.networking.k8s.io
     #   kind: HTTPRoute
     #   namespace: flux-system

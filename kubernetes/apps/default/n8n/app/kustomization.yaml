@@ -6,6 +6,5 @@ resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
   - ./secret.sops.yaml
-  # - ./httproute.yaml
   - ./interceptorroute.yaml
   - ./scaledobject.yaml

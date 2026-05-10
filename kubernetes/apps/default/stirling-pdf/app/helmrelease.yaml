@@ -44,18 +44,18 @@ spec:
           http:
             port: 8080
 
-    # route:
-    #   app:
-    #     hostnames: ["pdftools.harissaeed.com"]
-    #     parentRefs:
-    #       - name: envoy-internal
-    #         namespace: network
-    #     rules:
-    #       - backendRefs:
-    #           - kind: Service
-    #             name: keda-add-ons-http-interceptor-proxy
-    #             namespace: observability
-    #             port: 8080
+    route:
+      app:
+        hostnames: ["pdftools.harissaeed.com"]
+        parentRefs:
+          - name: envoy-tailscale
+            namespace: network
+        rules:
+          - backendRefs:
+              - kind: Service
+                name: keda-add-ons-http-interceptor-proxy
+                namespace: observability
+                port: 8080
 
 
     persistence:

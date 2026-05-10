@@ -175,9 +175,13 @@ spec:
             namespace: network
             sectionName: https
         rules:
+          # - backendRefs:
+          #     - name: immich
+          #       port: *port
           - backendRefs:
-              - name: immich
-                port: *port
+              - name: keda-add-ons-http-interceptor-proxy
+                namespace: observability
+                port: 8080
     persistence:
       config:
         type: secret
