@@ -178,7 +178,7 @@ spec:
           - backendRefs:
               - name: keda-add-ons-http-interceptor-proxy
                 namespace: observability
-                port: 8080
+                port: 2283
     persistence:
       config:
         type: secret
