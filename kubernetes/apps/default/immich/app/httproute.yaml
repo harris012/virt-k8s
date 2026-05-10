@@ -7,9 +7,9 @@ spec:
     - name: envoy-tailscale
       namespace: network
   hostnames:
-    - immich.harissaeed.com
+    - memories.harissaeed.com
   rules:
     - backendRefs:
         - name: keda-add-ons-http-interceptor-proxy
           namespace: observability
-          port: 2283
+          port: 8080

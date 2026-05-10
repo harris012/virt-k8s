@@ -9,7 +9,7 @@ spec:
     port: 2283
   rules:
     - hosts:
-        - immich.harissaeed.com
+        - memories.harissaeed.com
   scalingMetric:
     concurrency:
       targetValue: 100
