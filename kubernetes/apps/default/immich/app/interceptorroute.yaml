@@ -14,3 +14,19 @@ spec:
     concurrency:
       targetValue: 100
 
+---
+apiVersion: http.keda.sh/v1beta1
+kind: InterceptorRoute
+metadata:
+  name: machine-learning-interceptor-route
+spec:
+  target:
+    service: machine-learning
+    port: 3003
+  rules:
+    - hosts:
+        - memories.harissaeed.com
+  scalingMetric:
+    concurrency:
+      targetValue: 100
+
