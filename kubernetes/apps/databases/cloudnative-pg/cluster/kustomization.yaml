@@ -8,7 +8,7 @@ resources:
   - ./objectstore.yaml
   - ./pooler.yaml
   # - ./scheduledbackup.yaml
-  # - ./service.yaml
+  - ./service.yaml
   - ./podmonitor.yaml
   # - ./recovery-immich-cluster.yaml
   # - ./recovery-objectstore.yaml
