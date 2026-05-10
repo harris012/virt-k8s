@@ -1,0 +1,16 @@
+---
+apiVersion: http.keda.sh/v1beta1
+kind: InterceptorRoute
+metadata:
+  name: immich-interceptor-route
+spec:
+  target:
+    service: immich
+    port: 2283
+  rules:
+    - hosts:
+        - immich.harissaeed.com
+  scalingMetric:
+    concurrency:
+      targetValue: 100
+
