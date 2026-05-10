@@ -21,7 +21,7 @@ metadata:
   name: immich-machine-learning-interceptor-route
 spec:
   target:
-    service: machine-learning
+    service: immich-machine-learning
     port: 3003
   rules:
     - hosts:
