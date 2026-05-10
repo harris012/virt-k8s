@@ -20,7 +20,7 @@ spec:
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: immich-machine-learning
+  name: machine-learning
 spec:
   scaleTargetRef:
     name: immich-machine-learning
