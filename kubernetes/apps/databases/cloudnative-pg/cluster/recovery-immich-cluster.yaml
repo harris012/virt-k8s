@@ -42,8 +42,8 @@ spec:
   bootstrap:
     recovery:
       source: origin
-      recoveryTarget:
-        targetTime: "2026-05-10 06:14:21.00000+02"
+      # recoveryTarget:
+      #   targetTime: "2026-05-10 06:14:21.00000+02"
 
   externalClusters:
     - name: origin
