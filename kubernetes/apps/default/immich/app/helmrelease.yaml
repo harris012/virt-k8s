@@ -146,7 +146,7 @@ spec:
         controller: immich
         ports:
           http:
-            port: &port 2283
+            port: &port 8080
           metrics-api:
             port: 8081
           metrics-ms:
@@ -178,7 +178,7 @@ spec:
           - backendRefs:
               - name: keda-add-ons-http-interceptor-proxy
                 namespace: observability
-                port: 2283
+                port: 8080
     persistence:
       config:
         type: secret
