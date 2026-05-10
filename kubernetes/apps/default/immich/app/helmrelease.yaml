@@ -146,7 +146,7 @@ spec:
         controller: immich
         ports:
           http:
-            port: &port 8080
+            port: &port 2283
           metrics-api:
             port: 8081
           metrics-ms:
@@ -167,18 +167,17 @@ spec:
           - port: metrics-ms
             scheme: http
             path: /metrics
-    route:
-      app:
-        hostnames: ["memories.harissaeed.com"]
-        parentRefs:
-          - name: envoy-tailscale
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - name: keda-add-ons-http-interceptor-proxy
-                namespace: observability
-                port: 8080
+    # route:
+    #   app:
+    #     hostnames: ["memories.harissaeed.com"]
+    #     parentRefs:
+    #       - name: envoy-tailscale
+    #         namespace: network
+    #         sectionName: https
+    #     rules:
+    #       - backendRefs:
+    #           - name: immich
+    #             port: *port
     persistence:
       config:
         type: secret

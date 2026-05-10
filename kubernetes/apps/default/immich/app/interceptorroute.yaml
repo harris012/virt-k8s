@@ -6,7 +6,7 @@ metadata:
 spec:
   target:
     service: immich
-    port: 8080
+    port: 2283
   rules:
     - hosts:
         - immich.harissaeed.com
