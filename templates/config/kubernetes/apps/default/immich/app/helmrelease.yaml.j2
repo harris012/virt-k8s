@@ -14,14 +14,14 @@ spec:
       immich:
         strategy: RollingUpdate
         pod:
-          resourceClaims:
-            - name: gpu
-              resourceClaimTemplateName: immich-gpu
+          # resourceClaims:
+          #   - name: gpu
+          #     resourceClaimTemplateName: immich-gpu
           annotations:
             reloader.stakater.com/auto: "true"
-          nodeSelector:
-            kubernetes.io/hostname: "alpha"
-            node.kubernetes.io/gpu: "true"
+          # nodeSelector:
+          #   kubernetes.io/hostname: "alpha"
+          #   node.kubernetes.io/gpu: "true"
         initContainers:
           init-db:
             image:
@@ -59,8 +59,8 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
-              claims:
-                - name: gpu
+              # claims:
+              #   - name: gpu
               requests:
                 cpu: 20m
                 memory: 212Mi
