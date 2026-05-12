@@ -24,8 +24,8 @@ metadata:
 spec:
   scaleTargetRef:
     name: immich-machine-learning
-  minReplicaCount: 0
-  maxReplicaCount: 1
+  minReplicaCount: 1
+  maxReplicaCount: 2
   cooldownPeriod: 300
   triggers:
     - type: external-push
