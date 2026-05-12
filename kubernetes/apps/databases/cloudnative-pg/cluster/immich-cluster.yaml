@@ -5,7 +5,9 @@ kind: Cluster
 metadata:
   name: postgres18-immich
   namespace: databases
-  # annotations:
+  annotations:
+    xata.io/scale-to-zero-enabled: "true"
+    xata.io/scale-to-zero-inactivity-minutes: "10" # Hibernate after 10 minutes of inactivity
   #   cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
@@ -40,6 +42,7 @@ spec:
       isWALArchiver: true
       parameters:
         barmanObjectName: garage-store
+    - name: cnpg-i-scale-to-zero.xata.io
 
   # bootstrap:
   #   initdb:
