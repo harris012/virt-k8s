@@ -7,5 +7,5 @@ spec:
   type: ExternalName
   externalName: keda-add-ons-http-interceptor-proxy.observability.svc.cluster.local
   ports:
-    - name: http
+    - name: interceptor
       port: 8080
