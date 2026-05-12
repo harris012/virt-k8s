@@ -68,27 +68,4 @@ spec:
     namespace: flux-system
   targetNamespace: databases
 
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: cnpg-i-scale-to-zero
-spec:
-  targetNamespace: databases
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: cnpg-i-scale-to-zero
-  dependsOn:
-    - name: cloudnative-pg-cluster
-      namespace: databases
-  path: ./kubernetes/apps/databases/cloudnative-pg/cnpg-i-scale-to-zero
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
 
