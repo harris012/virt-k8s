@@ -14,19 +14,19 @@ spec:
     concurrency:
       targetValue: 100
 
-# ---
-# apiVersion: http.keda.sh/v1beta1
-# kind: InterceptorRoute
-# metadata:
-#   name: immich-machine-learning-interceptor-route
-# spec:
-#   target:
-#     service: immich-machine-learning
-#     port: 3003
-#   rules:
-#     - hosts:
-#         - immich-machine-learning.default.svc.cluster.local
-#   scalingMetric:
-#     concurrency:
-#       targetValue: 100
+---
+apiVersion: http.keda.sh/v1beta1
+kind: InterceptorRoute
+metadata:
+  name: immich-machine-learning-interceptor-route
+spec:
+  target:
+    service: immich-machine-learning
+    port: 3003
+  rules:
+    - hosts:
+        - immich-machine-learning
+  scalingMetric:
+    concurrency:
+      targetValue: 100
 

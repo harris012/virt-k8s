@@ -151,11 +151,11 @@ spec:
             port: 8081
           metrics-ms:
             port: 8082
-      machine-learning:
-        controller: machine-learning
-        ports:
-          http:
-            port: *mlPort
+      # machine-learning:
+      #   controller: machine-learning
+      #   ports:
+      #     http:
+      #       port: *mlPort
     serviceMonitor:
       immich:
         enabled: true
