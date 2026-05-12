@@ -16,20 +16,20 @@ spec:
         interceptorRoute: immich-interceptor-route
 
 
----
-apiVersion: keda.sh/v1alpha1
-kind: ScaledObject
-metadata:
-  name: immich-machine-learning
-spec:
-  scaleTargetRef:
-    name: immich-machine-learning
-  minReplicaCount: 1
-  maxReplicaCount: 2
-  cooldownPeriod: 300
-  triggers:
-    - type: external-push
-      metadata:
-        scalerAddress: keda-add-ons-http-external-scaler.observability:9090
-        interceptorRoute: immich-machine-learning-interceptor-route
+# ---
+# apiVersion: keda.sh/v1alpha1
+# kind: ScaledObject
+# metadata:
+#   name: immich-machine-learning
+# spec:
+#   scaleTargetRef:
+#     name: immich-machine-learning
+#   minReplicaCount: 1
+#   maxReplicaCount: 2
+#   cooldownPeriod: 300
+#   triggers:
+#     - type: external-push
+#       metadata:
+#         scalerAddress: keda-add-ons-http-external-scaler.observability:9090
+#         interceptorRoute: immich-machine-learning-interceptor-route
 
