@@ -93,7 +93,7 @@ spec:
       data:
         type: nfs
         server: expanse.internal
-        path: /mnt/storage/k8s/garage/data
+        path: /mnt/apps/k8s/garage/data
         globalMounts:
           - path: /data
       meta:
