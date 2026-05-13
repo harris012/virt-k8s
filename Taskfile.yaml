@@ -11,12 +11,14 @@ vars:
   TALOS_DIR: '{{.ROOT_DIR}}/talos'
   PRIVATE_DIR: '{{.ROOT_DIR}}/.private'
   TALOSCONFIG: '{{.ROOT_DIR}}/talos/clusterconfig/talosconfig'
+  SCHEMATIC_FILE: '{{.ROOT_DIR}}/schematic.yaml.j2'
 
 env:
   KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
   SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
   SOPS_CONFIG: '{{.ROOT_DIR}}/.sops.yaml'
   TALOSCONFIG: '{{.TALOSCONFIG}}'
+  SCHEMATIC_FILE: '{{.SCHEMATIC_FILE}}'
 
 includes:
   bootstrap: .taskfiles/bootstrap

@@ -4,6 +4,7 @@ KUBECONFIG = "{{config_root}}/kubeconfig"
 SOPS_CONFIG = "{{config_root}}/.sops.yaml"
 SOPS_AGE_KEY_FILE = "{{config_root}}/age.key"
 TALOSCONFIG = "{{config_root}}/talos/clusterconfig/talosconfig"
+SCHEMATIC_FILE = "{{config_root}}/schematic.yaml.j2"
 
 [tools]
 "python" = "3.14.5" # required:template
