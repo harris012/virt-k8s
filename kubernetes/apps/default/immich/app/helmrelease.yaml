@@ -156,7 +156,7 @@ spec:
         ports:
           http:
             port: *mlPort
-      spec:
+      machine-learning-proxy:
         controller: machine-learning
         type: ExternalName
         externalName: keda-add-ons-http-interceptor-proxy.observability.svc.cluster.local
