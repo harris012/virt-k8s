@@ -156,6 +156,13 @@ spec:
         ports:
           http:
             port: *mlPort
+      machine-learning-proxy:
+        controller: machine-learning
+        type: ExternalName
+        externalName: keda-add-ons-http-interceptor-proxy.observability.svc.cluster.local
+        ports:
+          http:
+            port: 8080
     serviceMonitor:
       immich:
         enabled: true

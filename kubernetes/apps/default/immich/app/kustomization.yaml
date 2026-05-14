@@ -11,5 +11,3 @@ resources:
   - ./pvc.yaml
   - ./scaledobject.yaml
   - ./interceptorroute.yaml
-  # - ./proxy.yaml
-  #- ./migration-helper.yaml
