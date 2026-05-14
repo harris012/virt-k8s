@@ -156,6 +156,14 @@ spec:
         ports:
           http:
             port: *mlPort
+      ml-proxy:
+        controller: ml-proxy
+      spec:
+        type: ExternalName
+        externalName: keda-add-ons-http-interceptor-proxy.observability.svc.cluster.local
+        ports:
+          http:
+            port: 8080
     serviceMonitor:
       immich:
         enabled: true
