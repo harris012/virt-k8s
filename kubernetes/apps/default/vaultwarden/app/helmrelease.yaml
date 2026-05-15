@@ -78,6 +78,7 @@ spec:
         rules:
           - backendRefs:
               - name: keda-add-ons-http-interceptor-proxy
+                namespace: observability
                 port: 8080
 
     persistence:

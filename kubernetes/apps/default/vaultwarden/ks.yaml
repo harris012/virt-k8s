@@ -18,7 +18,7 @@ spec:
       APP: vaultwarden
       VOLSYNC_CAPACITY: 400Mi
       APP_HOSTNAME: vault
-      APP_PORT: '80'
+      APP_PORT: "80"
   prune: true
   sourceRef:
     kind: GitRepository
