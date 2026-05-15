@@ -1,0 +1,16 @@
+---
+apiVersion: http.keda.sh/v1beta1
+kind: InterceptorRoute
+metadata:
+  name: ${APP}-interceptor-route
+spec:
+  target:
+    service: ${APP}
+    port: ${APP_PORT}
+  rules:
+    - hosts:
+        - ${APP_HOSTNAME}.harissaeed.com
+  scalingMetric:
+    concurrency:
+      targetValue: 100
+

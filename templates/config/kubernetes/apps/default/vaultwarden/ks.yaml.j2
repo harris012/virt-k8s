@@ -7,6 +7,7 @@ metadata:
 spec:
   components:
     - ../../../../components/volsync
+    - ../../../../components/http-scale-to-zero
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -16,6 +17,8 @@ spec:
     substitute:
       APP: vaultwarden
       VOLSYNC_CAPACITY: 400Mi
+      APP_HOSTNAME: vault
+      APP_PORT: "80"
   prune: true
   sourceRef:
     kind: GitRepository
