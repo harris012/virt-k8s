@@ -1,0 +1,1 @@
+for scale to zero with KEDA and the HTTP Add-on. Httproute sould be call the interceptor. For the microservices the service sould be headless and point towards the keda interceptor proxy.
