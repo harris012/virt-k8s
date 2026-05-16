@@ -30,5 +30,5 @@ SCHEMATIC_FILE = "{{config_root}}/schematic.yaml.j2"
 "aqua:derailed/k9s" = "v0.50.18"
 "aqua:cloudnative-pg/cloudnative-pg/kubectl-cnpg" = "1.29.1"
 "aqua:ahmetb/kubectx/kubens" = "0.11.0"
-"aqua:kopia/kopia" = "0.22.3"
+"aqua:kopia/kopia" = "0.23.0"
 
