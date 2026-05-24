@@ -7,7 +7,7 @@ spec:
   scaleTargetRef:
     name: immich
   minReplicaCount: 0
-  maxReplicaCount: 1
+  maxReplicaCount: 3
   cooldownPeriod: 300
   triggers:
     - type: external-push
