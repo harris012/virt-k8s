@@ -10,6 +10,7 @@ spec:
       app.kubernetes.io/name: n8n
   components:
     - ../../../../components/volsync
+    - ../../../../components/http-scale-to-zero
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -19,6 +20,11 @@ spec:
     substitute:
       APP: n8n
       VOLSYNC_CAPACITY: 1Gi
+      APP_HOSTNAME: n8n
+      APP_PORT: "8080"
+      MIN_REPLICA_COUNT: "0"
+      MAX_REPLICA_COUNT: "1"
+      COOLDOWN_PERIOD: "300"
   prune: true
   sourceRef:
     kind: GitRepository
