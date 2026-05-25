@@ -5,7 +5,7 @@ metadata:
 spec:
   scaleTargetRef:
     name: ${APP}
-  minReplicaCount: 1
+  minReplicaCount: 0
   maxReplicaCount: 1
   cooldownPeriod: ${COOLDOWN_PERIOD:=300}
   triggers:
