@@ -6,7 +6,7 @@ metadata:
 spec:
   scaleTargetRef:
     name: immich
-  minReplicaCount: 0
+  minReplicaCount: 1
   maxReplicaCount: 1
   cooldownPeriod: 900
   triggers:
@@ -24,7 +24,7 @@ metadata:
 spec:
   scaleTargetRef:
     name: immich-machine-learning
-  minReplicaCount: 0
+  minReplicaCount: 1
   maxReplicaCount: 1
   cooldownPeriod: 300
   triggers:

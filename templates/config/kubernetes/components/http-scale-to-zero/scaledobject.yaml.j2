@@ -5,8 +5,8 @@ metadata:
 spec:
   scaleTargetRef:
     name: ${APP}
-  minReplicaCount: 0
-  maxReplicaCount: 1
+  minReplicaCount: ${MIN_REPLICA_COUNT:=0}
+  maxReplicaCount: ${MAX_REPLICA_COUNT:=1}
   cooldownPeriod: ${COOLDOWN_PERIOD:=300}
   triggers:
     - type: external-push
