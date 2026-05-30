@@ -28,7 +28,7 @@ spec:
       hostRoot: /sys/fs/cgroup
     # NOTE: devices might need to be set if you have more than one active NIC on your hosts
     # devices: eno+ eth+
-    grafana.internal/instance:
+    dashboards:
       enabled: true
     endpointRoutes:
       enabled: true
@@ -40,7 +40,7 @@ spec:
       enabled: false
     ipam:
       mode: kubernetes
-    ipv4NativeRoutingCIDR: "#{ cluster_pod_cidr }#"
+    ipv4NativeRoutingCIDR: "#{ kubernetes.pod_cidr }#"
     k8sServiceHost: 127.0.0.1
     k8sServicePort: 7445
     kubeProxyReplacement: true
@@ -49,12 +49,11 @@ spec:
       enabled: true
     loadBalancer:
       algorithm: maglev
-      mode: "#{ cilium_loadbalancer_mode }#"
-      serviceTopology: true
+      mode: "#{ cilium.loadbalancer_mode }#"
     localRedirectPolicies:
       enabled: true
     operator:
-      grafana.internal/instance:
+      dashboards:
         enabled: true
       prometheus:
         enabled: true
