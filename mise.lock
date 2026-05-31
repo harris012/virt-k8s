@@ -34,6 +34,10 @@ checksum = "sha256:c56e8ce22f7e80cb85ad946cc82d198767b056366201d3e1a2b93d865be38
 url = "https://github.com/FiloSottile/age/releases/download/v1.3.1/age-v1.3.1-windows-amd64.zip"
 provenance = "github-attestations"
 
+[[tools."aqua:cloudnative-pg/cloudnative-pg/kubectl-cnpg"]]
+version = "1.29.1"
+backend = "aqua:cloudnative-pg/cloudnative-pg/kubectl-cnpg"
+
 [[tools.cloudflared]]
 version = "2026.5.0"
 backend = "aqua:cloudflare/cloudflared"
@@ -99,57 +103,8 @@ checksum = "sha256:2f24123f458229fcf283db534bd86692ad1074da806defee0f0cc62976c03
 url = "https://github.com/cue-lang/cue/releases/download/v0.16.1/cue_v0.16.1_windows_amd64.zip"
 
 [[tools.flux2]]
-version = "2.8.7"
+version = "2.8.8"
 backend = "aqua:fluxcd/flux2"
-
-[tools.flux2."platforms.linux-arm64"]
-checksum = "sha256:f6b19f6f2d85dd47cecb9169111c3f35f220217ab488d254ca3d8faba58e0217"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/flux_2.8.7_linux_arm64.tar.gz"
-
-[tools.flux2."platforms.linux-arm64".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/provenance.intoto.jsonl"
-
-[tools.flux2."platforms.linux-arm64-musl"]
-checksum = "sha256:f6b19f6f2d85dd47cecb9169111c3f35f220217ab488d254ca3d8faba58e0217"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/flux_2.8.7_linux_arm64.tar.gz"
-
-[tools.flux2."platforms.linux-arm64-musl".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/provenance.intoto.jsonl"
-
-[tools.flux2."platforms.linux-x64"]
-checksum = "sha256:493a8df42bf89f8481f03afb44b6f4801a76ec0f0b9233042487d0cb5c6cf4e3"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/flux_2.8.7_linux_amd64.tar.gz"
-
-[tools.flux2."platforms.linux-x64".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/provenance.intoto.jsonl"
-
-[tools.flux2."platforms.linux-x64-musl"]
-checksum = "sha256:493a8df42bf89f8481f03afb44b6f4801a76ec0f0b9233042487d0cb5c6cf4e3"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/flux_2.8.7_linux_amd64.tar.gz"
-
-[tools.flux2."platforms.linux-x64-musl".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/provenance.intoto.jsonl"
-
-[tools.flux2."platforms.macos-arm64"]
-checksum = "sha256:060a43698d4ad29a0aea86159b7c1b1171704fd375934f0201f7c914faac2182"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/flux_2.8.7_darwin_arm64.tar.gz"
-
-[tools.flux2."platforms.macos-arm64".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/provenance.intoto.jsonl"
-
-[tools.flux2."platforms.macos-x64"]
-checksum = "sha256:58ed87d1aafcadb7365f43286882ec81522384ad5018e965a0a1f1a3108430d5"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/flux_2.8.7_darwin_amd64.tar.gz"
-
-[tools.flux2."platforms.macos-x64".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/provenance.intoto.jsonl"
-
-[tools.flux2."platforms.windows-x64"]
-checksum = "sha256:e703c645180d2665269f5643408cd257c2553e2245f5f3ad577edd1de2b4092b"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/flux_2.8.7_windows_amd64.zip"
-
-[tools.flux2."platforms.windows-x64".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.7/provenance.intoto.jsonl"
 
 [[tools.gh]]
 version = "2.92.0"
@@ -255,36 +210,8 @@ checksum = "sha256:34bf9659f8f04f3841a60131183b8e2acc44e260db4c93b889ff09718cacc
 url = "https://get.helm.sh/helm-v4.2.0-windows-amd64.tar.gz"
 
 [[tools.helmfile]]
-version = "1.5.1"
+version = "1.5.2"
 backend = "aqua:helmfile/helmfile"
-
-[tools.helmfile."platforms.linux-arm64"]
-checksum = "sha256:580984c7c2785d6c7255dc49cc24d3a4c70dae5d7f25a80f58f93b08d91cf753"
-url = "https://github.com/helmfile/helmfile/releases/download/v1.5.1/helmfile_1.5.1_linux_arm64.tar.gz"
-
-[tools.helmfile."platforms.linux-arm64-musl"]
-checksum = "sha256:580984c7c2785d6c7255dc49cc24d3a4c70dae5d7f25a80f58f93b08d91cf753"
-url = "https://github.com/helmfile/helmfile/releases/download/v1.5.1/helmfile_1.5.1_linux_arm64.tar.gz"
-
-[tools.helmfile."platforms.linux-x64"]
-checksum = "sha256:4c0c92f711aaf95b953065a0a76c6adfd4f7fb9f8c7065db5c94d32a0caf288f"
-url = "https://github.com/helmfile/helmfile/releases/download/v1.5.1/helmfile_1.5.1_linux_amd64.tar.gz"
-
-[tools.helmfile."platforms.linux-x64-musl"]
-checksum = "sha256:4c0c92f711aaf95b953065a0a76c6adfd4f7fb9f8c7065db5c94d32a0caf288f"
-url = "https://github.com/helmfile/helmfile/releases/download/v1.5.1/helmfile_1.5.1_linux_amd64.tar.gz"
-
-[tools.helmfile."platforms.macos-arm64"]
-checksum = "sha256:ff3c0b754906f60f3b191924de2bcc3f95100e61786653446294680846dd20b3"
-url = "https://github.com/helmfile/helmfile/releases/download/v1.5.1/helmfile_1.5.1_darwin_arm64.tar.gz"
-
-[tools.helmfile."platforms.macos-x64"]
-checksum = "sha256:f9b807a3f3e5c97f1c13877c17465ec3e1897acc0b7a3fc4a5ab745e3fae3fd3"
-url = "https://github.com/helmfile/helmfile/releases/download/v1.5.1/helmfile_1.5.1_darwin_amd64.tar.gz"
-
-[tools.helmfile."platforms.windows-x64"]
-checksum = "sha256:82c1f5773200a7f6cabe4bbc479e0c52898c8627e42c349a71381272c0278a93"
-url = "https://github.com/helmfile/helmfile/releases/download/v1.5.1/helmfile_1.5.1_windows_amd64.tar.gz"
 
 [[tools.jq]]
 version = "1.8.1"
@@ -357,6 +284,42 @@ url = "https://github.com/casey/just/releases/download/1.51.0/just-1.51.0-x86_64
 checksum = "sha256:09d1138b6845e73f04bff5e26be3f57663bddca25e36fe6241d28a5aa310b64e"
 url = "https://github.com/casey/just/releases/download/1.51.0/just-1.51.0-x86_64-pc-windows-msvc.zip"
 
+[[tools.k9s]]
+version = "v0.50.18"
+backend = "aqua:derailed/k9s"
+
+[[tools.kopia]]
+version = "0.23.0"
+backend = "aqua:kopia/kopia"
+
+[tools.kopia."platforms.linux-arm64"]
+checksum = "sha256:6fdceaf8cca13f8e79c0efa178dbd92afa6c845e74b6ad8168b94269166e587c"
+url = "https://github.com/kopia/kopia/releases/download/v0.23.0/kopia-0.23.0-linux-arm64.tar.gz"
+
+[tools.kopia."platforms.linux-arm64-musl"]
+checksum = "sha256:6fdceaf8cca13f8e79c0efa178dbd92afa6c845e74b6ad8168b94269166e587c"
+url = "https://github.com/kopia/kopia/releases/download/v0.23.0/kopia-0.23.0-linux-arm64.tar.gz"
+
+[tools.kopia."platforms.linux-x64"]
+checksum = "sha256:fe5ddf931b712b53547dab7e541ed6befd27fd48014bee26d8781126f2f25a64"
+url = "https://github.com/kopia/kopia/releases/download/v0.23.0/kopia-0.23.0-linux-x64.tar.gz"
+
+[tools.kopia."platforms.linux-x64-musl"]
+checksum = "sha256:fe5ddf931b712b53547dab7e541ed6befd27fd48014bee26d8781126f2f25a64"
+url = "https://github.com/kopia/kopia/releases/download/v0.23.0/kopia-0.23.0-linux-x64.tar.gz"
+
+[tools.kopia."platforms.macos-arm64"]
+checksum = "sha256:20a1eb89d7ed25190758d2f8394e788c2d82f65cd617f8e37ec848a860ba065b"
+url = "https://github.com/kopia/kopia/releases/download/v0.23.0/kopia-0.23.0-macOS-arm64.tar.gz"
+
+[tools.kopia."platforms.macos-x64"]
+checksum = "sha256:79bb117bd8f802a5772a117a97ef35ebe58ccef94514c26eabd5670bd66c4e03"
+url = "https://github.com/kopia/kopia/releases/download/v0.23.0/kopia-0.23.0-macOS-x64.tar.gz"
+
+[tools.kopia."platforms.windows-x64"]
+checksum = "sha256:85045291338f026e07af0775c1ec86debd0df10ae02253db8cff8646d28084c0"
+url = "https://github.com/kopia/kopia/releases/download/v0.23.0/kopia-0.23.0-windows-x64.zip"
+
 [[tools.kubeconform]]
 version = "0.7.0"
 backend = "aqua:yannh/kubeconform"
@@ -421,37 +384,17 @@ url = "https://dl.k8s.io/v1.36.1/bin/darwin/amd64/kubectl"
 checksum = "sha256:538f4229eee91a17b34724da7daade7687393d6988e33b723c6c306572c13900"
 url = "https://dl.k8s.io/v1.36.1/bin/windows/amd64/kubectl.exe"
 
+[[tools.kubectx]]
+version = "0.11.0"
+backend = "aqua:ahmetb/kubectx"
+
+[[tools.kubens]]
+version = "0.11.0"
+backend = "aqua:ahmetb/kubectx/kubens"
+
 [[tools.kustomize]]
-version = "5.7.1"
+version = "5.8.1"
 backend = "aqua:kubernetes-sigs/kustomize"
-
-[tools.kustomize."platforms.linux-arm64"]
-checksum = "sha256:4261a040217df3bd6896597c3986d1465925726e4f22a945304b5233a4dcdbda"
-url = "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.7.1/kustomize_v5.7.1_linux_arm64.tar.gz"
-
-[tools.kustomize."platforms.linux-arm64-musl"]
-checksum = "sha256:4261a040217df3bd6896597c3986d1465925726e4f22a945304b5233a4dcdbda"
-url = "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.7.1/kustomize_v5.7.1_linux_arm64.tar.gz"
-
-[tools.kustomize."platforms.linux-x64"]
-checksum = "sha256:ea375e7372f9aa029129d4b2d16c66b7750b7f1213c4f66f910d981c895818d8"
-url = "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.7.1/kustomize_v5.7.1_linux_amd64.tar.gz"
-
-[tools.kustomize."platforms.linux-x64-musl"]
-checksum = "sha256:ea375e7372f9aa029129d4b2d16c66b7750b7f1213c4f66f910d981c895818d8"
-url = "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.7.1/kustomize_v5.7.1_linux_amd64.tar.gz"
-
-[tools.kustomize."platforms.macos-arm64"]
-checksum = "sha256:073e9d16d5a235e2ff83e62d6b76edb5d962adbc33be1e4860c4b3f1f39b33b9"
-url = "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.7.1/kustomize_v5.7.1_darwin_arm64.tar.gz"
-
-[tools.kustomize."platforms.macos-x64"]
-checksum = "sha256:4a0dff80c5644df6bc8f51b342842969004cb6ba5f94dddaabbea7483493273d"
-url = "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.7.1/kustomize_v5.7.1_darwin_amd64.tar.gz"
-
-[tools.kustomize."platforms.windows-x64"]
-checksum = "sha256:4704f8b47582c1c52bf76a50b37178f7f7de17f892713794a8bf44b01b50e0ce"
-url = "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.7.1/kustomize_v5.7.1_windows_amd64.zip"
 
 [[tools.lefthook]]
 version = "2.1.8"
@@ -685,43 +628,8 @@ url = "https://github.com/siderolabs/talos/releases/download/v1.13.2/talosctl-wi
 provenance = "cosign"
 
 [[tools.uv]]
-version = "0.11.14"
+version = "0.11.16"
 backend = "aqua:astral-sh/uv"
-
-[tools.uv."platforms.linux-arm64"]
-checksum = "sha256:d7d3966e46915c5f6932692aaf152a2473eecb1d2517ca4f8e88a07484b380b6"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.14/uv-aarch64-unknown-linux-musl.tar.gz"
-provenance = "github-attestations"
-
-[tools.uv."platforms.linux-arm64-musl"]
-checksum = "sha256:d7d3966e46915c5f6932692aaf152a2473eecb1d2517ca4f8e88a07484b380b6"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.14/uv-aarch64-unknown-linux-musl.tar.gz"
-provenance = "github-attestations"
-
-[tools.uv."platforms.linux-x64"]
-checksum = "sha256:077d36f45a0cc6d440b653b2d5c53e7731121e99e54b0221267eec5d1cae76ce"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.14/uv-x86_64-unknown-linux-musl.tar.gz"
-provenance = "github-attestations"
-
-[tools.uv."platforms.linux-x64-musl"]
-checksum = "sha256:077d36f45a0cc6d440b653b2d5c53e7731121e99e54b0221267eec5d1cae76ce"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.14/uv-x86_64-unknown-linux-musl.tar.gz"
-provenance = "github-attestations"
-
-[tools.uv."platforms.macos-arm64"]
-checksum = "sha256:4333af5c0730d94323a7819bbdf87ce92dd07fc857d67fff0059e0fca31b5c02"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.14/uv-aarch64-apple-darwin.tar.gz"
-provenance = "github-attestations"
-
-[tools.uv."platforms.macos-x64"]
-checksum = "sha256:9836c1440b0bd6aa5f81793648a339bd01d593b7b8f575de3b855dae4ab64654"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.14/uv-x86_64-apple-darwin.tar.gz"
-provenance = "github-attestations"
-
-[tools.uv."platforms.windows-x64"]
-checksum = "sha256:52ba5d19409aaa688a8a1a6ec8dfb6a4817230d20186e75f4006105c3e39a846"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.14/uv-x86_64-pc-windows-msvc.zip"
-provenance = "github-attestations"
 
 [[tools.yq]]
 version = "4.53.2"
