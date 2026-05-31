@@ -118,7 +118,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 1. Generate the config files from the sample files:
 
     ```sh
-    task init
+    just init
     ```
 
 2. Fill out the `cluster.toml` configuration file using the comments in it as a guide.
@@ -126,7 +126,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 3. Template out the kubernetes and talos configuration files, if any issues come up be sure to read the error and adjust your config files accordingly.
 
     ```sh
-    task configure
+    just configure
     ```
 
 4. Push your changes to git:
@@ -150,7 +150,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 1. Install Talos:
 
     ```sh
-    task bootstrap:talos
+    just bootstrap:talos
     ```
 
 2. Push your changes to git:
@@ -164,7 +164,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 3. Install cilium, coredns, spegel, flux and sync the cluster to the repository state:
 
     ```sh
-    task bootstrap:apps
+    just bootstrap:apps
     ```
 
 4. Watch the rollout of your cluster happen:
@@ -185,7 +185,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 
 2. Check the status of Flux and if the Flux resources are up-to-date and in a ready state:
 
-   📍 _Run `task reconcile` to force Flux to sync your Git repository state_
+   📍 _Run `just reconcile` to force Flux to sync your Git repository state_
 
     ```sh
     flux check
@@ -260,7 +260,7 @@ By default Flux will periodically check your git repository for changes. In-orde
 There might be a situation where you want to destroy your Kubernetes cluster. The following command will reset your nodes back to maintenance mode.
 
 ```sh
-task talos:reset
+just talos:reset
 ```
 
 ## 🛠️ Talos and Kubernetes Maintenance
@@ -272,10 +272,10 @@ task talos:reset
 
 ```sh
 # (Re)generate the Talos config
-task talos:generate-config
+just talos:generate-config
 # Apply the config to the node
-task talos:apply-node IP=? MODE=?
-# e.g. task talos:apply-node IP=10.10.10.10 MODE=auto
+just talos:apply-node IP=? MODE=?
+# e.g. just talos:apply-node IP=10.10.10.10 MODE=auto
 ```
 
 ### ⬆️ Updating Talos and Kubernetes versions
@@ -285,14 +285,14 @@ task talos:apply-node IP=? MODE=?
 
 ```sh
 # Upgrade node to a newer Talos version
-task talos:upgrade-node IP=?
-# e.g. task talos:upgrade-node IP=10.10.10.10
+just talos:upgrade-node IP=?
+# e.g. just talos:upgrade-node IP=10.10.10.10
 ```
 
 ```sh
 # Upgrade cluster to a newer Kubernetes version
-task talos:upgrade-k8s
-# e.g. task talos:upgrade-k8s
+just talos:upgrade-k8s
+# e.g. just talos:upgrade-k8s
 ```
 
 ### ➕ Adding a node to your cluster
@@ -316,11 +316,11 @@ You don't need to re-bootstrap the cluster to add new nodes. Follow these steps:
 
    ```sh
    # Render your talosconfig based on the talconfig.yaml file
-   task talos:generate-config
+   just talos:generate-config
 
    # Apply the configuration to the node
-   task talos:apply-node IP=?
-   # e.g. task talos:apply-node IP=10.10.10.10
+   just talos:apply-node IP=?
+   # e.g. just talos:apply-node IP=10.10.10.10
    ```
 
 The node should join the cluster automatically and workloads will be scheduled once they report as ready.
@@ -339,7 +339,7 @@ Below is a general guide on trying to debug an issue with an resource or applica
 
 1. Check if the Flux resources are up-to-date and in a ready state:
 
-   📍 _Run `task reconcile` to force Flux to sync your Git repository state_
+   📍 _Run `just reconcile` to force Flux to sync your Git repository state_
 
     ```sh
     flux get sources git -A
@@ -375,12 +375,12 @@ Resolving problems that you have could take some tweaking of your YAML manifests
 
 ## 🧹 Tidy up
 
-Once your cluster is fully configured and you no longer need to run `task configure`, it's a good idea to clean up the repository by removing the [templates](./templates) directory and any files related to the templating process. This will help eliminate unnecessary clutter from the upstream template repository and resolve any "duplicate registry" warnings from Renovate.
+Once your cluster is fully configured and you no longer need to run `just configure`, it's a good idea to clean up the repository by removing the [templates](./templates) directory and any files related to the templating process. This will help eliminate unnecessary clutter from the upstream template repository and resolve any "duplicate registry" warnings from Renovate.
 
 1. Tidy up your repository:
 
     ```sh
-    task template:tidy
+    just template:tidy
     ```
 
 2. Push your changes to git:
