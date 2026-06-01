@@ -39,36 +39,8 @@ version = "1.29.1"
 backend = "aqua:cloudnative-pg/cloudnative-pg/kubectl-cnpg"
 
 [[tools.cloudflared]]
-version = "2026.5.0"
+version = "2026.5.2"
 backend = "aqua:cloudflare/cloudflared"
-
-[tools.cloudflared."platforms.linux-arm64"]
-checksum = "sha256:2dc0945345677d27de3ae390a31c3b168866b48766da5f4cfd3fc473ce572303"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2026.5.0/cloudflared-linux-arm64"
-
-[tools.cloudflared."platforms.linux-arm64-musl"]
-checksum = "sha256:2dc0945345677d27de3ae390a31c3b168866b48766da5f4cfd3fc473ce572303"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2026.5.0/cloudflared-linux-arm64"
-
-[tools.cloudflared."platforms.linux-x64"]
-checksum = "sha256:0095e46fdc88855d801c4d304cb1f5dd4bd656116c47ab94c2ad0ae7cda1c7ec"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2026.5.0/cloudflared-linux-amd64"
-
-[tools.cloudflared."platforms.linux-x64-musl"]
-checksum = "sha256:0095e46fdc88855d801c4d304cb1f5dd4bd656116c47ab94c2ad0ae7cda1c7ec"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2026.5.0/cloudflared-linux-amd64"
-
-[tools.cloudflared."platforms.macos-arm64"]
-checksum = "sha256:116ef11a59fc4f31e7f1bcc4378070cd7ca053fa37b4484b1432bb150b358219"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2026.5.0/cloudflared-darwin-arm64.tgz"
-
-[tools.cloudflared."platforms.macos-x64"]
-checksum = "sha256:7f2c4c8c86e787226804694112682aefacd4cfb98f54508f1a5a841a78bbbef9"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2026.5.0/cloudflared-darwin-amd64.tgz"
-
-[tools.cloudflared."platforms.windows-x64"]
-checksum = "sha256:f141cded099c239171ad2cea6fb5da0fdaa2bd36104c3074d883f9546519eba7"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2026.5.0/cloudflared-windows-amd64.exe"
 
 [[tools.cue]]
 version = "0.16.1"
@@ -397,7 +369,7 @@ version = "5.8.1"
 backend = "aqua:kubernetes-sigs/kustomize"
 
 [[tools.lefthook]]
-version = "2.1.8"
+version = "2.1.9"
 backend = "aqua:evilmartians/lefthook"
 
 [[tools.pipx]]
@@ -589,46 +561,46 @@ checksum = "sha256:092e12cd232929b6d589d67a6eb0e4217ab421c5dcb9fd22595cb0f3be04a
 url = "https://github.com/budimanjojo/talhelper/releases/download/v3.1.10/talhelper_windows_amd64.tar.gz"
 
 [[tools.talosctl]]
-version = "1.13.2"
+version = "1.13.3"
 backend = "aqua:siderolabs/talos"
 
 [tools.talosctl."platforms.linux-arm64"]
-checksum = "sha256:dcf55741d8fff5793bac0ea9bbcea3147645c1eee6942eb6562db6c2235aac5c"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.2/talosctl-linux-arm64"
+checksum = "sha256:549bcdf2bce9552bc6aee69bd6fb5b0618efb048831cdf729b3dbf92b59f3ae0"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.3/talosctl-linux-arm64"
 provenance = "cosign"
 
 [tools.talosctl."platforms.linux-arm64-musl"]
-checksum = "sha256:dcf55741d8fff5793bac0ea9bbcea3147645c1eee6942eb6562db6c2235aac5c"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.2/talosctl-linux-arm64"
+checksum = "sha256:549bcdf2bce9552bc6aee69bd6fb5b0618efb048831cdf729b3dbf92b59f3ae0"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.3/talosctl-linux-arm64"
 provenance = "cosign"
 
 [tools.talosctl."platforms.linux-x64"]
-checksum = "sha256:86e21c434300ab71c27e8644570b14463c8ce78fc272853691de906af8d1c1bb"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.2/talosctl-linux-amd64"
+checksum = "sha256:50e87176dc532fd82b3136f321e8c292e175c98a4c6573c505b07fef21e476cf"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.3/talosctl-linux-amd64"
 provenance = "cosign"
 
 [tools.talosctl."platforms.linux-x64-musl"]
-checksum = "sha256:86e21c434300ab71c27e8644570b14463c8ce78fc272853691de906af8d1c1bb"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.2/talosctl-linux-amd64"
+checksum = "sha256:50e87176dc532fd82b3136f321e8c292e175c98a4c6573c505b07fef21e476cf"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.3/talosctl-linux-amd64"
 provenance = "cosign"
 
 [tools.talosctl."platforms.macos-arm64"]
-checksum = "sha256:6a7c0cd313d0b549f135ec4d51e6101a6d4bec753b9f86e516e77f31e2311613"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.2/talosctl-darwin-arm64"
+checksum = "sha256:badbf454e3fea46018af69b8704b7acdccb7a70906538619da6bdabc382c8f05"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.3/talosctl-darwin-arm64"
 provenance = "cosign"
 
 [tools.talosctl."platforms.macos-x64"]
-checksum = "sha256:7ceb65aba7ab532210696d7886d934dbabc21a1f8243058378d3e7c0e94f413a"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.2/talosctl-darwin-amd64"
+checksum = "sha256:e283191829456c5e24c2619f54f1e28864b8140b142979c2c42d7564c1aaf4da"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.3/talosctl-darwin-amd64"
 provenance = "cosign"
 
 [tools.talosctl."platforms.windows-x64"]
-checksum = "sha256:1b38dedf36eec29e6846792577b734be9ba0fe6d46832bd449d2519245bfd318"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.2/talosctl-windows-amd64.exe"
+checksum = "sha256:22d2c65571cb023b16ece5ef58e14f8e5e6f1e35927f8db8271b35ce22eb6c96"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.3/talosctl-windows-amd64.exe"
 provenance = "cosign"
 
 [[tools.uv]]
-version = "0.11.16"
+version = "0.11.17"
 backend = "aqua:astral-sh/uv"
 
 [[tools.yq]]
