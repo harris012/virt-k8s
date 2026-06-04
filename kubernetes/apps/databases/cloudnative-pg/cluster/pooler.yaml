@@ -25,7 +25,7 @@ spec:
     # - statement: Connection returned after each statement
     #   * Highest connection reuse but most restrictive
     #   * Cannot use: transactions, prepared statements, temp tables
-    poolMode: ${CNPG_POOLER_MODE:=session}
+    poolMode: session
     # parameters:
     #   max_client_conn: "1000"
     #   default_pool_size: "10"
