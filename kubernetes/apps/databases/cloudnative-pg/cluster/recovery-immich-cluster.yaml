@@ -30,10 +30,13 @@ spec:
   enableSuperuserAccess: true
 
   postgresql:
-    shared_preload_libraries: ["vchord.so"]
+    shared_preload_libraries:
+      - "vchord.so"
     parameters:
       max_connections: "500"
       shared_buffers: 512MB
+      random_page_cost: ${CNPG_RANDOM_PAGE_COST:="1.1"}
+      effective_io_concurrency: ${CNPG_EFFECTIVE_IO_CONCURRENCY:="200"}
 
   nodeMaintenanceWindow:
     inProgress: false
