@@ -24,7 +24,7 @@ spec:
       hostRoot: /sys/fs/cgroup
     # NOTE: devices might need to be set if you have more than one active NIC on your hosts
     # devices: eno+ eth+
-    grafana.internal/instance:
+    dashboards:
       enabled: true
     endpointRoutes:
       enabled: true
@@ -46,11 +46,10 @@ spec:
     loadBalancer:
       algorithm: maglev
       mode: "dsr"
-      serviceTopology: true
     localRedirectPolicies:
       enabled: true
     operator:
-      grafana.internal/instance:
+      dashboards:
         enabled: true
       prometheus:
         enabled: true
