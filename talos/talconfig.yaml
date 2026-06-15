@@ -10,8 +10,10 @@ additionalApiServerCertSans: &sans
   - "192.168.0.163"
 additionalMachineCertSans: *sans
 
-clusterPodNets: ["10.42.0.0/16"]
-clusterSvcNets: ["10.43.0.0/16"]
+clusterPodNets:
+  - "10.42.0.0/16"
+clusterSvcNets:
+  - "10.43.0.0/16"
 
 # Disable built-in CNI to use Cilium
 cniConfig:
@@ -23,7 +25,7 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/083f58aa67c0c2f86db8d3e7a1f2d15b6fcf7bf1d8a587d5b6a2303e4f971f01
+    talosImageURL: factory.talos.dev/installer/1268b29e31162a71b2e9ab804d15da6d39973134a51be4f2afbae899e5fe15db
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -42,7 +44,7 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/083f58aa67c0c2f86db8d3e7a1f2d15b6fcf7bf1d8a587d5b6a2303e4f971f01
+    talosImageURL: factory.talos.dev/installer/c76ae7bd58b5a217e4aafae5a9feb37a4b1e14aeb33c31d6e397e1188147f9b5
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -61,7 +63,7 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/083f58aa67c0c2f86db8d3e7a1f2d15b6fcf7bf1d8a587d5b6a2303e4f971f01
+    talosImageURL: factory.talos.dev/installer/c76ae7bd58b5a217e4aafae5a9feb37a4b1e14aeb33c31d6e397e1188147f9b5
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
