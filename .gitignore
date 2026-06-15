@@ -25,3 +25,4 @@ Thumbs.db
 extensions.yaml
 old_*
 cloudflared.json
+cluster.sample.toml
