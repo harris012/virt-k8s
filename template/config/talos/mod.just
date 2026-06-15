@@ -11,15 +11,6 @@ default:
 apply-node ip mode='auto':
     talhelper gencommand apply --node "{{ ip }}" --extra-flags "--mode={{ mode }}" | bash
 
-[doc('Download Talos machine image')]
-[script]
-download-image version:
-    export SCHEMATIC="$(just talos schematic-id)"
-    curl -fL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors --progress-bar \
-        -o "{{ source_directory() }}/talos-{{ version }}-${SCHEMATIC:0:8}.iso" \
-        "https://factory.talos.dev/image/${SCHEMATIC}/{{ version }}/metal-amd64.iso"
-    just log info "Downloaded Talos" version "{{ version }}" schematic "${SCHEMATIC}"
-
 [doc('Generate Talos configuration')]
 [group('talos')]
 generate-config:
@@ -48,7 +39,3 @@ upgrade-k8s:
 [group('talos')]
 upgrade-node ip:
     talhelper gencommand upgrade --node "{{ ip }}" --extra-flags "--timeout=10m" | bash
-
-[private]
-schematic-id:
-    curl -sX POST --data-binary @<(just template "{{ source_directory() }}/schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'

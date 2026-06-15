@@ -13,6 +13,7 @@ import (
 	cloudflare: #Cloudflare
 	cilium:     #Cilium
 	nodes: [...#Node]
+	apps:      #apps
 
 	spegel_enabled:     bool | *(len(nodes) > 1)
 	cilium_bgp_enabled: cilium.bgp.router_addr != "" && cilium.bgp.router_asn != "" && cilium.bgp.node_asn != ""
@@ -103,6 +104,10 @@ import (
 }
 
 #apps:	{
+	// Tailscale Oauth client ID.
+	client_id: string
+	// Tailscale Oauth client secret.
+	client_secret: string
 	// Rook dashboard password.
 	ROOK_DASHBOARD_PASSWORD: string
 	// Kopia password.
@@ -110,7 +115,7 @@ import (
 	// Grafana admin password.
 	GF_SECURITY_ADMIN_PASSWORD: string
 	// OpenCloud admin password.
-	opencloud_admin_password: string
+	OPEN_CLOUD_ADMIN_PASSWORD: string
 	// MinIO root user.
 	MINIO_ROOT_USER: string
 	// MinIO root password.
