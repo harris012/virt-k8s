@@ -35,7 +35,7 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: Pooler
 metadata:
-  name: nextcloud
+  name: nextcloud-pooler
   namespace: databases
 spec:
   cluster:
