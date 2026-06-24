@@ -8,9 +8,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: immich
-  # components:
+  components:
     # - ../../../../components/nfs-scaler
-    # - ../../../../components/gpu
+    - ../../../../components/gpu
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: databases
