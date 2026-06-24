@@ -33,12 +33,6 @@
   },
   packageRules: [
     {
-      description: "Override Helmfile Dependency Name",
-      matchDatasources: ["docker"],
-      matchManagers: ["helmfile"],
-      overrideDepName: "{{packageName}}",
-    },
-    {
       description: "Flux Operator Group",
       groupName: "flux-operator",
       matchDatasources: ["docker"],
@@ -46,7 +40,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 3,
+      minimumGroupSize: 2,
     },
     {
       description: "Auto-merge Mise Tools",
@@ -66,67 +60,28 @@
       ignoreTests: true,
     },
     {
-      matchUpdateTypes: ["major"],
-      semanticCommitType: "feat",
-      commitMessagePrefix: "{{semanticCommitType}}({{semanticCommitScope}})!:",
-      commitMessageExtra: "( {{currentVersion}} ➔ {{newVersion}} )",
-    },
-    {
-      matchUpdateTypes: ["minor"],
-      semanticCommitType: "feat",
-      commitMessageExtra: "( {{currentVersion}} ➔ {{newVersion}} )",
-    },
-    {
-      matchUpdateTypes: ["patch"],
-      semanticCommitType: "fix",
-      commitMessageExtra: "( {{currentVersion}} ➔ {{newVersion}} )",
-    },
-    {
-      matchUpdateTypes: ["digest"],
-      semanticCommitType: "chore",
-      commitMessageExtra: "( {{currentDigestShort}} ➔ {{newDigestShort}} )",
-    },
-    {
-      matchDatasources: ["docker"],
-      semanticCommitScope: "container",
-      commitMessageTopic: "image {{depName}}",
-    },
-    {
-      matchDatasources: ["helm"],
-      semanticCommitScope: "helm",
-      commitMessageTopic: "chart {{depName}}",
-    },
-    {
-      matchManagers: ["github-actions"],
-      semanticCommitType: "ci",
-      semanticCommitScope: "github-action",
-      commitMessageTopic: "action {{depName}}",
-    },
-    {
-      matchDatasources: ["github-releases"],
-      semanticCommitScope: "github-release",
-      commitMessageTopic: "release {{depName}}",
-    },
-    {
-      matchManagers: ["mise"],
-      semanticCommitScope: "mise",
-      commitMessageTopic: "tool {{depName}}",
+      description: "Auto-merge Renovate Presents",
+      matchManagers: ["renovate-config"],
+      matchUpdateTypes: ["minor", "patch"],
+      automerge: true,
+      automergeType: "branch",
+      ignoreTests: true,
     },
     {
       matchUpdateTypes: ["major"],
-      labels: ["type/major"],
+      addLabels: ["type/major"],
     },
     {
       matchUpdateTypes: ["minor"],
-      labels: ["type/minor"],
+      addLabels: ["type/minor"],
     },
     {
       matchUpdateTypes: ["patch"],
-      labels: ["type/patch"],
+      addLabels: ["type/patch"],
     },
     {
       matchUpdateTypes: ["digest"],
-      labels: ["type/digest"],
+      addLabels: ["type/digest"],
     },
     {
       matchDatasources: ["docker"],
