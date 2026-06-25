@@ -12,20 +12,20 @@ glob = [".mise.toml", ".mise/config.toml"]
 run = "mise fmt"
 stage_fixed = true
 
-[pre-commit.commands.format-json]
-glob = ["*.json", "*.json5", "*.jsonc"]
-run = "oxfmt {staged_files}"
-stage_fixed = true
+# [pre-commit.commands.format-json]
+# glob = ["*.json", "*.json5", "*.jsonc"]
+# run = "oxfmt {staged_files}"
+# stage_fixed = true
 
-[pre-commit.commands.format-markdown]
-glob = ["*.md", "*.markdown", "*.mdx"]
-run = "oxfmt {staged_files}"
-stage_fixed = true
+# [pre-commit.commands.format-markdown]
+# glob = ["*.md", "*.markdown", "*.mdx"]
+# run = "oxfmt {staged_files}"
+# stage_fixed = true
 
-[pre-commit.commands.format-yaml]
-glob = ["*.yaml", "*.yml"]
-run = "oxfmt {staged_files}"
-stage_fixed = true
+# [pre-commit.commands.format-yaml]
+# glob = ["*.yaml", "*.yml"]
+# run = "oxfmt {staged_files}"
+# stage_fixed = true
 
 [pre-commit.commands.mise-lock]
 glob = [".mise.toml", ".mise/config.toml"]
