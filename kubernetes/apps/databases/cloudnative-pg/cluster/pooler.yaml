@@ -1,34 +1,34 @@
-# ---
-# # yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/postgresql.cnpg.io/pooler_v1.json
-# apiVersion: postgresql.cnpg.io/v1
-# kind: Pooler
-# metadata:
-#   name: postgres18-immich-pooler
-#   namespace: databases
-# spec:
-#   cluster:
-#     name: postgres18-immich
-#   instances: 1
-#   type: rw
-#   pgbouncer:
-#     # POOL_MODE options:
-#     # - session (default): Connection returned to pool after client disconnects
-#     #   * Best for most applications
-#     #   * All PostgreSQL features available
-#     #   * Lower overhead than transaction mode
-#     #
-#     # - transaction: Connection returned to pool after each transaction
-#     #   * Required by some applications (e.g., Authentik)
-#     #   * Slightly higher overhead but better connection reuse
-#     #   * Cannot use: SET, LISTEN/NOTIFY, PREPARE, session-level features
-#     #
-#     # - statement: Connection returned after each statement
-#     #   * Highest connection reuse but most restrictive
-#     #   * Cannot use: transactions, prepared statements, temp tables
-#     poolMode: session
-#     # parameters:
-#     #   max_client_conn: "1000"
-#     #   default_pool_size: "10"
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/postgresql.cnpg.io/pooler_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: postgres18-immich-pooler
+  namespace: databases
+spec:
+  cluster:
+    name: postgres18-immich
+  instances: 1
+  type: rw
+  pgbouncer:
+    # POOL_MODE options:
+    # - session (default): Connection returned to pool after client disconnects
+    #   * Best for most applications
+    #   * All PostgreSQL features available
+    #   * Lower overhead than transaction mode
+    #
+    # - transaction: Connection returned to pool after each transaction
+    #   * Required by some applications (e.g., Authentik)
+    #   * Slightly higher overhead but better connection reuse
+    #   * Cannot use: SET, LISTEN/NOTIFY, PREPARE, session-level features
+    #
+    # - statement: Connection returned after each statement
+    #   * Highest connection reuse but most restrictive
+    #   * Cannot use: transactions, prepared statements, temp tables
+    poolMode: session
+    # parameters:
+    #   max_client_conn: "1000"
+    #   default_pool_size: "10"
 
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.nerdz.cloud/postgresql.cnpg.io/pooler_v1.json
