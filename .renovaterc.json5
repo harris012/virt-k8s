@@ -5,7 +5,7 @@
     "docker:enableMajor",
     "helpers:pinGitHubActionDigests",
     "github>harris012/virt-k8s//.renovate/grafanaDashboards.json5",
-    "github>home-operations/renovate-presets#2.0.0",
+    "github>home-operations/renovate-presets#2.1.0",
     ":automergeBranch",
     ":dependencyDashboard",
     ":disableRateLimiting",
