@@ -15,9 +15,15 @@ spec:
     image:
       flavor: fpm-alpine
       # renovate: datasource=docker depName=nextcloud
-      tag: 33.0.2-fpm-alpine
+      tag: 33.0.5-fpm-alpine@sha256:c20674025d810e35d1b2e4b475e6600be8c6d601fd97a915ce8d3fcdc2142ea2
     nginx:
       enabled: true
+      resources:
+        requests:
+          cpu: 10m
+          memory: 66Mi
+        limits:
+          memory: 192Mi
 
     phpClientHttpsFix:
       enabled: true
