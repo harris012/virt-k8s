@@ -13,6 +13,6 @@ resources:
   # - ./opencloud/ks.yaml
   - ./n8n/ks.yaml
   - ./immich/ks.yaml
-  # - ./nextcloud/ks.yaml
+  # - ./nextcloud/ks.yaml ## https://github.com/sstr-dev/infrastructure/blob/main/kubernetes/apps/base/self-hosted/nextcloud/helmrelease.yaml
   - ./vaultwarden/ks.yaml
   - ./stirling-pdf/ks.yaml
