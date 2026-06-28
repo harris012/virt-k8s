@@ -116,10 +116,6 @@ import (
 	GF_SECURITY_ADMIN_PASSWORD: string
 	// OpenCloud admin password.
 	OPEN_CLOUD_ADMIN_PASSWORD: string
-	// MinIO root user.
-	MINIO_ROOT_USER: string
-	// MinIO root password.
-	MINIO_ROOT_PASSWORD: string
 	// n8n encryption key.
 	N8N_ENCRYPTION_KEY: string
 	// Postgres superuser name.
