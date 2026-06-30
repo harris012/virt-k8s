@@ -61,16 +61,16 @@ spec:
       host: cloud.harissaeed.com
       datadir: /var/www/data
 
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
-      podSecurityContext:
-        fsGroup: 1000
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
+      # securityContext:
+      #   runAsUser: 1000
+      #   runAsGroup: 1000
+      #   runAsNonRoot: true
+      #   readOnlyRootFilesystem: false
+      # podSecurityContext:
+      #   fsGroup: 1000
+      #   runAsUser: 1000
+      #   runAsGroup: 1000
+      #   runAsNonRoot: true
 
       # mail:
       #   enabled: true
