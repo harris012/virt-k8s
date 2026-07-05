@@ -9,44 +9,19 @@ spec:
   chartRef:
     kind: OCIRepository
     name: dragonfly-operator
-  install:
-    crds: Skip
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: Skip
-    remediation:
-      retries: 3
+  driftDetection:
+    mode: enabled
   values:
-    replicaCount: 1
-    crds:
-      install: true
-      keep: true
-    rbacProxy:
-      enabled: false
-    serviceMonitor:
+    grafanaDashboard:
       enabled: true
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      runAsNonRoot: true
-    manager:
-      resources:
-        requests:
-          cpu: 10m
-        limits:
-          memory: 128Mi
-      securityContext:
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
-        capabilities:
-          drop:
-            - ALL
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: dragonfly-operator
+    crds:
+      # -- Install and upgrade CRDs
+      install: true
+      # -- Keep CRDs on chart uninstall
+      keep: true
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 128Mi
