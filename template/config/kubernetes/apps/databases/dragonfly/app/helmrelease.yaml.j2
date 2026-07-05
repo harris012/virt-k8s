@@ -14,3 +14,15 @@ spec:
   values:
     grafanaDashboard:
       enabled: true
+    replicaCount: 1
+    crds:
+      # -- Install and upgrade CRDs
+      install: true
+      # -- Keep CRDs on chart uninstall
+      keep: true
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 128Mi
