@@ -9,8 +9,45 @@ spec:
   chartRef:
     kind: OCIRepository
     name: dragonfly-operator
-  driftDetection:
-    mode: enabled
+    namespace: flux-system
+  install:
+    crds: Skip
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: Skip
+    remediation:
+      retries: 3
   values:
-    grafanaDashboard:
+    replicaCount: 1
+    crds:
+      install: true
+      keep: true
+    rbacProxy:
+      enabled: false
+    serviceMonitor:
       enabled: true
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+    manager:
+      resources:
+        requests:
+          cpu: 10m
+        limits:
+          memory: 128Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - ALL
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: dragonfly-operator
