@@ -11,6 +11,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./dragonfly/ks.yaml
+  # - ./dragonfly/ks.yaml
   - ./cloudnative-pg/ks.yaml
   - ./garage/ks.yaml
