@@ -92,10 +92,13 @@ jobs:
       - name: Run configure recipe
         run: just configure
 
-      - name: Run flux-local test
-        uses: docker://ghcr.io/allenporter/flux-local:v8.2.0@sha256:9c77739d8d7c71b808311693ea52d603d1ddb5190d3d4f23e47f6f33d5254602
+      - name: Install flate
+        uses: home-operations/flate/action@0fc37fae10cf3c265294f6adebc6d6c100c74ea5 # v0.4.10
         with:
-          args: test --enable-helm --all-namespaces --path /github/workspace/kubernetes/flux/cluster -v
+          base: ""
+
+      - name: Run flate test
+        run: flate test all -p ./kubernetes/flux/cluster
 
       - name: Dry run bootstrap talos recipe
         run: just --dry-run bootstrap talos

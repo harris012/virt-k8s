@@ -1,4 +1,5 @@
 set quiet
+set default-list
 set shell := ['bash', '-euo', 'pipefail', '-c']
 set script-interpreter := ['bash', '-euo', 'pipefail']
 set working-directory := '..'
@@ -19,10 +20,6 @@ deploy_key := justfile_dir() + '/github-deploy.key'
 push_token_file := justfile_dir() + '/github-push-token.txt'
 cloudflare_tunnel := justfile_dir() + '/cloudflare-tunnel.json'
 
-[private]
-default:
-    just template -l
-
 [doc('Render and validate configuration files')]
 [group('template')]
 configure: configure-preconditions render encrypt-secrets validate-kubernetes validate-talos
@@ -33,6 +30,7 @@ configure: configure-preconditions render encrypt-secrets validate-kubernetes va
 [script]
 doctor:
     rc=0
+    just log info "just version" version "{{ just_version() }}"
     just template doctor-check "cluster.toml"           "{{ config_file }}"           || rc=1
     just template doctor-check "cluster.sample.toml"    "{{ sample_config_file }}"    || rc=1
     just template doctor-check "cloudflare-tunnel.json" "{{ cloudflare_tunnel }}"     || rc=1
@@ -58,7 +56,7 @@ doctor:
 [group('template')]
 init:
     [ -f "{{ config_file }}" ]     || cp "{{ sample_config_file }}" "{{ config_file }}"
-    [ -f "$SOPS_AGE_KEY_FILE" ]    || age-keygen --output "$SOPS_AGE_KEY_FILE"
+    [ -f "$SOPS_AGE_KEY_FILE" ]    || age-keygen -pq --output "$SOPS_AGE_KEY_FILE"
     [ -f "{{ deploy_key }}" ]      || ssh-keygen -t ed25519 -C "deploy-key" -f "{{ deploy_key }}" -q -P ""
     [ -f "{{ push_token_file }}" ] || openssl rand -hex 16 > "{{ push_token_file }}"
 
@@ -93,9 +91,14 @@ doctor-check label path:
 encrypt-secrets:
     find "{{ bootstrap_dir }}" "{{ kubernetes_dir }}" "{{ talos_dir }}" -type f -name '*.sops.*' -print0 \
         | while IFS= read -r -d '' f; do
-            if [ "$(sops filestatus "$f" | jq '.encrypted')" = "false" ]; then
-                sops --encrypt --in-place "$f"
+            if ! status="$(sops filestatus "$f" | jq -r '.encrypted')"; then
+                just log fatal "could not read encryption status" file "$f"
             fi
+            case "$status" in
+                false) sops --encrypt --in-place "$f" ;;
+                true)  : ;;
+                *)     just log fatal "could not determine encryption status" file "$f" ;;
+            esac
         done
 
 [private]

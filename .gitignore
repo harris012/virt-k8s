@@ -14,6 +14,9 @@
 # Kubernetes
 kubeconfig
 talosconfig
+# Python
+__pycache__/
+*.py[cod]
 # Misc.
 .claude/
 .private/
