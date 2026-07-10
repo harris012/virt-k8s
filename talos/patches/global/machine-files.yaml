@@ -1,4 +1,3 @@
----
 machine:
   files:
     - op: create
@@ -11,7 +10,7 @@ machine:
     - op: overwrite
       path: /etc/nfsmount.conf
       permissions: 0o644
-      content: |-
+      content: |
         [ NFSMount_Global_Options ]
         nfsvers=4.2
         hard=True

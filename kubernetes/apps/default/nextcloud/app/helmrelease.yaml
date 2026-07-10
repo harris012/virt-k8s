@@ -30,12 +30,12 @@ spec:
       protocol: https
 
     nextcloud:
-      # extraInitContainers:
-      #   - name: init-db
-      #     image: ghcr.io/home-operations/postgres-init:18.4.0@sha256:ebd9d30add17acdf935d73eb004758c7dfd9388aaa605fda70ad74378ab92aec
-      #     envFrom:
-      #       - secretRef:
-      #           name: nextcloud-secret
+      extraInitContainers:
+        - name: init-db
+          image: ghcr.io/home-operations/postgres-init:18
+          envFrom:
+            - secretRef:
+                name: nextcloud-secret
 
       extraEnv:
         - name: REDIS_HOST
@@ -59,18 +59,7 @@ spec:
         # smtpHostKey: SMTP_HOST
 
       host: cloud.harissaeed.com
-      datadir: /var/www/data
-
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
-      podSecurityContext:
-        fsGroup: 1000
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
+      containerPort: 80
 
       # mail:
       #   enabled: true
@@ -86,9 +75,7 @@ spec:
         postStartCommand:
           - "/bin/sh"
           - "-c"
-          - |
-            su -s /bin/sh www-data -c 'php occ db:add-missing-indices' || true
-            su -s /bin/sh www-data -c 'php occ maintenance:repair --include-expensive' || true
+          - "su -s /bin/sh www-data -c 'php occ db:add-missing-indices' || true"
 
       configs:
         logging.config.php: |-
@@ -124,28 +111,7 @@ spec:
           $CONFIG = array (
             'default_phone_region' => 'DE',
           );
-      hooks:
-      #  post-installation: |-
-      #    printf "Add missing DB indices\n"
-      #    php occ db:add-missing-indices
-        before-starting: |-
-          # disable unneceserry apps
-          for appname in activity circles systemtags federation privacy \
-              nextcloud_announcements announcementcenter support survey_client \
-              user_status weather_status dashboard app_api
-            do
-            php occ app:disable "$appname"
-          done
-      #  post-upgrade: |-
-      #    php occ maintenance:repair --include-expensive
-      #    php occ db:add-missing-indices
-      #    php occ db:add-missing-columns
-      #    php occ db:add-missing-primary-keys
 
-      # Sidecar: Notify Push (high-performance notifications)
-      # How to Enable
-      # 1. Install "client push" app within nextcloud
-      # 2. sudo -u www-data php -d memory_limit=-1 /var/www/html/occ notify_push:setup https://nextcloud.mydomain.com/push
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
 
@@ -155,11 +121,11 @@ spec:
     externalDatabase:
       enabled: true
       type: postgresql
+      host: nextcloud-pooler.databases.svc.cluster.local:5432
+      database: *app
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
-        hostKey: INIT_POSTGRES_HOST
-        databaseKey: INIT_POSTGRES_DBNAME
         usernameKey: INIT_POSTGRES_USER
         passwordKey: INIT_POSTGRES_PASS
 
@@ -169,26 +135,16 @@ spec:
     persistence:
       enabled: true
       existingClaim: *app
-      # nextcloudData:
-      #   enabled: true
-      #   existingClaim: nextcloud-data  # NFS (user files)
-      #   accessMode: ReadWriteMany
 
     cronjob:
       enabled: true
-      resources:
-        requests:
-          cpu: 10m
-          memory: 96Mi
-        limits:
-          memory: 192Mi
 
     startupProbe:
       enabled: true
-      initialDelaySeconds: 10
-      periodSeconds: 20
-      timeoutSeconds: 5
-      failureThreshold: 30
+      initialDelaySeconds: 60
+      periodSeconds: 30
+      timeoutSeconds: 10
+      failureThreshold: 10
       successThreshold: 1
 
     resources:

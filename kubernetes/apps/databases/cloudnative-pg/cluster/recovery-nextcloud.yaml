@@ -24,7 +24,7 @@ spec:
     limits:
       memory: 2G
   superuserSecret:
-    name: nextcloud-pg-secret
+    name: cloudnative-pg-secret
   enableSuperuserAccess: true
 
   postgresql:

@@ -8,11 +8,11 @@ spec:
   accessModes:
     - ReadWriteMany
   capacity:
-    storage: 700Gi
+    storage: 500Gi
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: expanse.internal
-    path: /mnt/storage/k8s/nextcloud/data
+    path: /mnt/storage/k8s/nextcloud
 
 ---
 apiVersion: v1
@@ -25,4 +25,4 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 700Gi
+      storage: 500Gi
