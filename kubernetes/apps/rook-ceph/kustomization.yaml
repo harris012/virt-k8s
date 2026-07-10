@@ -8,5 +8,5 @@ components:
   - ../../components/sops
 
 resources:
-  # - ./namespace.yaml
-  # - ./rook-ceph/ks.yaml
+  - ./namespace.yaml
+  - ./rook-ceph/ks.yaml
