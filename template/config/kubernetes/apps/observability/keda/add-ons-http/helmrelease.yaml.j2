@@ -15,12 +15,44 @@ spec:
     crds: CreateReplace
   values:  # https://github.com/kedacore/charts/tree/main/http-add-on#configuration
     interceptor:
+      pullPolicy: IfNotPresent
       replicas:
         min: 1
-        max: 10
-      keepAlive: 5s
-      responseHeaderTimeout: 30s
-      tcpConnectTimeout: 30s
+        max: 2
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 256Mi
     scaler:
       replicas: 1
+      pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 128Mi
+      crds:
+        install: true
+    logging:
+      operator:
+        level: info
+        format: console
+      scaler:
+        level: info
+        format: console
+      interceptor:
+        level: info
+        format: console
 
+    operator:
+      replicas: 1
+      pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 128Mi
