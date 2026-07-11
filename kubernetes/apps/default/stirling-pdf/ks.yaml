@@ -8,8 +8,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: stirling-pdf
-  components:
-    - ../../../../components/http-scale-to-zero
+  # components:
+  #   - ../../../../components/http-scale-to-zero
   interval: 1h
   path: ./kubernetes/apps/default/stirling-pdf/app
   postBuild:
