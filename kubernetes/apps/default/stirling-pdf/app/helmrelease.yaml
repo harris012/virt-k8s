@@ -48,7 +48,7 @@ spec:
       app:
         hostnames: ["pdftools.harissaeed.com"]
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-tailscale
             namespace: network
         # rules:
         #   - backendRefs:
