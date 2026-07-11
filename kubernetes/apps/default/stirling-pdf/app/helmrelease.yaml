@@ -50,12 +50,8 @@ spec:
         parentRefs:
           - name: envoy-tailscale
             namespace: network
-        rules:
-          - backendRefs:
-              - name: *app
-                port: 8080
-
-
+        # rules:
+        #   - backendRefs:
               # - name: keda-add-ons-http-interceptor-proxy
               #   namespace: observability
               #   port: 8080
