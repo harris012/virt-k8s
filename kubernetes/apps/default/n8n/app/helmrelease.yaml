@@ -72,7 +72,7 @@ spec:
         hostnames:
           - *hostName
         parentRefs:
-          - name: envoy-tailscale
+          - name: envoy-internal
             namespace: network
         rules:
           - backendRefs:
