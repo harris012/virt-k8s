@@ -6,10 +6,10 @@ resources:
   - ./immich-cluster.yaml
   # - ./nextcloud.yaml
   - ./objectstore.yaml
-  #- ./pooler.yaml
-  #- ./scheduledbackup.yaml
+  - ./pooler.yaml
+  - ./scheduledbackup.yaml
   # - ./service.yaml
-  #- ./podmonitor.yaml
+  - ./podmonitor.yaml
   # - ./recovery-immich-cluster.yaml
   # - ./recovery-objectstore.yaml
   # - ./recovery-nextcloud.yaml
