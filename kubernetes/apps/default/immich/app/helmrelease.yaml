@@ -82,7 +82,7 @@ spec:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
               # Using OpenVINO version
-              tag: v2.7.5@sha256:a2501141440f10516d329fdfba2c68082e19eb9ba6016c061ac80d23beadf7f3
+              tag: v3.0.2@sha256:412f68e46e1966d0f87a8733a430369ee184b3a83e7b1e2db536dff291a34aa7
             env:
               TZ: Europe/Berlin
               REDIS_HOSTNAME: *redisHostname
@@ -92,8 +92,10 @@ spec:
               MACHINE_LEARNING_CACHE_FOLDER: "/cache"
               TRANSFORMERS_CACHE: "/cache"
               # Preload models on startup for faster first requests
-              MACHINE_LEARNING_PRELOAD__CLIP: "ViT-B-32__openai"
-              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION: "buffalo_l"
+              MACHINE_LEARNING_PRELOAD__CLIP__TEXTUAL: "ViT-B-32__openai"
+              MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: "ViT-B-32__openai"
+              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION: buffalo_l
+              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__DETECTION: buffalo_l
               IMMICH_MEDIA_LOCATION: *mediaLocation
             securityContext:
               allowPrivilegeEscalation: false
