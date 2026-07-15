@@ -62,8 +62,8 @@ spec:
               claims:
                 - name: gpu
               requests:
-                cpu: 20m
-                memory: 212Mi
+                cpu: 200m
+                memory: 412Mi
               limits:
                 memory: 8Gi
       machine-learning:
