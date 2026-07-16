@@ -53,7 +53,7 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: external.${SECRET_DOMAIN}
-      lbipam.cilium.io/ips: "192.168.0.166"
+      lbipam.cilium.io/ips: "#{ gateways.external }#"
   listeners:
     - name: http
       protocol: HTTP
@@ -83,7 +83,7 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: internal.${SECRET_DOMAIN}
-      lbipam.cilium.io/ips: "192.168.0.165"
+      lbipam.cilium.io/ips: "#{ gateways.internal }#"
   listeners:
     - name: http
       protocol: HTTP
@@ -135,7 +135,7 @@ spec:
   clientIPDetection:
     xForwardedFor:
       trustedCIDRs:
-        - "10.42.0.0/16"
+        - "#{ kubernetes.pod_cidr }#"
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
