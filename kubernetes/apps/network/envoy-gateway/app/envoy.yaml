@@ -104,7 +104,7 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: turbo-ac-tls
+            name: ${SECRET_DOMAIN/./-}-production-tls
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
