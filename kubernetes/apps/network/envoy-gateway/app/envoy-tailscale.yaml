@@ -36,6 +36,9 @@ metadata:
 
 spec:
   gatewayClassName: tailscale
+  infrastructure:
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: internal.${SECRET_DOMAIN}
   listeners:
     - name: http
       protocol: HTTP
