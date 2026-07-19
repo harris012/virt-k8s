@@ -33,19 +33,9 @@ metadata:
   name: envoy-tailscale
   annotations:
     external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
-
 spec:
   gatewayClassName: tailscale
-  infrastructure:
-    annotations:
-      external-dns.alpha.kubernetes.io/hostname: internal.${SECRET_DOMAIN}
   listeners:
-    - name: http
-      protocol: HTTP
-      port: 80
-      allowedRoutes:
-        namespaces:
-          from: Same
     - name: https
       protocol: HTTPS
       port: 443

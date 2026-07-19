@@ -15,7 +15,7 @@ helmDefaults:
   waitForJobs: true
 
 bases:
-  - defaults.yaml
+  - default.yaml
 
 releases:
   - name: cilium

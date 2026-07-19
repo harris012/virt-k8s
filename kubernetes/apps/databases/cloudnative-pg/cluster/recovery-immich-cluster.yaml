@@ -45,7 +45,7 @@ spec:
     recovery:
       source: origin
       # recoveryTarget:
-      #   targetTime: "2026-07-14 16:14:21.00000+02"
+      #   targetTime: "2026-05-10 06:14:21.00000+02"
       #   backupID: "your-backup-id"
 
   externalClusters:
