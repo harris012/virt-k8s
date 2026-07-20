@@ -12,15 +12,18 @@ spec:
     type: Kubernetes
     kubernetes:
       envoyDeployment:
-        replicas: 2
+        replicas: 1
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.39.0
+          image: mirror.gcr.io/envoyproxy/envoy:v1.38.3
+          # imageRepository: mirror.gcr.io/envoyproxy/envoy
           resources:
             requests:
               cpu: 50m
               memory: 212Mi
             limits:
               memory: 1Gi
+      envoyService:
+        externalTrafficPolicy: Cluster
   shutdown:
     drainTimeout: 180s
   telemetry:
@@ -128,7 +131,6 @@ spec:
   tcpKeepalive: {}
   timeout:
     http:
-      connectionIdleTimeout: 30s
       requestTimeout: 0s
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/clienttrafficpolicy_v1alpha1.json
@@ -141,8 +143,6 @@ spec:
     xForwardedFor:
       trustedCIDRs:
         - "10.42.0.0/16"
-  connection:
-    bufferLimit: 4Mi
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
@@ -150,9 +150,6 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
   tcpKeepalive: {}
-  timeout:
-    http:
-      idleTimeout: 60s
   tls:
     minVersion: "1.2"
     alpnProtocols:
