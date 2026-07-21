@@ -98,5 +98,5 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.harissaeed.com"
         parentRefs:
-          - name: envoy-tailscale
+          - name: envoy-internal
             namespace: network

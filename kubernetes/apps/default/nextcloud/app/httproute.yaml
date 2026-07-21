@@ -11,7 +11,7 @@ spec:
   hostnames:
     - "cloud.harissaeed.com"
   parentRefs:
-    - name: envoy-tailscale
+    - name: envoy-internal
       namespace: network
   rules:
     # --- .well-known 301 redirects (carddav/caldav) ---
