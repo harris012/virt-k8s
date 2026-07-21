@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./egress.yaml
   - ./ingress.yaml
-  - ./connector.yaml
+  #- ./connector.yaml
