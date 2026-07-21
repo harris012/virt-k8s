@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./immich-cluster.yaml
   # - ./nextcloud.yaml
-  # - ./objectstore.yaml
+  - ./objectstore.yaml
   - ./pooler.yaml
   # - ./scheduledbackup.yaml
   # - ./service.yaml
