@@ -9,7 +9,7 @@ metadata:
   #   cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 2
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.10-minimal-trixie@sha256:69cbf8c1d3af5d586428e1f8283b2e3f0cf6ed086135be074886df3a9f43a670
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.10-minimal-trixie@sha256:b8aa2492786fde3b1c00c0c156093ef05ce03df1541aead9d9c7b6abe27128e3
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
 
