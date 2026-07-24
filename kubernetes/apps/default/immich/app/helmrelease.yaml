@@ -62,7 +62,7 @@ spec:
               claims:
                 - name: gpu
               requests:
-                cpu: 20m
+                cpu: 10m
                 memory: 212Mi
               limits:
                 memory: 8Gi
@@ -105,7 +105,7 @@ spec:
               claims:
                 - name: gpu
               requests:
-                cpu: 80m
+                cpu: 10m
                 memory: 212Mi
               limits:
                 memory: 8Gi
