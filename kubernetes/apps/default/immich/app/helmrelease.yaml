@@ -42,7 +42,7 @@ spec:
               # IMMICH_TRUSTED_PROXIES: "10.69.0.0/16,10.96.0.0/16"
               IMMICH_MEDIA_LOCATION: &mediaLocation /library
               # Prevent NFS mount check failures
-              IMMICH_IGNORE_MOUNT_CHECK_ERRORS: "true"
+              # IMMICH_IGNORE_MOUNT_CHECK_ERRORS: "true"
               DB_HOSTNAME:
                 valueFrom:
                   secretKeyRef:
