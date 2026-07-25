@@ -12,17 +12,9 @@ stringData:
     ffmpeg:
       accel: qsv
       accelDecode: true
-      acceptedAudioCodecs:
-        - aac
-        - mp3
-        - opus
-      acceptedContainers:
-        - mov
-        - ogg
-        - webm
-      acceptedVideoCodecs:
-        - hevc
-        - h264
+      acceptedAudioCodecs: [aac, mp3, opus]
+      acceptedContainers: [mov, ogg, webm]
+      acceptedVideoCodecs: [h264, hevc, vp9, av1]
       bframes: -1
       cqMode: auto
       crf: 23
@@ -120,7 +112,7 @@ stringData:
 
     server:
       externalDomain: ""
-      publicUsers: true
+      publicUsers: false
       loginPageMessage: Welcome to the Immich instance. Contact Haris with any questions
 
     trash:
@@ -129,3 +121,10 @@ stringData:
 
     user:
       deleteDelay: 7
+
+    newVersionCheck:
+      enabled: false
+
+    storageTemplate:
+      enabled: true
+      hashVerificationEnabled: true
