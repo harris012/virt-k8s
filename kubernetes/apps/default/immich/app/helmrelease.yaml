@@ -92,7 +92,7 @@ spec:
               MACHINE_LEARNING_CACHE_FOLDER: "/cache"
               TRANSFORMERS_CACHE: "/cache"
               # Preload models on startup for faster first requests
-              MACHINE_LEARNING_PRELOAD__CLIP__TEXTUAL: "ViT-B-32__openai"
+              MACHINE_LEARNING_PRELOAD__CLIP__TEXTUAL: "ViT-B-32__openai, ViT-SO400M-16-SigLIP2-384__webli"
               MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: "ViT-B-32__openai"
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION: buffalo_l
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__DETECTION: buffalo_l
