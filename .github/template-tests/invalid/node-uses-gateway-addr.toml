@@ -1,5 +1,6 @@
-# Negative fixture: gateways.internal == gateways.dns.
-# Expected to be rejected by `_addrs_check` (list.UniqueItems).
+# Negative fixture: a node claims the default gateway address (defaults to
+# the first IP in node_cidr).
+# Expected to be rejected by _addr_uniqueness_check.
 [network]
 node_cidr = "10.10.10.0/24"
 
@@ -8,19 +9,21 @@ addr = "10.10.10.254"
 
 [gateways]
 internal = "10.10.10.252"
-dns      = "10.10.10.252"
+dns      = "10.10.10.253"
 external = "10.10.10.251"
 
 [repository]
-name = "onedr0p/cluster-template"
+url = "https://github.com/onedr0p/cluster-template.git"
 
-[cloudflare]
-domain = "example.com"
-token  = "fake"
+[domain]
+name = "example.com"
+
+[dns]
+token = "fake"
 
 [[nodes]]
 name         = "k8s-0"
-address      = "10.10.10.100"
+address      = "10.10.10.1"
 controller   = true
 disk         = "/dev/sdfake"
 mac_addr     = "00:00:00:00:00:00"

@@ -8,7 +8,7 @@ Special thanks to [Devin Buhl](https://github.com/onedr0p) for providing the ini
 
 Welcome to my template designed for deploying a single Kubernetes cluster. Whether you're setting up a cluster at home on bare-metal or virtual machines (VMs), this project aims to simplify the process and make Kubernetes more accessible. This template provides a practical starting point for anyone interested in managing their own Kubernetes environment.
 
-At its core, this project leverages [makejinja](https://github.com/mirkolenz/makejinja), a powerful tool for rendering templates. By reading the [cluster.toml](./cluster.sample.toml) configuration file—validated and defaulted by [CUE](https://cuelang.org/)—Makejinja generates the necessary configurations to deploy a Kubernetes cluster with the following features:
+At its core, this project leverages [makejinja](https://github.com/mirkolenz/makejinja), a powerful tool for rendering templates. By reading the [cluster.toml](./cluster.sample.toml) configuration file—validated and defaulted by [pydantic](https://docs.pydantic.dev/)—Makejinja generates the necessary configurations to deploy a Kubernetes cluster with the following features:
 
 - Easy configuration through a single TOML file.
 - Compatibility with home setups, whether on physical hardware or VMs.
@@ -18,9 +18,9 @@ With this approach, you'll gain a solid foundation to build and manage your Kube
 
 ## ✨ Features
 
-A Kubernetes cluster deployed with [Talos Linux](https://github.com/siderolabs/talos) and an opinionated implementation of [Flux](https://github.com/fluxcd/flux2) using [GitHub](https://github.com/) as the Git provider, [sops](https://github.com/getsops/sops) to manage secrets and [cloudflared](https://github.com/cloudflare/cloudflared) to access applications external to your local network.
+A Kubernetes cluster deployed with [Talos Linux](https://github.com/siderolabs/talos) and an opinionated implementation of [Flux](https://github.com/fluxcd/flux2) syncing from the Git provider of your choice (GitHub, GitLab, Gitea, Forgejo, Codeberg or self-hosted), [sops](https://github.com/getsops/sops) to manage secrets and [cloudflared](https://github.com/cloudflare/cloudflared) to access applications external to your local network.
 
-- **Required:** Some knowledge of [Containers](https://opencontainers.org/), [YAML](https://noyaml.com/), [Git](https://git-scm.com/), and a **Cloudflare account** with a **domain**.
+- **Required:** Some knowledge of [Containers](https://opencontainers.org/), [YAML](https://noyaml.com/), [Git](https://git-scm.com/), and a **domain**. Exposing apps to the public internet requires a **Cloudflare account**; internal-only clusters don't.
 - **Included components:** [flux](https://github.com/fluxcd/flux2), [cilium](https://github.com/cilium/cilium), [cert-manager](https://github.com/cert-manager/cert-manager), [spegel](https://github.com/spegel-org/spegel), [reloader](https://github.com/stakater/Reloader), [envoy-gateway](https://github.com/envoyproxy/gateway), [external-dns](https://github.com/kubernetes-sigs/external-dns) and [cloudflared](https://github.com/cloudflare/cloudflared).
 
 **Other features include:**
@@ -78,13 +78,11 @@ There are **5 stages** outlined below for completing this project, make sure you
 
     ```sh
     mise trust
-    pip install pipx
     mise install
     ```
 
    📍 _**Having trouble installing the tools?** Try unsetting the `GITHUB_TOKEN` env var and then run these commands again_
 
-   📍 _**Having trouble compiling Python?** Try running `mise settings python.compile=0` and then run these commands again_
 
 5. Logout of GitHub Container Registry (GHCR) as this may cause authorization problems when using the public registry:
 
@@ -95,16 +93,19 @@ There are **5 stages** outlined below for completing this project, make sure you
 
 ### Stage 3: Cloudflare configuration
 
+> [!TIP]
+> **Internal-only cluster?** Set `provider = "none"` under `[dns]` in `cluster.toml` and skip this stage entirely: no Cloudflare account, API token, or `cloudflare-tunnel.json` is needed. Nothing is exposed to the internet, apps are reachable on your LAN via the internal gateway, and the wildcard certificate is issued by an in-cluster self-signed CA instead of Let's Encrypt.
+
 > [!WARNING]
-> If any of the commands fail with `command not found` or `unknown command` it means `mise` is either not installed or configured incorrectly.
+> If any of the commands fail with `command not found` or `unknown command` it means `mise` is either not installed, activated or it could be configured incorrectly.
 
 1. Create a Cloudflare API token for use with cloudflared and external-dns by reviewing the official [documentation](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) and following the instructions below.
 
-   - Click the blue `Use template` button for the `Edit zone DNS` template.
-   - Name your token `kubernetes`
-   - Under `Permissions`, click `+ Add More` and add permissions `Zone - DNS - Edit` and `Account - Cloudflare Tunnel - Read`
-   - Limit the permissions to a specific account and/or zone resources and then click `Continue to Summary` and then `Create Token`.
-   - **Save this token somewhere safe**, you will need it later on.
+    - Click the blue `Use template` button for the `Edit zone DNS` template.
+    - Name your token `kubernetes`
+    - Under `Permissions`, click `+ Add More` and add permissions `Zone - DNS - Edit` and `Account - Cloudflare Tunnel - Read`
+    - Limit the permissions to a specific account and/or zone resources and then click `Continue to Summary` and then `Create Token`.
+    - **Save this token somewhere safe**, you will need it later on.
 
 2. Create the Cloudflare Tunnel:
 
@@ -112,6 +113,8 @@ There are **5 stages** outlined below for completing this project, make sure you
     cloudflared tunnel login
     cloudflared tunnel create --credentials-file cloudflare-tunnel.json kubernetes
     ```
+
+    📍 _**Prefer port-forwarding over a tunnel?** Set `mode = "direct"` under `[ingress]` in `cluster.toml` and skip this step: no `cloudflare-tunnel.json` is needed. Instead, forward TCP 443 (and optionally 80) on your router to the `gateways.external` IP, and create an `external.<domain>` DNS record yourself pointing at your WAN address (an A record, or a CNAME to a DDNS hostname). Per-app records are still published automatically._
 
 ### Stage 4: Cluster configuration
 
@@ -140,7 +143,7 @@ There are **5 stages** outlined below for completing this project, make sure you
     ```
 
 > [!TIP]
-> Using a **private repository**? Make sure to paste the public key from `github-deploy.key.pub` into the deploy keys section of your GitHub repository settings. This will make sure Flux has read/write access to your repository.
+> Using a **private repository** (an `ssh://` URL in `cluster.toml`)? Make sure to paste the public key from `deploy.key.pub` into the deploy keys section of your repository settings (GitHub: `Settings/Deploy keys`, GitLab: `Settings/Repository/Deploy keys`, Gitea/Forgejo: `Settings/Deploy keys`). This will make sure Flux has read/write access to your repository.
 
 ### Stage 5: Bootstrap Talos, Kubernetes, and Flux
 
@@ -157,7 +160,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 
     ```sh
     git add -A
-    git commit -m "chore: add talhelper encrypted secret :lock:"
+    git commit -m "chore: add talos encrypted secret :lock:"
     git push
     ```
 
@@ -232,16 +235,18 @@ The `external-dns` application created in the `network` namespace will handle cr
 
 _... Nothing working? That is expected, this is DNS after all!_
 
-### 🪝 Github Webhook
+### 🪝 Git Webhook
 
-By default Flux will periodically check your git repository for changes. In-order to have Flux reconcile on `git push` you must configure Github to send `push` events to Flux.
+By default Flux will periodically check your git repository for changes. In-order to have Flux reconcile on `git push` you must configure your Git provider to send `push` events to Flux.
+
+📍 _Don't want a webhook, or your Git provider can't reach the cluster? Set `webhook_provider = "none"` in `cluster.toml` and skip this section; Flux will keep polling on an interval._
 
 1. Obtain the webhook path:
 
    📍 _Hook id and path should look like `/hook/12ebd1e363c641dc3c2e430ecf3cee2b3c7a5ac9e1234506f6f5f3ce1230e123`_
 
     ```sh
-    kubectl -n flux-system get receiver github-webhook --output=jsonpath='{.status.webhookPath}'
+    kubectl -n flux-system get receiver flux-webhook --output=jsonpath='{.status.webhookPath}'
     ```
 
 2. Piece together the full URL with the webhook path appended:
@@ -250,7 +255,11 @@ By default Flux will periodically check your git repository for changes. In-orde
     https://flux-webhook.${cloudflare_domain}/hook/12ebd1e363c641dc3c2e430ecf3cee2b3c7a5ac9e1234506f6f5f3ce1230e123
     ```
 
-3. Navigate to the settings of your repository on Github, under "Settings/Webhooks" press the "Add webhook" button. Fill in the webhook URL and your token from `github-push-token.txt`, Content type: `application/json`, Events: Choose Just the push event, and save.
+3. Navigate to your repository settings and add a webhook with that URL and the secret token from `flux-webhook-token.txt`:
+
+    - **GitHub**: under "Settings/Webhooks" press the "Add webhook" button. Fill in the webhook URL, paste the token as the secret, Content type: `application/json`, Events: Choose Just the push event, and save.
+    - **GitLab**: under "Settings/Webhooks" fill in the webhook URL, paste the token as the secret token, check the push events trigger, and save. Also set `webhook_provider = "gitlab"` in `cluster.toml`.
+    - **Gitea/Forgejo**: under "Settings/Webhooks" add a **Gitea/Forgejo** webhook with the webhook URL, method `POST`, content type `application/json`, paste the token as the secret, trigger on push events, and save. Keep the default `webhook_provider = "github"` since these providers emulate GitHub webhooks.
 
 ## 💥 Reset
 
@@ -329,7 +338,7 @@ The node should join the cluster automatically and workloads will be scheduled o
 
 [Renovate](https://www.mend.io/renovate) is a tool that automates dependency management. It is designed to scan your repository around the clock and open PRs for out-of-date dependencies it finds. Common dependencies it can discover are Helm charts, container images, GitHub Actions and more! In most cases merging a PR will cause Flux to apply the update to your cluster.
 
-To enable Renovate, click the 'Configure' button over at their [Github app page](https://github.com/apps/renovate) and select your repository. Renovate creates a "Dependency Dashboard" as an issue in your repository, giving an overview of the status of all updates. The dashboard has interactive checkboxes that let you do things like advance scheduling or reattempt update PRs you closed without merging.
+To enable Renovate on GitHub, click the 'Configure' button over at their [Github app page](https://github.com/apps/renovate) and select your repository. On other Git providers you can [self-host Renovate](https://docs.renovatebot.com/getting-started/running/#self-hosting-renovate); note that fetching the shared preset in `.renovaterc.json5` requires a `GITHUB_COM_TOKEN`. Renovate creates a "Dependency Dashboard" as an issue in your repository, giving an overview of the status of all updates. The dashboard has interactive checkboxes that let you do things like advance scheduling or reattempt update PRs you closed without merging.
 
 The base Renovate configuration in your repository can be viewed at [.renovaterc.json5](.renovaterc.json5). By default it is scheduled to be active with PRs every weekend, but you can [change the schedule to anything you want](https://docs.renovatebot.com/presets-schedule), or remove it if you want Renovate to open PRs immediately.
 

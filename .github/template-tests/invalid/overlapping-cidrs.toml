@@ -12,11 +12,13 @@ dns      = "10.42.0.253"
 external = "10.42.0.251"
 
 [repository]
-name = "onedr0p/cluster-template"
+url = "https://github.com/onedr0p/cluster-template.git"
 
-[cloudflare]
-domain = "example.com"
-token  = "fake"
+[domain]
+name = "example.com"
+
+[dns]
+token = "fake"
 
 [[nodes]]
 name         = "k8s-0"

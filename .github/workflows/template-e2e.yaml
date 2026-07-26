@@ -29,10 +29,25 @@ jobs:
       matrix:
         fixture:
           - overlapping-cidrs
+          - nested-cidr-overlap
+          - non-canonical-cidr
+          - tiny-svc-cidr
           - duplicate-gateway-addrs
           - duplicate-node-names
           - reserved-node-name
           - bad-mac-address
+          - bad-repo-url
+          - missing-known-hosts
+          - node-addr-outside-cidr
+          - node-uses-gateway-addr
+          - gateway-node-collision
+          - bad-vlan-tag
+          - bad-bgp-asn
+          - missing-dns-token
+          - tunnel-without-dns
+          - missing-external-gateway
+          - missing-schematic
+          - partial-bgp
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -46,15 +61,34 @@ jobs:
 
       - name: Assert schema rejects ${{ matrix.fixture }}.toml
         run: |
-          fixture=./.github/tests/invalid/${{ matrix.fixture }}.toml
-          schema=./template/resources/config.schema.cue
-          if cue export "$fixture" "$schema" --out yaml >/dev/null 2>&1; then
+          fixture=./.github/template-tests/invalid/${{ matrix.fixture }}.toml
+          if uv run --quiet --locked ./template/scripts/validate.py "$fixture" >/dev/null 2>&1; then
             echo "::error::schema accepted invalid fixture ${{ matrix.fixture }} (expected rejection)"
             exit 1
           fi
           echo "schema correctly rejected ${{ matrix.fixture }}"
           # Also surface the actual error message in the log for debuggability.
-          cue export "$fixture" "$schema" --out yaml || true
+          uv run --quiet --locked ./template/scripts/validate.py "$fixture" || true
+
+  validator-tests:
+    if: ${{ github.repository == 'onedr0p/cluster-template' }}
+    name: validator-tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup mise
+        uses: jdx/mise-action@dad1bfd3df957f44999b559dd69dc1671cb4e9ea # v4.2.1
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Run validator tests
+        run: uv run --quiet --locked pytest ./template/scripts/test_validate.py
 
   validate-valid:
     if: ${{ github.repository == 'onedr0p/cluster-template' }}
@@ -68,6 +102,10 @@ jobs:
         fixture:
           - public
           - private
+          - selfhosted
+          - no-webhook
+          - internal
+          - direct
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -85,7 +123,7 @@ jobs:
 
       - name: Prepare files
         run: |
-          cp ./.github/tests/valid/${{ matrix.fixture }}.toml cluster.toml
+          cp ./.github/template-tests/valid/${{ matrix.fixture }}.toml cluster.toml
           echo '{"AccountTag":"fake","TunnelSecret":"fake","TunnelID":"fake"}' > cloudflare-tunnel.json
           touch kubeconfig
 
@@ -100,14 +138,23 @@ jobs:
       - name: Run flate test
         run: flate test all -p ./kubernetes/flux/cluster
 
+      - name: Render bootstrap helmfile charts
+        run: just template test-helmfile
+
       - name: Dry run bootstrap talos recipe
         run: just --dry-run bootstrap talos
 
       - name: Create talos secret
         run: just bootstrap talos-secret
 
-      - name: Create talos config
-        run: just bootstrap talos-config
+      - name: Render talos configs
+        run: just talos render
+
+      - name: Validate talos configs
+        run: |
+          for config in ./talos/rendered/*.yaml; do
+            talosctl validate --config "$config" --mode metal
+          done
 
       - name: Dry run bootstrap apps recipe
         run: just --dry-run bootstrap apps

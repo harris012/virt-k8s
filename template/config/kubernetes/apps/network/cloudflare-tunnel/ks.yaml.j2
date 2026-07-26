@@ -1,11 +1,10 @@
+#% if ingress.mode == 'cloudflare-tunnel' %#
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cloudflare-tunnel
 spec:
-  dependsOn:
-    - name: cloudflare-dns
   interval: 1h
   path: ./kubernetes/apps/network/cloudflare-tunnel/app
   postBuild:
@@ -19,3 +18,4 @@ spec:
     namespace: flux-system
   targetNamespace: network
   wait: false
+#% endif %#

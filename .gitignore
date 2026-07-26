@@ -4,12 +4,10 @@
 *.decrypted~*.yaml
 /age.key
 /cloudflare-tunnel.json
-/github-deploy.key
-/github-deploy.key.pub
-/github-push-token.txt
+/deploy.key
+/deploy.key.pub
+/flux-webhook-token.txt
 # Template config files
-/cluster.yaml
-/nodes.yaml
 /cluster.toml
 # Kubernetes
 kubeconfig
@@ -20,10 +18,12 @@ __pycache__/
 # Misc.
 .claude/
 .private/
-.task/
 .venv/
 .DS_Store
 Thumbs.db
+/talos/output/
+/talos/rendered/
+
 # my custom patches
 extensions.yaml
 old_*
