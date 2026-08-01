@@ -130,6 +130,30 @@
       datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
     },
     {
+      description: "Process annotated CNPG imageName dependencies",
+      customType: "regex",
+      managerFilePatterns: [
+        "/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/",
+      ],
+      matchStrings: [
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?( extractVersion=(?<extractVersion>\\S+))?( enabled=(?<enabled>\\S+))?\\n\\s*imageName:\\s*(?<lookupName>[^:@\\s]+(?:/[^:@\\s]+)*):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?",
+      ],
+      depNameTemplate: "{{{depName}}}",
+      datasourceTemplate: "{{{datasource}}}",
+    },
+    {
+      description: "Process annotated image env dependencies",
+      customType: "regex",
+      managerFilePatterns: [
+        "/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/",
+      ],
+      matchStrings: [
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?( extractVersion=(?<extractVersion>\\S+))?( enabled=(?<enabled>\\S+))?\\n\\s*- name:\\s*\\S+\\n\\s*value:\\s*(?<lookupName>[^:@\\s]+(?:/[^:@\\s]+)*):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?",
+      ],
+      depNameTemplate: "{{{depName}}}",
+      datasourceTemplate: "{{{datasource}}}",
+    },
+    {
       customType: "regex",
       description: "Process OCI dependencies",
       managerFilePatterns: [

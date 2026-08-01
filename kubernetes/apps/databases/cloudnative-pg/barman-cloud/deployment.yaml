@@ -28,6 +28,7 @@ spec:
         - containerPort: 9090
           protocol: TCP
         env:
+        # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar
         - name: SIDECAR_IMAGE
           value: ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar:v0.13.0@sha256:990361af3319f9e23aafa0f6d7981f99bf1f69b4e6a85cf1bc7d71d6f09bb288
         args:
