@@ -16,3 +16,8 @@ spec:
       podMonitorEnabled: false
       grafanaDashboard:
         create: true
+    image:
+      repository: ghcr.io/cloudnative-pg/cloudnative-pg
+      pullPolicy: IfNotPresent
+      # -- Overrides the image tag whose default is the chart appVersion.
+      tag: "1.30.0@sha256:a2701eb97cdd2a34b1fdb2cb51987f544b706e40bec72ae7146cd8580efefebb"
