@@ -39,6 +39,19 @@
       minimumGroupSize: 3,
     },
     {
+      description: "Barman Cloud Group",
+      groupName: "barman-cloud",
+      matchDatasources: ["docker"],
+      matchPackageNames: [
+        "ghcr.io/cloudnative-pg/plugin-barman-cloud",
+        "ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
       description: "Flux Operator Group",
       groupName: "flux-operator",
       matchDatasources: ["docker"],
