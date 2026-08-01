@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
@@ -12,7 +11,7 @@ spec:
     type: Kubernetes
     kubernetes:
       envoyDeployment:
-        replicas: 1
+        replicas: 2
         container:
           image: mirror.gcr.io/envoyproxy/envoy:v1.38.3
           # imageRepository: mirror.gcr.io/envoyproxy/envoy
@@ -57,7 +56,7 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: external.${SECRET_DOMAIN}
-      lbipam.cilium.io/ips: "192.168.0.170"
+      lbipam.cilium.io/ips: "192.168.0.166"
   listeners:
     - name: http
       protocol: HTTP
@@ -156,7 +155,6 @@ spec:
       - h2
       - http/1.1
 ---
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:

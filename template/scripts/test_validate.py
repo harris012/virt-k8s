@@ -119,6 +119,13 @@ def test_cert_sans_single_source():
     assert _load_raw(raw).cert_sans == ["127.0.0.1", "10.10.10.254"]
 
 
+def test_apps_section_is_accepted_and_preserved():
+    raw = config_from("public.toml")
+    raw["apps"] = {"client_id": "example", "SMTP_HOST": "smtp.example.com"}
+    cfg = _load_raw(raw)
+    assert cfg.apps == {"client_id": "example", "SMTP_HOST": "smtp.example.com"}
+
+
 def test_ingress_mode_follows_dns_provider():
     cloudflare = config_from("public.toml", ingress=None)
     assert _load_raw(cloudflare).ingress.mode == "cloudflare-tunnel"

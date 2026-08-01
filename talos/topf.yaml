@@ -1,0 +1,45 @@
+---
+clusterName: kubernetes
+clusterEndpoint: https://192.168.0.163:6443
+
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.13.7
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.36.3
+
+secretsPath: secrets.sops.yaml
+
+nodes:
+  - host: "alpha"
+    ip: "192.168.0.183"
+    role: worker
+    schematicId: "083f58aa67c0c2f86db8d3e7a1f2d15b6fcf7bf1d8a587d5b6a2303e4f971f01"
+    data:
+      installDisk: "/dev/sda"
+      installDiskSerial: ""
+      macAddr: "bc:24:11:2c:26:80"
+      mtu: 1500
+      encryptDisk: false
+      kernelModules: []
+  - host: "bravo"
+    ip: "192.168.0.69"
+    role: control-plane
+    schematicId: "083f58aa67c0c2f86db8d3e7a1f2d15b6fcf7bf1d8a587d5b6a2303e4f971f01"
+    data:
+      installDisk: "/dev/sda"
+      installDiskSerial: ""
+      macAddr: "bc:24:11:05:fc:31"
+      mtu: 1500
+      encryptDisk: false
+      kernelModules: []
+  - host: "charlie"
+    ip: "192.168.0.72"
+    role: worker
+    schematicId: "083f58aa67c0c2f86db8d3e7a1f2d15b6fcf7bf1d8a587d5b6a2303e4f971f01"
+    data:
+      installDisk: "/dev/sda"
+      installDiskSerial: ""
+      macAddr: "bc:24:11:9f:6b:2f"
+      mtu: 1500
+      encryptDisk: false
+      kernelModules: []

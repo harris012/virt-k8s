@@ -218,6 +218,7 @@ class Config(Model):
     repository: Repository
     domain: Domain
     dns: Dns
+    apps: dict[str, Any] = Field(default_factory=dict)
     # Defaults to "cloudflare-tunnel" when dns.provider is "cloudflare",
     # otherwise "none".
     ingress: Ingress = Field(
