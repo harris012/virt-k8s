@@ -63,9 +63,10 @@ jobs:
 
       - name: Boot maintenance-mode nodes
         id: cluster
-        uses: home-operations/talosctl-cluster-action@dc28a9d63dec2bc23d8777cdbd3a1f96e6988e5a # v0.1.5
+        uses: home-operations/talosctl-cluster-action@42a2d1c476f87245e2d1882ec825fb31368b9686 # v0.1.6
         with:
           config: ./.github/template-tests/e2e/talos-cluster.yaml
+          cache: true
 
       - name: Export cluster environment
         env:
