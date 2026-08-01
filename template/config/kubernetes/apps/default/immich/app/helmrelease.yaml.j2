@@ -21,7 +21,6 @@ spec:
             reloader.stakater.com/auto: "true"
           nodeSelector:
             kubernetes.io/hostname: "alpha"
-            node.kubernetes.io/gpu: "true"
         initContainers:
           init-db:
             image:
@@ -76,7 +75,6 @@ spec:
             reloader.stakater.com/auto: "true"
           nodeSelector:
             kubernetes.io/hostname: "alpha"
-            node.kubernetes.io/gpu: "true"
         containers:
           main:
             image:
