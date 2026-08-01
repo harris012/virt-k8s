@@ -21,7 +21,7 @@ All tests use direct I/O (`direct=1`) to bypass page cache and measure true stor
 
 Some storage backends were also tested using `kbench` (Longhorn's Kubernetes storage benchmarking tool) with a 30GB test size. kbench uses standardized fio configurations and provides a consistent testing methodology. kbench provides average latency only (not percentiles).
 
-Keep in mind these are not scientific benchmarks, since the cluster is not dedicated to the benchmarks there were random other workloads running on the cluster. This is just a rough idea of the performance of the storage solutions and it's intrinsic characteristics to make a decision on what to use when.
+Keep in mind these are not scientific benchmarks, since the cluster is not dedicated to the benchmarks there were random other workloads running on the cluster. This is just a rough idea of the performance of the storage solutions and their intrinsic characteristics to make a decision on what to use when.
 
 ## Test Environment
 

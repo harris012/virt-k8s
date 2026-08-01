@@ -148,7 +148,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 ### Stage 5: Bootstrap Talos, Kubernetes, and Flux
 
 > [!WARNING]
-> It might take a while for the cluster to be setup (10+ minutes is normal). During which time you will see a variety of error messages like: "couldn't get current server API group list," "error: no matching resources found", etc. 'Ready' will remain "False" as no CNI is deployed yet. **This is normal.** If this step gets interrupted, e.g. by pressing <kbd>Ctrl</kbd> + <kbd+C</kbd>, you likely will need to [reset the cluster](#-reset) before trying again
+> It might take a while for the cluster to be setup (10+ minutes is normal). During which time you will see a variety of error messages like: "couldn't get current server API group list," "error: no matching resources found", etc. 'Ready' will remain "False" as no CNI is deployed yet. **This is normal.** If this step gets interrupted, e.g. by pressing <kbd>Ctrl</kbd> + <kbd>C</kbd>, you likely will need to [reset the cluster](#-reset) before trying again
 
 1. Install Talos:
 
@@ -229,7 +229,7 @@ _... Nothing working? That is expected, this is DNS after all!_
 
 ### 🪝 Git Webhook
 
-By default Flux will periodically check your git repository for changes. In-order to have Flux reconcile on `git push` you must configure your Git provider to send `push` events to Flux.
+By default Flux will periodically check your git repository for changes. In order to have Flux reconcile on `git push` you must configure your Git provider to send `push` events to Flux.
 
 📍 _Don't want a webhook, or your Git provider can't reach the cluster? Set `webhook_provider = "none"` in `cluster.toml` and skip this section; Flux will keep polling on an interval._
 
@@ -336,7 +336,7 @@ The base Renovate configuration in your repository can be viewed at [.renovaterc
 
 ## 🐛 Debugging
 
-Below is a general guide on trying to debug an issue with an resource or application. For example, if a workload/resource is not showing up or a pod has started but in a `CrashLoopBackOff` or `Pending` state. These steps do not include a way to fix the problem as the problem could be one of many different things.
+Below is a general guide on trying to debug an issue with a resource or application. For example, if a workload/resource is not showing up or a pod has started but in a `CrashLoopBackOff` or `Pending` state. These steps do not include a way to fix the problem as the problem could be one of many different things.
 
 1. Check if the Flux resources are up-to-date and in a ready state:
 
@@ -354,7 +354,7 @@ Below is a general guide on trying to debug an issue with an resource or applica
     kubectl -n <namespace> get pods -o wide
     ```
 
-3. Check the logs of the pod if its there:
+3. Check the logs of the pod if it's there:
 
     ```sh
     kubectl -n <namespace> logs <pod-name> -f
@@ -372,7 +372,7 @@ Below is a general guide on trying to debug an issue with an resource or applica
     kubectl -n <namespace> get events --sort-by='.metadata.creationTimestamp'
     ```
 
-Resolving problems that you have could take some tweaking of your YAML manifests in order to get things working, other times it could be a external factor like permissions on a NFS server. If you are unable to figure out your problem see the support sections below.
+Resolving problems that you have could take some tweaking of your YAML manifests in order to get things working, other times it could be an external factor like permissions on a NFS server. If you are unable to figure out your problem see the support sections below.
 
 ## 🧹 Tidy up
 
@@ -413,9 +413,9 @@ This flexibility allows you to integrate seamlessly with a range of DNS solution
 
 ### Secrets
 
-SOPs is an excellent tool for managing secrets in a GitOps workflow. However, it can become cumbersome when rotating secrets or maintaining a single source of truth for secret items.
+SOPS is an excellent tool for managing secrets in a GitOps workflow. However, it can become cumbersome when rotating secrets or maintaining a single source of truth for secret items.
 
-For a more streamlined approach to those issues, consider [External Secrets](https://external-secrets.io/latest/). This tool allows you to move away from SOPs and leverage an external provider for managing your secrets. External Secrets supports a wide range of providers, from cloud-based solutions to self-hosted options.
+For a more streamlined approach to those issues, consider [External Secrets](https://external-secrets.io/latest/). This tool allows you to move away from SOPS and leverage an external provider for managing your secrets. External Secrets supports a wide range of providers, from cloud-based solutions to self-hosted options.
 
 ### Storage
 

@@ -7,7 +7,7 @@
 - [x] Setup dragonfly.
 - [ ] Setup External Secrets Operator with VW.
 - [-] Test Kubevirt with GPU acceleration.
-- [x] Install taliscale Operator.
+- [x] Install tailscale Operator.
 - [ ] setup gatus.
 - [ ] test GPG key encryption instead of age.
 - [ ] Setup GitOps CNPG recovery.
