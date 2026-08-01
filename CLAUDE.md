@@ -155,7 +155,6 @@ See `docs/storage_benchmarks.md` for detailed fio/kbench benchmark data.
 
 ## Things to know
 
-- `github-push-token.txt` exists at repo root — this is a sensitive file, do not log or expose its contents
 - `kubeconfig` and `age.key` are gitignored generated files; set by mise env vars automatically
 - The cluster uses Tailscale operator for VPN access and Cloudflare Tunnel for external exposure
 - `cloudnative-pg` manages PostgreSQL for immich and nextcloud with barman-cloud S3 backups
