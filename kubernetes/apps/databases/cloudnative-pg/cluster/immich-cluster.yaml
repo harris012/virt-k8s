@@ -11,7 +11,7 @@ spec:
   instances: 2
   # Immich v2.3.1 requires VectorChord >=0.3 <0.6
   # renovate: datasource=docker depName=ghcr.io/tensorchord/cloudnative-vectorchord versioning=loose
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.4-1.1.1@sha256:9c9246cb8ba0332f7e1115def71329410657237db8ef104160a479a89c7e03a2
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.4@sha256:9c9246cb8ba0332f7e1115def71329410657237db8ef104160a479a89c7e03a2
   primaryUpdateStrategy: unsupervised
 
   storage:
