@@ -5,7 +5,7 @@ metadata:
   name: ingress-proxy
 spec:
   type: ingress
-  hostnamePrefix: ${CLUSTER_NAME:=ts}-ingress
+  hostnamePrefix: ts-ingress
   replicas: 2
   tags:
-    - tag:${CLUSTER_NAME:=ts}-ingress
+    - tag:ts-ingress

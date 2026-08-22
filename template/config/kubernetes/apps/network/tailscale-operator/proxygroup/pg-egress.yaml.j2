@@ -5,7 +5,7 @@ metadata:
   name: egress-proxy
 spec:
   type: egress
-  hostnamePrefix: ${CLUSTER_NAME:=ts}-egress
+  hostnamePrefix: ts-egress
   replicas: 2
   tags:
-    - tag:${CLUSTER_NAME:=ts}-egress
+    - tag:ts-egress
