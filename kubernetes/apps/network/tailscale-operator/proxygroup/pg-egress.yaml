@@ -6,6 +6,5 @@ metadata:
 spec:
   type: egress
   hostnamePrefix: ts-egress
-  replicas: 2
-  tags:
-    - tag:ts-egress
+  replicas: 1
+
