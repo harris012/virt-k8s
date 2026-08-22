@@ -19,7 +19,7 @@ spec:
       hostnames:
         - "{{ .Release.Name }}.${SECRET_DOMAIN}"
       parentRefs:
-        - name: envoy-external
+        - name: envoy-tailscale
           namespace: network
     monitoring:
       serviceMonitor:
