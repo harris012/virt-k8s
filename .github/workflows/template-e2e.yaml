@@ -19,6 +19,7 @@ permissions: {}
 
 jobs:
   validate-invalid:
+    if: ${{ github.repository == 'onedr0p/cluster-template' }}
     name: reject-invalid (${{ matrix.fixture }})
     runs-on: ubuntu-latest
     permissions:
@@ -70,6 +71,7 @@ jobs:
           uv run --quiet --locked --no-dev ./template/scripts/validate.py "$fixture" || true
 
   validator-tests:
+    if: ${{ github.repository == 'onedr0p/cluster-template' }}
     name: validator-tests
     runs-on: ubuntu-latest
     permissions:
@@ -89,6 +91,7 @@ jobs:
         run: uv run --quiet --locked pytest ./template/scripts/test_validate.py
 
   validate-valid:
+    if: ${{ github.repository == 'onedr0p/cluster-template' }}
     name: accept-valid (${{ matrix.fixture }})
     runs-on: ubuntu-latest
     permissions:
@@ -113,8 +116,9 @@ jobs:
 
       - name: Setup mise
         uses: jdx/mise-action@7e36c90d9ab29c415a2384db3006f3ec8a8cc654 # v4.2.4
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        with:
+          experimental: true
+          install_args: --locked
 
       - name: Run init recipe
         run: just init
