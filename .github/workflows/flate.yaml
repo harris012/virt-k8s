@@ -47,8 +47,8 @@ jobs:
         run: flate test all -p ./kubernetes/flux/cluster
 
   success:
-    if: ${{ !cancelled() }}
-    needs: flate
+    if: ${{ always() && !cancelled() }}
+    needs: [filter, flate]
     name: Flate - Success
     runs-on: ubuntu-latest
     steps:

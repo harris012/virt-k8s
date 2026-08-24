@@ -251,6 +251,45 @@ url = "https://github.com/cli/cli/releases/download/v2.97.0/gh_2.97.0_windows_am
 url_api = "https://api.github.com/repos/cli/cli/releases/assets/496108319"
 provenance = "github-attestations"
 
+[[tools."github:home-operations/flate"]]
+version = "0.4.14"
+backend = "github:home-operations/flate"
+
+[tools."github:home-operations/flate"."platforms.linux-arm64"]
+checksum = "sha256:0fd29e5c7ed81686cac2c7e0233f8947ceade3a5b717b38a3349629beba18f57"
+url = "https://github.com/home-operations/flate/releases/download/v0.4.14/flate_0.4.14_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/505091876"
+
+[tools."github:home-operations/flate"."platforms.linux-arm64-musl"]
+checksum = "sha256:0fd29e5c7ed81686cac2c7e0233f8947ceade3a5b717b38a3349629beba18f57"
+url = "https://github.com/home-operations/flate/releases/download/v0.4.14/flate_0.4.14_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/505091876"
+
+[tools."github:home-operations/flate"."platforms.linux-x64"]
+checksum = "sha256:1d5381c5550593025c7109ea92bb261cd01cccf7eb608a78db6f3fbbef0dab16"
+url = "https://github.com/home-operations/flate/releases/download/v0.4.14/flate_0.4.14_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/505091875"
+
+[tools."github:home-operations/flate"."platforms.linux-x64-musl"]
+checksum = "sha256:1d5381c5550593025c7109ea92bb261cd01cccf7eb608a78db6f3fbbef0dab16"
+url = "https://github.com/home-operations/flate/releases/download/v0.4.14/flate_0.4.14_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/505091875"
+
+[tools."github:home-operations/flate"."platforms.macos-arm64"]
+checksum = "sha256:94dd5847ed6849ac4187612b16e100970c157498baf1f8f7ec2bf5ca8ab866da"
+url = "https://github.com/home-operations/flate/releases/download/v0.4.14/flate_0.4.14_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/505091874"
+
+[tools."github:home-operations/flate"."platforms.macos-x64"]
+checksum = "sha256:7cd179ddb7fd4699ce5715bfacab7bc1a78a9bc07c884b691e05ef978846c8de"
+url = "https://github.com/home-operations/flate/releases/download/v0.4.14/flate_0.4.14_darwin_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/505091873"
+
+[tools."github:home-operations/flate"."platforms.windows-x64"]
+checksum = "sha256:253db34c90b539e46aef6825fc0e57f539bfae4fe7911fe1b200ccf84c4f1e00"
+url = "https://github.com/home-operations/flate/releases/download/v0.4.14/flate_0.4.14_windows_amd64.zip"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/505091889"
+
 [[tools."github:postfinance/topf"]]
 version = "0.5.0"
 backend = "github:postfinance/topf"
@@ -843,9 +882,9 @@ url = "https://github.com/chmln/sd/releases/download/v1.1.0/sd-v1.1.0-aarch64-un
 url_api = "https://api.github.com/repos/chmln/sd/releases/assets/362325535"
 
 [tools.sd."platforms.linux-x64"]
-checksum = "sha256:02f00f4777d43e8e95b7b8d49e1a0d6e502fed4b8e79c1c8b8063857a30caa2e"
-url = "https://github.com/chmln/sd/releases/download/v1.1.0/sd-v1.1.0-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/chmln/sd/releases/assets/362325321"
+checksum = "sha256:3613eca74cd686739bb5a6d68319aa56c747e7315274d02323a2ca2b1c5d82d2"
+url = "https://github.com/chmln/sd/releases/download/v1.1.0/sd-v1.1.0-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/chmln/sd/releases/assets/362325296"
 
 [tools.sd."platforms.linux-x64-musl"]
 checksum = "sha256:02f00f4777d43e8e95b7b8d49e1a0d6e502fed4b8e79c1c8b8063857a30caa2e"
@@ -978,9 +1017,9 @@ version = "0.12.1"
 backend = "aqua:astral-sh/uv"
 
 [tools.uv."platforms.linux-arm64"]
-checksum = "sha256:ce218dad9eb48a39dd86160bec6291fac7275f20a9cabcc4bc10dd2c757208f8"
-url = "https://github.com/astral-sh/uv/releases/download/0.12.1/uv-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/497097080"
+checksum = "sha256:769d373e146692c639b5fbaae33b331c297a32e03d30448772051902df52bbf4"
+url = "https://github.com/astral-sh/uv/releases/download/0.12.1/uv-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/497097074"
 provenance = "github-attestations"
 
 [tools.uv."platforms.linux-arm64-musl"]
@@ -990,9 +1029,9 @@ url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/497097080"
 provenance = "github-attestations"
 
 [tools.uv."platforms.linux-x64"]
-checksum = "sha256:47823f814693bab8623308341369190de30b5c621eec5b1ee20352eae8c7982c"
-url = "https://github.com/astral-sh/uv/releases/download/0.12.1/uv-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/497097157"
+checksum = "sha256:90b2f223fb69d19db49e117da601f64978593417988530aa733d456141b4bcbb"
+url = "https://github.com/astral-sh/uv/releases/download/0.12.1/uv-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/497097153"
 provenance = "github-attestations"
 
 [tools.uv."platforms.linux-x64-musl"]

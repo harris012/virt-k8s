@@ -17,7 +17,6 @@ permissions: {}
 
 jobs:
   bootstrap:
-    if: ${{ github.repository == 'onedr0p/cluster-template' }}
     name: bootstrap (qemu)
     runs-on: ubuntu-latest
     permissions:
@@ -87,17 +86,10 @@ jobs:
         run: bash ./.github/template-tests/e2e/cluster.sh foundation
 
       - name: Test Flux SOPS
-        id: flux-sops
         run: bash ./.github/template-tests/e2e/cluster.sh flux-sops
-        background: true
 
       - name: Test networking
-        id: networking
         run: bash ./.github/template-tests/e2e/cluster.sh networking
-        background: true
-
-      - name: Wait for E2E tests
-        wait: [flux-sops, networking]
 
       - name: Summarize cluster
         run: bash ./.github/template-tests/e2e/cluster.sh summary
