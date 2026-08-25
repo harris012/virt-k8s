@@ -67,6 +67,7 @@ spec:
   gatewayClassName: envoy-tailscale
   infrastructure:
     annotations:
+      external-dns.alpha.kubernetes.io/hostname: internal.${SECRET_DOMAIN}
       tailscale.com/hostname: ts-envoy-gw
       tailscale.com/proxy-group: ingress-proxy
     labels: {}
