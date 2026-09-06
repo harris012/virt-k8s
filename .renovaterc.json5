@@ -71,7 +71,6 @@
       description: 'Talos Group',
       groupName: 'talos',
       matchPackageNames: [
-        'ghcr.io/siderolabs/installer',
         'siderolabs/talos',
       ],
       group: {
