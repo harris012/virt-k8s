@@ -65,7 +65,6 @@
         'mise',
       ],
       groupName: 'mise tools',
-      groupSlug: 'mise-tools',
       minimumReleaseAge: '3 days',
     },
     {
@@ -74,9 +73,11 @@
       matchPackageNames: [
         'ghcr.io/siderolabs/installer',
         'siderolabs/talos',
-        'talosctl',
       ],
-      minimumGroupSize: 3,
+      group: {
+        commitMessageTopic: '{{{groupName}}} group',
+      },
+      minimumGroupSize: 2,
     },
     {
       description: 'Barman Cloud Group',
