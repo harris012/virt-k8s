@@ -1,8 +1,6 @@
-
 # Acknowledgements
 
 Special thanks to [Devin Buhl](https://github.com/onedr0p) for providing the initial template for my amazing home lab Kubernetes cluster.
-
 
 # ⛵ Virtualised Kubernetes cluster
 
@@ -41,10 +39,9 @@ There are **5 stages** outlined below for completing this project, make sure you
 > [!IMPORTANT]
 > If you have **3 or more nodes** it is recommended to make 3 of them controller nodes for a highly available control plane. This project configures **all nodes** to be able to run workloads. **Worker nodes** are therefore **optional**.
 
-
-| Device                                                                                 | Role      | Cores    | Memory  | System Disk  |
-|----------------------------------------------------------------------------------------|-----------|----------|---------|--------------|
-| Minisforum ms-01 Running Proxmox 3 talos VMs                                           | 3x Control| 20       | 128GB   | 1TB NVMe     |
+| Device                                       | Role       | Cores | Memory | System Disk |
+| -------------------------------------------- | ---------- | ----- | ------ | ----------- |
+| Minisforum ms-01 Running Proxmox 3 talos VMs | 3x Control | 20    | 128GB  | 1TB NVMe    |
 
 1. Head over to the [Talos Linux Image Factory](https://factory.talos.dev) and follow the instructions. Be sure to only choose the **bare-minimum system extensions** as some might require additional configuration and prevent Talos from booting without it. Depending on your CPU start with the Intel/AMD system extensions (`i915`, `intel-ucode` & `mei` **or** `amdgpu` & `amd-ucode`), you can always add system extensions after Talos is installed and working.
 
@@ -81,9 +78,9 @@ There are **5 stages** outlined below for completing this project, make sure you
     mise install
     ```
 
-   📍 _**Having trouble installing the tools?** Try unsetting the `GITHUB_TOKEN` env var and then run these commands again_
+    📍 _**Having trouble installing the tools?** Try unsetting the `GITHUB_TOKEN` env var and then run these commands again_
 
-    📍 _**Platforms:** `.mise/mise.lock` pins tool downloads for Linux on amd64 and arm64 and macOS on arm64 (`linux-x64`, `linux-arm64`, `macos-arm64`). If you also need musl (e.g. Alpine), Windows or Intel macOS, add those platforms to the lockfile and commit it: `mise lock -p linux-x64-musl,linux-arm64-musl,windows-x64,macos-x64`_
+    📍 _**Platforms:** `.mise/mise.lock` pins tool downloads for the platforms listed under `lockfile_platforms` in `.mise/config.toml`: Linux and macOS on amd64 and arm64 (`linux-x64`, `linux-arm64`, `macos-x64`, `macos-arm64`). If you also need musl (e.g. Alpine) or Windows, add the platform to that list (`linux-x64-musl`, `linux-arm64-musl`, `windows-x64`), run `mise lock`, and commit both files. Your own platform is always locked, even when it is not in the list._
 
 5. Logout of GitHub Container Registry (GHCR) as this may cause authorization problems when using the public registry:
 
@@ -125,7 +122,7 @@ There are **5 stages** outlined below for completing this project, make sure you
     just init
     ```
 
-2. Fill out the `cluster.toml` configuration file using the comments in it as a guide.
+2. Fill out the `cluster.toml` configuration file using the comments in it as a guide. Editors with TOML schema support (VS Code's Even Better TOML, taplo in Neovim) pick up the `#:schema` directive at the top of the file and provide completion and inline validation.
 
 3. Template out the kubernetes and talos configuration files, if any issues come up be sure to read the error and adjust your config files accordingly.
 
@@ -135,7 +132,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 
 4. Push your changes to git:
 
-   📍 _**Verify** all the `./bootstrap/**/*.sops.*`, `./kubernetes/**/*.sops.*` and `./talos/secrets.sops.yaml` files are **encrypted** with SOPS_
+    📍 _**Verify** all the `./bootstrap/**/*.sops.*`, `./kubernetes/**/*.sops.*` and `./talos/secrets.sops.yaml` files are **encrypted** with SOPS_
 
     ```sh
     git add -A
@@ -181,7 +178,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 
 2. Check the status of Flux and if the Flux resources are up-to-date and in a ready state:
 
-   📍 _Run `just reconcile` to force Flux to sync your Git repository state_
+    📍 _Run `just reconcile` to force Flux to sync your Git repository state_
 
     ```sh
     flux check
@@ -192,7 +189,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 
 3. Check TCP connectivity to both the internal and external gateways:
 
-   📍 _The variables are only placeholders, replace them with your actual values_
+    📍 _The variables are only placeholders, replace them with your actual values_
 
     ```sh
     nmap -Pn -n -p 443 ${gateways_internal} ${gateways_external} -vv
@@ -200,7 +197,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 
 4. Check you can resolve DNS for `echo`, this should resolve to `${gateways_external}`:
 
-   📍 _The variables are only placeholders, replace them with your actual values_
+    📍 _The variables are only placeholders, replace them with your actual values_
 
     ```sh
     dig @${gateways_dns} echo.${cloudflare_domain}
@@ -236,7 +233,7 @@ By default Flux will periodically check your git repository for changes. In orde
 
 1. Obtain the webhook path:
 
-   📍 _Hook id and path should look like `/hook/12ebd1e363c641dc3c2e430ecf3cee2b3c7a5ac9e1234506f6f5f3ce1230e123`_
+    📍 _Hook id and path should look like `/hook/12ebd1e363c641dc3c2e430ecf3cee2b3c7a5ac9e1234506f6f5f3ce1230e123`_
 
     ```sh
     kubectl -n flux-system get receiver flux-webhook --output=jsonpath='{.status.webhookPath}'
@@ -307,23 +304,23 @@ You don't need to re-bootstrap the cluster to add new nodes. Follow these steps:
 
 2. **Get the node information**: While the node is in maintenance mode, retrieve the disk and MAC address information needed for configuration:
 
-   ```sh
-   talosctl get disks -n <ip> --insecure
-   talosctl get links -n <ip> --insecure
-   ```
+    ```sh
+    talosctl get disks -n <ip> --insecure
+    talosctl get links -n <ip> --insecure
+    ```
 
 3. **Update the configuration**: Read the documentation for [talhelper](https://budimanjojo.github.io/talhelper/latest/) and extend the `talconfig.yaml` file manually with the new node information (including the disk and MAC address from step 2).
 
 4. **Generate and apply the configuration**:
 
-   ```sh
-   # Render your talosconfig based on the talconfig.yaml file
-   just talos:generate-config
+    ```sh
+    # Render your talosconfig based on the talconfig.yaml file
+    just talos:generate-config
 
-   # Apply the configuration to the node
-   just talos:apply-node IP=?
-   # e.g. just talos:apply-node IP=10.10.10.10
-   ```
+    # Apply the configuration to the node
+    just talos:apply-node IP=?
+    # e.g. just talos:apply-node IP=10.10.10.10
+    ```
 
 The node should join the cluster automatically and workloads will be scheduled once they report as ready.
 
@@ -341,7 +338,7 @@ Below is a general guide on trying to debug an issue with a resource or applicat
 
 1. Check if the Flux resources are up-to-date and in a ready state:
 
-   📍 _Run `just reconcile` to force Flux to sync your Git repository state_
+    📍 _Run `just reconcile` to force Flux to sync your Git repository state_
 
     ```sh
     flux get sources git -A
@@ -436,7 +433,7 @@ These tools offer a variety of solutions to meet your persistent storage needs, 
 
 Community member [@whazor](https://github.com/whazor) created [Kubesearch](https://kubesearch.dev) to allow searching Flux HelmReleases across Github and Gitlab repositories with the `kubesearch` topic.
 
-##  Related Projects
+## Related Projects
 
 If this repo is too hot to handle or too cold to hold check out these following projects.
 
@@ -444,7 +441,6 @@ If this repo is too hot to handle or too cold to hold check out these following 
 - [mitchross/k3s-argocd-starter](https://github.com/mitchross/k3s-argocd-starter) - starter kit for k3s, argocd
 - [ricsanfre/pi-cluster](https://github.com/ricsanfre/pi-cluster) - _Pi Kubernetes Cluster. Homelab kubernetes cluster automated with Ansible and FluxCD_
 - [techno-tim/k3s-ansible](https://github.com/techno-tim/k3s-ansible) - _The easiest way to bootstrap a self-hosted High Availability Kubernetes cluster. A fully automated HA k3s etcd install with kube-vip, MetalLB, and more. Build. Destroy. Repeat._
-
 
 ## 🤝 Thanks
 
