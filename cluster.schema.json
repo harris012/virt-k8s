@@ -419,6 +419,13 @@
         "enabled": null
       }
     },
+    "apps": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Apps",
+      "type": "object"
+    },
     "nodes": {
       "items": {
         "$ref": "#/$defs/Node"

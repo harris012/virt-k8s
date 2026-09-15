@@ -231,6 +231,8 @@ class Config(Model):
     cilium: Cilium = Cilium()
     talos: Talos = Talos()
     spegel: Spegel = Spegel()
+    # Application secrets/settings consumed by Jinja templates. (My Changes)
+    apps: dict[str, str] = Field(default_factory=dict)
     nodes: list[Node]
 
     @computed_field

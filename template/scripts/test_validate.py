@@ -155,6 +155,17 @@ def test_node_defaults_exported():
     assert node["secureboot"] is False
     assert node["kernel_modules"] == []
 
+## MY changes
+def test_apps_section_is_accepted_and_preserved():
+    raw = config_from("private.toml")
+    raw["apps"] = {
+        "KOPIA_PASSWORD": "secret-value",
+        "TIMEZONE": "Europe/Berlin",
+    }
+    data = _load_raw(raw).model_dump(mode="json")
+    assert data["apps"]["KOPIA_PASSWORD"] == "secret-value"
+    assert data["apps"]["TIMEZONE"] == "Europe/Berlin"
+
 
 def test_gateways_may_leave_node_cidr_only_with_bgp():
     with_bgp = config_from("public.toml", **{"gateways.external": "192.168.50.1"})
