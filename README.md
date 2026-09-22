@@ -2,7 +2,7 @@
 
 Special thanks to [Devin Buhl](https://github.com/onedr0p) for providing the initial template for my amazing home lab Kubernetes cluster.
 
-# ⛵ Virtualised Kubernetes cluster
+# ⛵ Kubernetes cluster
 
 Welcome to my template designed for deploying a single Kubernetes cluster. Whether you're setting up a cluster at home on bare-metal or virtual machines (VMs), this project aims to simplify the process and make Kubernetes more accessible. This template provides a practical starting point for anyone interested in managing their own Kubernetes environment.
 
