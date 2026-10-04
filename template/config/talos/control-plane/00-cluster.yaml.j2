@@ -27,12 +27,14 @@ extraArgs:
   # https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/
   feature-gates: HPAScaleToZero=true
   enable-aggregator-routing: "true"
+image: registry.k8s.io/kube-apiserver:v1.37.1
 ---
 apiVersion: v1alpha1
 kind: KubeControllerManagerConfig
 extraArgs:
   bind-address: 0.0.0.0
   feature-gates: HPAScaleToZero=true
+image: registry.k8s.io/kube-controller-manager:v1.37.1
 ---
 apiVersion: v1alpha1
 kind: KubeCoreDNSConfig
@@ -46,6 +48,7 @@ $patch: delete
 apiVersion: v1alpha1
 kind: KubeProxyConfig
 enabled: false
+image: registry.k8s.io/kube-proxy:v1.37.1
 ---
 apiVersion: v1alpha1
 kind: KubeSchedulerConfig
@@ -62,3 +65,4 @@ config:
               - maxSkew: 1
                 topologyKey: kubernetes.io/hostname
                 whenUnsatisfiable: ScheduleAnyway
+image: registry.k8s.io/kube-scheduler:v1.37.1
