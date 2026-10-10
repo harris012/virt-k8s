@@ -17,12 +17,6 @@
   dependencyDashboardTitle: "Renovate Dashboard :robot:",
   schedule: ["every weekend"],
   ignorePaths: ["**/*.sops.*"],
-  lockFileMaintenance: {
-    enabled: true,
-    schedule: ["before 3am on the first day of the month"],
-    commitMessageExtra: "({{manager}})",
-    additionalBranchPrefix: "{{manager}}-",
-  },
   mise: {
     managerFilePatterns: ["/^\\.mise/conf\\.d/[^/]+\\.toml$/"],
   },
