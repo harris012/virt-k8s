@@ -22,7 +22,7 @@ spec:
       VOLSYNC_CAPACITY: 1Gi
       APP_HOSTNAME: n8n
       APP_PORT: "8080"
-      COOLDOWN_PERIOD: "300"
+      COOLDOWN_PERIOD: "900"
   prune: true
   sourceRef:
     kind: GitRepository
