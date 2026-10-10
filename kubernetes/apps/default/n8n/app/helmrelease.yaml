@@ -14,14 +14,6 @@ spec:
       n8n:
         annotations:
           reloader.stakater.com/auto: "true"
-
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsGroup: 1000
-            runAsUser: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: "OnRootMismatch"
         containers:
           app:
             image:
@@ -41,6 +33,7 @@ spec:
               N8N_LOG_OUTPUT: console
               N8N_UNVERIFIED_PACKAGES_ENABLED: true
               N8N_MIGRATE_FS_STORAGE_PATH: true
+              N8N_FORWARD_AUTH_HEADER: "Remote-Email"
               N8N_ENCRYPTION_KEY:
                 valueFrom:
                   secretKeyRef:
@@ -54,7 +47,17 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 1Gi
-
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
     service:
       app:
         ports:
@@ -68,6 +71,10 @@ spec:
           n8n:
             app:
               - path: /home/node/.n8n
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /home/node/.cache
 
     route:
       app:
