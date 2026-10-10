@@ -14,11 +14,19 @@ spec:
       n8n:
         annotations:
           reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsGroup: 1000
+            runAsUser: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
         containers:
           app:
             image:
               repository: ghcr.io/n8n-io/n8n
-              tag: stable@sha256:526daa38b68e923cc00c5280d18b4da5d489f115a73bdbf3b8e452b184197a9a
+              tag: stable@sha256:f6dc0d15bc9620baf5ba1df834ef81ae4e969f778c09300e567217be88f04a96
             env:
               DB_SQLITE_VACUUM_ON_STARTUP: true
               EXECUTIONS_DATA_PRUNE: true
@@ -47,17 +55,7 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 1Gi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: Always
+
     service:
       app:
         ports:
@@ -71,10 +69,6 @@ spec:
           n8n:
             app:
               - path: /home/node/.n8n
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /home/node/.cache
 
     route:
       app:
