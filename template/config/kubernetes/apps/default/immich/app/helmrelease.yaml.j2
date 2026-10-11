@@ -79,8 +79,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              # Using OpenVINO version
-              tag: v3.2.4@sha256:e16c2f166a8174901959fdf85e2e4c7bd1ebc4b37e0b6655de97c41408a260c4
+              tag: v3.3.1@sha256:513c831cfb010ad319341a0c86b42c575a0d5b688d3e8cae346ee624074a58ed
             env:
               TZ: Europe/Berlin
               REDIS_HOSTNAME: *redisHostname
@@ -94,6 +93,7 @@ spec:
               MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: "ViT-B-32__openai"
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION: buffalo_l
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__DETECTION: buffalo_l
+              MACHINE_LEARNING_MODEL_REVISION: v2
               IMMICH_MEDIA_LOCATION: *mediaLocation
             securityContext:
               allowPrivilegeEscalation: false

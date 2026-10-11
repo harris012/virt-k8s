@@ -89,7 +89,7 @@ stringData:
         maxResolution: 1280
         minDetectionScore: 0.4
         minRecognitionScore: 0.6
-        modelName: EN__PP-OCRv5_mobile
+        modelName: PP-OCRv6_medium
 
     map:
       enabled: true
