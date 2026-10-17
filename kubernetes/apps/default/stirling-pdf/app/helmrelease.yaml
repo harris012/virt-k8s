@@ -206,7 +206,7 @@ metadata:
   name: stirling-pdf
   namespace: default
 spec:
-  hostnames: ["pdftools.${SECRET_DOMAIN}"]
+  hostnames: ["pdftools.harissaeed.com"]
   parentRefs:
     - name: envoy-internal
       namespace: network
