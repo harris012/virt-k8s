@@ -79,7 +79,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: stirling-pdf
-  namespace: default
 spec:
   interval: 1m
   chart:
