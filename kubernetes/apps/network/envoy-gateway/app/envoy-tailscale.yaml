@@ -26,11 +26,13 @@ spec:
               memory: 212Mi
             limits:
               memory: 1Gi
+      envoyPDB:
+        maxUnavailable: 1
       envoyService:
         externalTrafficPolicy: Local
         loadBalancerClass: tailscale
-        annotations:
-          tailscale.com/hostname: ts-envoy-gw
+        # annotations:
+        #   tailscale.com/hostname: ts-envoy-gw
   shutdown:
     drainTimeout: 180s
   telemetry:
