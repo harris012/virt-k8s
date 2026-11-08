@@ -29,10 +29,10 @@ spec:
       envoyPDB:
         maxUnavailable: 1
       envoyService:
-        externalTrafficPolicy: Local
+        type: LoadBalancer
         loadBalancerClass: tailscale
-        # annotations:
-        #   tailscale.com/hostname: ts-envoy-gw
+        annotations:
+          tailscale.com/hostname: ts-envoy-gw
   shutdown:
     drainTimeout: 180s
   telemetry:
@@ -65,15 +65,16 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: envoy-tailscale
+  namespace: network
   annotations:
     external-dns.kubernetes.io/target: internal.${SECRET_DOMAIN}
 spec:
   gatewayClassName: envoy-tailscale
-  infrastructure:
-    annotations:
-      tailscale.com/hostname: ts-envoy-gw
-      # tailscale.com/proxy-group: ingress-proxy
-    labels: {}
+  # infrastructure:
+  #   annotations:
+  #     tailscale.com/hostname: ts-envoy-gw
+  # tailscale.com/proxy-group: ingress-proxy
+  #   labels: {}
   listeners:
     - name: http
       protocol: HTTP
