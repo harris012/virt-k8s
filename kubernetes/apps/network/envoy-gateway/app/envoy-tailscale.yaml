@@ -29,6 +29,8 @@ spec:
       envoyService:
         externalTrafficPolicy: Local
         loadBalancerClass: tailscale
+        annotations:
+          tailscale.com/hostname: ts-envoy-gw
   shutdown:
     drainTimeout: 180s
   telemetry:
@@ -68,7 +70,7 @@ spec:
   infrastructure:
     annotations:
       tailscale.com/hostname: ts-envoy-gw
-      tailscale.com/proxy-group: ingress-proxy
+      # tailscale.com/proxy-group: ingress-proxy
     labels: {}
   listeners:
     - name: http
