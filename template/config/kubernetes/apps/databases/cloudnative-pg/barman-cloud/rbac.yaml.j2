@@ -2,84 +2,21 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: plugin-barman-cloud
   name: plugin-barman-cloud
   namespace: databases
 
 ---
-# permissions for end users to view objectstores.
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: barman-plugin-objectstore-viewer-role
-rules:
-- apiGroups:
-  - barmancloud.cnpg.io
-  resources:
-  - objectstores
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - barmancloud.cnpg.io
-  resources:
-  - objectstores/status
-  verbs:
-  - get
-
----
-# permissions for end users to edit objectstores.
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: barman-plugin-objectstore-editor-role
-rules:
-- apiGroups:
-  - barmancloud.cnpg.io
-  resources:
-  - objectstores
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - barmancloud.cnpg.io
-  resources:
-  - objectstores/status
-  verbs:
-  - get
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: barman-plugin-metrics-auth-role
-rules:
-- apiGroups:
-  - authentication.k8s.io
-  resources:
-  - tokenreviews
-  verbs:
-  - create
-- apiGroups:
-  - authorization.k8s.io
-  resources:
-  - subjectaccessreviews
-  verbs:
-  - create
-
-
-
----
-# permissions to do leader election.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: plugin-barman-cloud
   name: barman-plugin-leader-election-role
+  namespace: databases
 rules:
 - apiGroups:
   - ""
@@ -115,19 +52,22 @@ rules:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRole
 metadata:
-  name: barman-plugin-leader-election-rolebinding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: barman-plugin-leader-election-role
-subjects:
-- kind: ServiceAccount
-  name: plugin-barman-cloud
-  namespace: databases
-
-
+  name: barman-plugin-metrics-auth-role
+rules:
+- apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+  verbs:
+  - create
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+  verbs:
+  - create
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -135,39 +75,60 @@ metadata:
   name: barman-plugin-metrics-reader
 rules:
 - nonResourceURLs:
-  - "/metrics"
+  - /metrics
   verbs:
   - get
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: ClusterRole
 metadata:
-  name: plugin-barman-cloud-binding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: plugin-barman-cloud
-subjects:
-- kind: ServiceAccount
-  name: plugin-barman-cloud
-  namespace: databases
-
-
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: plugin-barman-cloud
+  name: barman-plugin-objectstore-editor-role
+rules:
+- apiGroups:
+  - barmancloud.cnpg.io
+  resources:
+  - objectstores
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - barmancloud.cnpg.io
+  resources:
+  - objectstores/status
+  verbs:
+  - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: ClusterRole
 metadata:
-  name: barman-plugin-metrics-auth-rolebinding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: barman-plugin-metrics-auth-role
-subjects:
-- kind: ServiceAccount
-  name: plugin-barman-cloud
-  namespace: databases
-
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: plugin-barman-cloud
+  name: barman-plugin-objectstore-viewer-role
+rules:
+- apiGroups:
+  - barmancloud.cnpg.io
+  resources:
+  - objectstores
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - barmancloud.cnpg.io
+  resources:
+  - objectstores/status
+  verbs:
+  - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -236,4 +197,50 @@ rules:
   - patch
   - update
   - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: plugin-barman-cloud
+  name: barman-plugin-leader-election-rolebinding
+  namespace: databases
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: barman-plugin-leader-election-role
+subjects:
+- kind: ServiceAccount
+  name: plugin-barman-cloud
+  namespace: databases
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: barman-plugin-metrics-auth-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: barman-plugin-metrics-auth-role
+subjects:
+- kind: ServiceAccount
+  name: plugin-barman-cloud
+  namespace: databases
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: plugin-barman-cloud
+  name: plugin-barman-cloud-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: plugin-barman-cloud
+subjects:
+- kind: ServiceAccount
+  name: plugin-barman-cloud
+  namespace: databases
 
